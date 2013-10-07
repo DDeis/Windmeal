@@ -1,7 +1,7 @@
 package fr.esiea.windmeal.controller.crud;
 
 import fr.esiea.windmeal.dao.exception.DaoException;
-import fr.esiea.windmeal.model.User;
+import fr.esiea.windmeal.model.FoodProvider;
 import fr.esiea.windmeal.service.crud.ICrudService;
 import fr.esiea.windmeal.service.exception.ServiceException;
 import org.apache.log4j.Logger;
@@ -37,50 +37,50 @@ import java.io.IOException;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/providers")
 public class CrudProviderCtrl {
     private final static Logger LOGGER = Logger.getLogger(CrudProviderCtrl.class);
     @Autowired
-    @Qualifier("userValidationDecorator")
-    ICrudService<User> crudService;
+    @Qualifier("providerValidationDecorator")
+    ICrudService<FoodProvider> crudService;
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public Iterable<User> getAll(HttpServletResponse servletResponse) throws ServiceException, DaoException, IOException {
+    public Iterable<FoodProvider> getAll(HttpServletResponse servletResponse) throws ServiceException, DaoException, IOException {
 
-        LOGGER.info("[Controller] Querying User list");
+        LOGGER.info("[Controller] Querying FoodProvider list");
         return crudService.getAll();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public User getById(@PathVariable("id") String userId) throws ServiceException, DaoException {
+    public FoodProvider getById(@PathVariable("id") String providerId) throws ServiceException, DaoException {
 
-        LOGGER.info("[Controller] Querying User with id : \"" + userId + "\"");
-        return crudService.getOne(userId);
+        LOGGER.info("[Controller] Querying FoodProvider with id : \"" + providerId + "\"");
+        return crudService.getOne(providerId);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody User user) throws ServiceException, DaoException {
+    public void create(@RequestBody FoodProvider provider) throws ServiceException, DaoException {
 
-        LOGGER.info("[Controller] Querying to create new user : " + user.toString() + "\"");
-        crudService.insert(user);
+        LOGGER.info("[Controller] Querying to create new provider : " + provider.toString() + "\"");
+        crudService.insert(provider);
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT, consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    public void edit(@RequestBody User user) throws ServiceException, DaoException {
+    public void edit(@RequestBody FoodProvider provider) throws ServiceException, DaoException {
 
-        LOGGER.info("[Controller] Querying to edit User : \"" + user.toString() + "\"");
-        crudService.save(user);
+        LOGGER.info("[Controller] Querying to edit FoodProvider : \"" + provider.toString() + "\"");
+        crudService.save(provider);
     }
 
-    @RequestMapping(value = "/{idUser}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/{idFoodProvider}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable String idUser) throws ServiceException, DaoException {
+    public void delete(@PathVariable String idFoodProvider) throws ServiceException, DaoException {
 
-        LOGGER.info("[Controller] Querying to delete User with id : \"" + idUser + "\"");
-        crudService.remove(idUser);
+        LOGGER.info("[Controller] Querying to delete FoodProvider with id : \"" + idFoodProvider + "\"");
+        crudService.remove(idFoodProvider);
     }
 }
