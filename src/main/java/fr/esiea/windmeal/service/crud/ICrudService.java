@@ -1,12 +1,10 @@
-package fr.esiea.windmeal.dao.mongo;
+package fr.esiea.windmeal.service.crud;
 
-import fr.esiea.windmeal.dao.ICrudDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
-import fr.esiea.windmeal.model.Order;
-import org.jongo.MongoCollection;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Repository;
+import fr.esiea.windmeal.model.Model;
+import fr.esiea.windmeal.service.exception.ServiceException;
+
+import java.util.Collection;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -30,38 +28,15 @@ import org.springframework.stereotype.Repository;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-@Repository
-public class OrderDao implements ICrudDao<Order>{
-    @Autowired
-    @Qualifier("orderCollection")
-    MongoCollection collection;
+public interface ICrudService<T extends Model> {
 
-    @Override
-    public Iterable<Order> getAll() throws DaoException {
+	Iterable<T> getAll() throws ServiceException, DaoException;
 
-        Iterable<Order> orders = collection.find().as(Order.class);
-        return orders;
+	void remove(String id) throws ServiceException, DaoException;
 
-    }
+	void save(T model) throws ServiceException, DaoException;
 
-    @Override
-    public Order getOne(String id) throws DaoException {
-        Order order = collection.findOne("{'_id':#}",id).as(Order.class);
-        return order;
-    }
+	void insert(T model) throws ServiceException, DaoException;
 
-    @Override
-    public void save(Order model) throws DaoException {
-        collection.save(model);
-    }
-
-    @Override
-    public void insert(Order model) throws DaoException {
-        collection.save(model);
-    }
-
-    @Override
-    public void remove(String id) throws DaoException {
-        collection.remove("{'_id':#}",id);
-    }
+	T getOne(String Id) throws ServiceException, DaoException;
 }

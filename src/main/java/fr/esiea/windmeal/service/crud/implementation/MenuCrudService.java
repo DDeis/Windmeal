@@ -1,12 +1,13 @@
-package fr.esiea.windmeal.dao.mongo;
+package fr.esiea.windmeal.service.crud.implementation;
 
 import fr.esiea.windmeal.dao.ICrudDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
-import fr.esiea.windmeal.model.FoodProvider;
-import org.jongo.MongoCollection;
+import fr.esiea.windmeal.model.Menu;
+import fr.esiea.windmeal.service.crud.ICrudService;
+import fr.esiea.windmeal.service.exception.InvalidIdException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -30,38 +31,38 @@ import org.springframework.stereotype.Repository;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-@Repository
-public class ProviderDao implements ICrudDao<FoodProvider> {
-    @Autowired
-    @Qualifier("providerCollection")
-    MongoCollection collection;
+@Service
+public class MenuCrudService implements ICrudService<Menu> {
+	@Autowired
+    @Qualifier("menuDao")
+	private ICrudDao<Menu> dao;
 
-    @Override
-    public Iterable<FoodProvider> getAll() throws DaoException {
+	@Override
+	public Iterable<Menu> getAll() throws DaoException {
+		return dao.getAll();
+	}
 
-        Iterable<FoodProvider> providers = collection.find().as(FoodProvider.class);
-        return providers;
+	@Override
+	public void remove(String idMenu) throws DaoException {
+		dao.remove(idMenu);
+	}
 
-    }
+	@Override
+	public void save(Menu menu) throws DaoException {
+		dao.save(menu);
+	}
 
-    @Override
-    public FoodProvider getOne(String id) throws DaoException {
-        FoodProvider provider = collection.findOne("{'_id':#}",id).as(FoodProvider.class);
-        return provider;
-    }
+	@Override
+	public void insert(Menu menu) throws DaoException {
+		dao.insert(menu);
+	}
 
-    @Override
-    public void save(FoodProvider model) throws DaoException {
-        collection.save(model);
-    }
+	@Override
+	public Menu getOne(String menuId) throws InvalidIdException, DaoException {
+		Menu menu = dao.getOne(menuId);
+		if (null == menu)
+			throw new InvalidIdException();
+		return menu;
+	}
 
-    @Override
-    public void insert(FoodProvider model) throws DaoException {
-        collection.save(model);
-    }
-
-    @Override
-    public void remove(String id) throws DaoException {
-        collection.remove("{'_id':#}",id);
-    }
 }

@@ -1,7 +1,9 @@
-package fr.esiea.windmeal.dao;
+package fr.esiea.windmeal.service.validation.exception;
 
-import fr.esiea.windmeal.dao.exception.DaoException;
-import fr.esiea.windmeal.model.Model;
+import fr.esiea.windmeal.service.exception.ServiceException;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -25,16 +27,17 @@ import fr.esiea.windmeal.model.Model;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public interface ICrudDao<T extends Model> {
 
-    Iterable<T> getAll() throws DaoException;
+public class ValidationException extends ServiceException {
 
-    T getOne(String id) throws DaoException;
+	public ValidationException(Map<Object, String> model) {
+		super(400, model);
+	}
 
-    void save(T model) throws DaoException;
-
-    void insert(T model) throws DaoException;
-
-    void remove(String id) throws DaoException;
-
+	/*
+	 * It's using by importCtrl (send back a list of map error (1 map by wrong) contact
+	 */
+	public ValidationException(List<Object> model) {
+		super(400, model);
+	}
 }

@@ -1,7 +1,8 @@
-package fr.esiea.windmeal.test.integration.dao.mongo;
+package fr.esiea.windmeal.test.integration.service.crud;
 
-import fr.esiea.windmeal.dao.ICrudDao;
 import fr.esiea.windmeal.model.*;
+import fr.esiea.windmeal.service.crud.ICrudService;
+import fr.esiea.windmeal.service.exception.InvalidIdException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,9 +42,10 @@ import static junit.framework.Assert.assertEquals;
 @ContextConfiguration(
         locations = {
                 "classpath*:spring/dao-test-context.xml",
+                "classpath*:spring/service-test-context.xml",
                 "classpath*:spring/mock-test-model.xml"
         })
-public class DaoTest {
+public class CrudServiceTest {
 
     @Autowired
     private ApplicationContext appCont;
@@ -87,10 +89,10 @@ public class DaoTest {
 
     }
 
-    @Test
-    public void menuDaoTest() throws Exception {
+    @Test(expected = InvalidIdException.class)
+    public void menuCrudServiceTest() throws Exception {
 
-        ICrudDao<Menu> dao = (ICrudDao<Menu>) appCont.getBean("menuDao");
+        ICrudService<Menu> dao = (ICrudService<Menu>) appCont.getBean("menuCrudService");
 
         //Insert a new menu
         dao.insert(menu);
@@ -107,10 +109,10 @@ public class DaoTest {
 
     }
 
-    @Test
-    public void providerDaoTest() throws Exception {
+    @Test(expected = InvalidIdException.class)
+    public void providerCrudServiceTest() throws Exception {
 
-        ICrudDao<FoodProvider> dao = (ICrudDao<FoodProvider>) appCont.getBean("providerDao");
+        ICrudService<FoodProvider> dao = (ICrudService<FoodProvider>) appCont.getBean("providerCrudService");
 
         //Insert a new FoodProvider
         dao.insert(provider);
@@ -128,10 +130,10 @@ public class DaoTest {
 
     }
 
-    @Test
-    public void orderDaoTest() throws Exception {
+    @Test(expected = InvalidIdException.class)
+    public void orderCrudServiceTest() throws Exception {
 
-        ICrudDao<Order> dao = (ICrudDao<Order>) appCont.getBean("orderDao");
+        ICrudService<Order> dao = (ICrudService<Order>) appCont.getBean("orderCrudService");
         System.out.println(order);
         //Insert a new order
         dao.insert(order);
@@ -150,10 +152,10 @@ public class DaoTest {
 
     }
 
-    @Test
-    public void userDaoTest() throws Exception {
+    @Test(expected = InvalidIdException.class)
+    public void userCrudServiceTest() throws Exception {
 
-        ICrudDao<User> dao = (ICrudDao<User>) appCont.getBean("userDao");
+        ICrudService<User> dao = (ICrudService<User>) appCont.getBean("userCrudService");
 
         //Insert a new user
         dao.insert(user);
@@ -167,7 +169,6 @@ public class DaoTest {
         //Remove the user
         dao.remove(user.getId());
         userToCheck = dao.getOne(user.getId());
-        assertEquals(null,userToCheck);
 
     }
 }

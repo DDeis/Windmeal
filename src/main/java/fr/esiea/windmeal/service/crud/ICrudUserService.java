@@ -1,12 +1,8 @@
-package fr.esiea.windmeal.dao.mongo;
+package fr.esiea.windmeal.service.crud;
 
-import fr.esiea.windmeal.dao.ICrudDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
-import fr.esiea.windmeal.model.Order;
-import org.jongo.MongoCollection;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Repository;
+import fr.esiea.windmeal.model.User;
+import fr.esiea.windmeal.service.exception.ServiceException;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -30,38 +26,6 @@ import org.springframework.stereotype.Repository;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-@Repository
-public class OrderDao implements ICrudDao<Order>{
-    @Autowired
-    @Qualifier("orderCollection")
-    MongoCollection collection;
-
-    @Override
-    public Iterable<Order> getAll() throws DaoException {
-
-        Iterable<Order> orders = collection.find().as(Order.class);
-        return orders;
-
-    }
-
-    @Override
-    public Order getOne(String id) throws DaoException {
-        Order order = collection.findOne("{'_id':#}",id).as(Order.class);
-        return order;
-    }
-
-    @Override
-    public void save(Order model) throws DaoException {
-        collection.save(model);
-    }
-
-    @Override
-    public void insert(Order model) throws DaoException {
-        collection.save(model);
-    }
-
-    @Override
-    public void remove(String id) throws DaoException {
-        collection.remove("{'_id':#}",id);
-    }
+public interface ICrudUserService extends ICrudService<User> {
+	public User getOneByMail(String email) throws ServiceException, DaoException;
 }

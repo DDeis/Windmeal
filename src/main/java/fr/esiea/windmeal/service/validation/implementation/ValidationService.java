@@ -1,7 +1,16 @@
-package fr.esiea.windmeal.dao;
+package fr.esiea.windmeal.service.validation.implementation;
 
-import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.Model;
+import fr.esiea.windmeal.service.validation.IValidationService;
+import org.springframework.stereotype.Service;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -25,16 +34,24 @@ import fr.esiea.windmeal.model.Model;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public interface ICrudDao<T extends Model> {
+@Service
+public class ValidationService<T extends Model> implements IValidationService<T> {
 
-    Iterable<T> getAll() throws DaoException;
+	private static final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
-    T getOne(String id) throws DaoException;
+	@Override
+	public Map<Object, String> validate(T model) {
 
-    void save(T model) throws DaoException;
+		Set<ConstraintViolation<T>> violations = validator.validate(model);
 
-    void insert(T model) throws DaoException;
+		if (violations.isEmpty())
+			return Collections.EMPTY_MAP;
 
-    void remove(String id) throws DaoException;
+		HashMap<Object, String> errorMap = new HashMap<Object, String>();
+		for (ConstraintViolation<T> violation : violations) {
+			errorMap.put(violation.getInvalidValue(), violation.getMessage());
+		}
 
+		return errorMap;
+	}
 }

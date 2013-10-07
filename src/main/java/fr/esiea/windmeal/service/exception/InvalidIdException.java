@@ -1,7 +1,4 @@
-package fr.esiea.windmeal.dao;
-
-import fr.esiea.windmeal.dao.exception.DaoException;
-import fr.esiea.windmeal.model.Model;
+package fr.esiea.windmeal.service.exception;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -25,16 +22,9 @@ import fr.esiea.windmeal.model.Model;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public interface ICrudDao<T extends Model> {
+public class InvalidIdException extends ServiceException {
 
-    Iterable<T> getAll() throws DaoException;
-
-    T getOne(String id) throws DaoException;
-
-    void save(T model) throws DaoException;
-
-    void insert(T model) throws DaoException;
-
-    void remove(String id) throws DaoException;
-
+	public InvalidIdException() {
+		super(404, "Id doesn't exist");
+	}
 }

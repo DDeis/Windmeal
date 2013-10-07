@@ -1,7 +1,8 @@
-package fr.esiea.windmeal.dao;
+package fr.esiea.windmeal.service.validation;
 
-import fr.esiea.windmeal.dao.exception.DaoException;
-import fr.esiea.windmeal.model.Model;
+import fr.esiea.windmeal.service.validation.exception.ValidationException;
+
+import java.util.Map;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -25,16 +26,6 @@ import fr.esiea.windmeal.model.Model;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public interface ICrudDao<T extends Model> {
-
-    Iterable<T> getAll() throws DaoException;
-
-    T getOne(String id) throws DaoException;
-
-    void save(T model) throws DaoException;
-
-    void insert(T model) throws DaoException;
-
-    void remove(String id) throws DaoException;
-
+public interface IValidationService<T> {
+	Map<Object, String> validate(T model) throws ValidationException;
 }

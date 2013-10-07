@@ -1,10 +1,9 @@
 package fr.esiea.windmeal.dao.mongo;
 
 import fr.esiea.windmeal.dao.ICrudDao;
+import fr.esiea.windmeal.dao.ICrudUserDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.User;
-import fr.esiea.windmeal.model.User;
-import org.bson.types.ObjectId;
 import org.jongo.MongoCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,7 +32,7 @@ import org.springframework.stereotype.Repository;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 @Repository
-public class UserDao implements ICrudDao<User> {
+public class UserDao implements ICrudUserDao {
    
     @Autowired
     @Qualifier("userCollection")
@@ -47,7 +46,7 @@ public class UserDao implements ICrudDao<User> {
 
     @Override
     public User getOne(String id) throws DaoException {
-        final User user = collection.findOne("{'_id':#}",id).as(User.class);
+        User user = collection.findOne("{'_id':#}",id).as(User.class);
         return user;
     }
 
@@ -66,4 +65,9 @@ public class UserDao implements ICrudDao<User> {
         collection.remove("{'_id':#}",id);
     }
 
+    @Override
+    public User getOneByMail(String email) throws DaoException {
+        User user = collection.findOne("{'email':#}",email).as(User.class);
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 }
