@@ -1,10 +1,8 @@
 package fr.esiea.windmeal.dao.mongo;
 
-import com.mongodb.WriteResult;
 import fr.esiea.windmeal.dao.ICrudDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.Menu;
-import org.bson.types.ObjectId;
 import org.jongo.MongoCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -47,7 +45,7 @@ public class MenuDao implements ICrudDao<Menu> {
 
     @Override
     public Menu getOne(String id) throws DaoException {
-        final Menu menu = collection.findOne("{'_id':#}",id).as(Menu.class);
+        Menu menu = collection.findOne("{'_id':#}",id).as(Menu.class);
         return menu;
     }
 

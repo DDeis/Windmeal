@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
+  ~ Copyright (c) 2013. ESIEA M. Labusquiere & D. Deis
   ~
   ~ Permission is hereby granted, free of charge, to any person obtaining
   ~ a copy of this software and associated documentation files (the
@@ -25,15 +25,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd">
-
-    <context:annotation-config/>
-    <context:property-placeholder location="classpath:spring/properties/*.properties"/>
-    <import resource="classpath:spring/dao-context.xml"/>
-    <context:component-scan base-package="fr.esiea.windmeal.dao"/>
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    
     <context:component-scan base-package="fr.esiea.windmeal.service"/>
 
 </beans>
