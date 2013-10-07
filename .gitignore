@@ -1,6 +1,12 @@
-*.class
-
-# Package Files #
-*.jar
-*.war
-*.ear
+#IntelliJ
+.idea
+**.iml
+out/
+#Eclipse
+.project
+.classpath
+.settings/
+#Maven
+target/
+#Mac
+**.DS_Store
