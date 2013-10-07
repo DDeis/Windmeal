@@ -32,4 +32,59 @@ public class Order extends Model    {
     private Set<MealOrder> meals;
     private DateTime orderDate;
 
+    public String getFoodProviderId() {
+        return foodProviderId;
+    }
+
+    public void setFoodProviderId(String foodProviderId) {
+        this.foodProviderId = foodProviderId;
+    }
+
+    public Set<MealOrder> getMeals() {
+        return meals;
+    }
+
+    public void setMeals(Set<MealOrder> meals) {
+        this.meals = meals;
+    }
+
+    public DateTime getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(DateTime orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Order)) return false;
+
+        Order order = (Order) o;
+
+        if (foodProviderId != null ? !foodProviderId.equals(order.foodProviderId) : order.foodProviderId != null)
+            return false;
+        if (meals != null ? !meals.equals(order.meals) : order.meals != null) return false;
+        if (orderDate != null ? !orderDate.equals(order.orderDate) : order.orderDate != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = foodProviderId != null ? foodProviderId.hashCode() : 0;
+        result = 31 * result + (meals != null ? meals.hashCode() : 0);
+        result = 31 * result + (orderDate != null ? orderDate.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "foodProviderId='" + foodProviderId + '\'' +
+                ", meals=" + meals +
+                ", orderDate=" + orderDate +
+                "} " + super.toString();
+    }
 }

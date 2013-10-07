@@ -1,4 +1,9 @@
-package fr.esiea.windmeal.model;
+package fr.esiea.windmeal.dao;
+
+import fr.esiea.windmeal.dao.exception.DaoException;
+import fr.esiea.windmeal.model.Model;
+
+import java.util.Collection;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -22,48 +27,16 @@ package fr.esiea.windmeal.model;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public class MealOrder {
+public interface ICrudDao<T extends Model> {
 
-    private String mealId;
-    private int number;
+    Iterable<T> getAll() throws DaoException;
 
-    public String getMealId() {
-        return mealId;
-    }
+    T getOne(String id) throws DaoException;
 
-    public void setMealId(String mealId) {
-        this.mealId = mealId;
-    }
+    void save(T model) throws DaoException;
 
-    public int getNumber() {
-        return number;
-    }
+    void insert(T model) throws DaoException;
 
-    public boolean setNumber(int number) {
-        if(number>0)    {
-            this.number = number;
-            return true;
-        }
-        return false;
-    }
+    void remove(String id) throws DaoException;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MealOrder)) return false;
-
-        MealOrder mealOrder = (MealOrder) o;
-
-        if (number != mealOrder.number) return false;
-        if (mealId != null ? !mealId.equals(mealOrder.mealId) : mealOrder.mealId != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = mealId != null ? mealId.hashCode() : 0;
-        result = 31 * result + number;
-        return result;
-    }
 }

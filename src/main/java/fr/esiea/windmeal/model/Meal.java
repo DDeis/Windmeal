@@ -60,4 +60,28 @@ public class Meal extends Model  {
     public void setType(String type) {
         this.type = type;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Meal)) return false;
+
+        Meal meal = (Meal) o;
+
+        if (Float.compare(meal.price, price) != 0) return false;
+        if (description != null ? !description.equals(meal.description) : meal.description != null) return false;
+        if (name != null ? !name.equals(meal.name) : meal.name != null) return false;
+        if (type != null ? !type.equals(meal.type) : meal.type != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (price != +0.0f ? Float.floatToIntBits(price) : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        return result;
+    }
 }

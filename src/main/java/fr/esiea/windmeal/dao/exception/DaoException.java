@@ -1,4 +1,6 @@
-package fr.esiea.windmeal.model;
+package fr.esiea.windmeal.dao.exception;
+
+import fr.esiea.windmeal.model.exception.RestException;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -22,48 +24,8 @@ package fr.esiea.windmeal.model;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public class MealOrder {
-
-    private String mealId;
-    private int number;
-
-    public String getMealId() {
-        return mealId;
-    }
-
-    public void setMealId(String mealId) {
-        this.mealId = mealId;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public boolean setNumber(int number) {
-        if(number>0)    {
-            this.number = number;
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MealOrder)) return false;
-
-        MealOrder mealOrder = (MealOrder) o;
-
-        if (number != mealOrder.number) return false;
-        if (mealId != null ? !mealId.equals(mealOrder.mealId) : mealOrder.mealId != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = mealId != null ? mealId.hashCode() : 0;
-        result = 31 * result + number;
-        return result;
+public class DaoException extends RestException {
+    public DaoException(int status, Object model) {
+        super(status, model);
     }
 }

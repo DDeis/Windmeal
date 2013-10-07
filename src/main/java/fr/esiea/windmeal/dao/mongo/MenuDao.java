@@ -1,4 +1,14 @@
-package fr.esiea.windmeal.model;
+package fr.esiea.windmeal.dao.mongo;
+
+import com.mongodb.WriteResult;
+import fr.esiea.windmeal.dao.ICrudDao;
+import fr.esiea.windmeal.dao.exception.DaoException;
+import fr.esiea.windmeal.model.Menu;
+import org.bson.types.ObjectId;
+import org.jongo.MongoCollection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -22,55 +32,37 @@ package fr.esiea.windmeal.model;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public class Comment extends Model {
+@Repository
+public class MenuDao implements ICrudDao<Menu> {
 
-    private String userId;
-    private int rate;
-    private String text;
+    @Autowired
+    @Qualifier("menuCollection")
+    MongoCollection collection;
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public int getRate() {
-        return rate;
-    }
-
-    public void setRate(int rate) {
-        this.rate = rate;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
+    @Override
+    public Iterable<Menu> getAll() throws DaoException {
+        Iterable<Menu> menus = collection.find().as(Menu.class);
+        return menus;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Comment)) return false;
-
-        Comment comment = (Comment) o;
-
-        if (rate != comment.rate) return false;
-        if (text != null ? !text.equals(comment.text) : comment.text != null) return false;
-        if (userId != null ? !userId.equals(comment.userId) : comment.userId != null) return false;
-
-        return true;
+    public Menu getOne(String id) throws DaoException {
+        final Menu menu = collection.findOne("{'_id':#}",id).as(Menu.class);
+        return menu;
     }
 
     @Override
-    public int hashCode() {
-        int result = userId != null ? userId.hashCode() : 0;
-        result = 31 * result + rate;
-        result = 31 * result + (text != null ? text.hashCode() : 0);
-        return result;
+    public void save(Menu model) throws DaoException {
+        collection.save(model);
+    }
+
+    @Override
+    public void insert(Menu model) throws DaoException {
+        collection.save(model);
+    }
+
+    @Override
+    public void remove(String id) throws DaoException {
+        collection.remove("{'_id':#}",id);
     }
 }

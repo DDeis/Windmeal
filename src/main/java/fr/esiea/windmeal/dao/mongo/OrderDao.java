@@ -1,7 +1,14 @@
-package fr.esiea.windmeal.model;
+package fr.esiea.windmeal.dao.mongo;
 
+import fr.esiea.windmeal.dao.ICrudDao;
+import fr.esiea.windmeal.dao.exception.DaoException;
+import fr.esiea.windmeal.model.Order;
+import fr.esiea.windmeal.model.Order;
 import org.bson.types.ObjectId;
-import org.jongo.marshall.jackson.oid.Id;
+import org.jongo.MongoCollection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -25,41 +32,39 @@ import org.jongo.marshall.jackson.oid.Id;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public class Model {
+@Repository
+public class OrderDao implements ICrudDao<Order>{
+    @Autowired
+    @Qualifier("orderCollection")
+    MongoCollection collection;
 
-    @Id
-    private String id;
+    @Override
+    public Iterable<Order> getAll() throws DaoException {
 
-    public String getId() {
-        return id;
-    }
+        Iterable<Order> orders = collection.find().as(Order.class);
+        return orders;
 
-    public void generateId() {
-        if(null == id || id.toString().isEmpty())
-            this.id = new ObjectId().toString();
     }
 
     @Override
-    public String toString() {
-        return "Model{" +
-                "id='" + id + '\'' +
-                "} " + super.toString();
+    public Order getOne(String id) throws DaoException {
+        Order order = collection.findOne("{'_id':#}",id).as(Order.class);
+        return order;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Model)) return false;
-
-        Model model = (Model) o;
-
-        if (id != null ? !id.equals(model.id) : model.id != null) return false;
-
-        return true;
+    public void save(Order model) throws DaoException {
+        collection.save(model);
     }
 
     @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+    public void insert(Order model) throws DaoException {
+        System.out.println(model);
+        collection.save(model);
+    }
+
+    @Override
+    public void remove(String id) throws DaoException {
+        collection.remove("{'_id':#}",id);
     }
 }

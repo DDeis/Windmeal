@@ -1,4 +1,14 @@
-package fr.esiea.windmeal.model;
+package fr.esiea.windmeal.dao.mongo;
+
+import fr.esiea.windmeal.dao.ICrudDao;
+import fr.esiea.windmeal.dao.exception.DaoException;
+import fr.esiea.windmeal.model.User;
+import fr.esiea.windmeal.model.User;
+import org.bson.types.ObjectId;
+import org.jongo.MongoCollection;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -22,55 +32,38 @@ package fr.esiea.windmeal.model;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public class Comment extends Model {
+@Repository
+public class UserDao implements ICrudDao<User> {
+   
+    @Autowired
+    @Qualifier("userCollection")
+    MongoCollection collection;
 
-    private String userId;
-    private int rate;
-    private String text;
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public int getRate() {
-        return rate;
-    }
-
-    public void setRate(int rate) {
-        this.rate = rate;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
+    @Override
+    public Iterable<User> getAll() throws DaoException {
+        Iterable<User> users = collection.find().as(User.class);
+        return users;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Comment)) return false;
-
-        Comment comment = (Comment) o;
-
-        if (rate != comment.rate) return false;
-        if (text != null ? !text.equals(comment.text) : comment.text != null) return false;
-        if (userId != null ? !userId.equals(comment.userId) : comment.userId != null) return false;
-
-        return true;
+    public User getOne(String id) throws DaoException {
+        final User user = collection.findOne("{'_id':#}",id).as(User.class);
+        return user;
     }
 
     @Override
-    public int hashCode() {
-        int result = userId != null ? userId.hashCode() : 0;
-        result = 31 * result + rate;
-        result = 31 * result + (text != null ? text.hashCode() : 0);
-        return result;
+    public void save(User model) throws DaoException {
+        collection.save(model);
     }
+
+    @Override
+    public void insert(User model) throws DaoException {
+        collection.save(model);
+    }
+
+    @Override
+    public void remove(String id) throws DaoException {
+        collection.remove("{'_id':#}",id);
+    }
+
 }

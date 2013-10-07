@@ -30,6 +30,8 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
-        <context:annotation-config/>
-
+    <context:annotation-config/>
+    <context:property-placeholder location="classpath:spring/properties/*.properties"/>
+    <import resource="classpath:spring/dao-context.xml"/>
+    <context:component-scan base-package="fr.esiea.windmeal.dao"/>
 </beans>
