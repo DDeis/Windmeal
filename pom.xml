@@ -21,6 +21,7 @@
         <mongo-java-driver.version>2.11.2</mongo-java-driver.version>
         <jongo.version>0.4</jongo.version>
         <joda-time.version>2.3</joda-time.version>
+        <elasticsearch.version>0.90.5</elasticsearch.version>
     </properties>
 
     <build>
@@ -129,6 +130,14 @@
             <version>${mongo-java-driver.version}</version>
         </dependency>
 
+        <!--
+        Elastic search
+        -->
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>${elasticsearch.version}</version>
+        </dependency>
 
         <!--
             Bean Validation
