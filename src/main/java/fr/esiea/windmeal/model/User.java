@@ -2,6 +2,8 @@ package fr.esiea.windmeal.model;
 
 import fr.esiea.windmeal.model.security.Profile;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
  * <p/>
@@ -26,8 +28,10 @@ import fr.esiea.windmeal.model.security.Profile;
  */
 public class User extends Model {
 
+    @NotNull
 	private String email;
-	private String password;
+    @NotNull
+    private String password;
 	private Profile profile = Profile.USER;
 
 	public String getEmail() {
