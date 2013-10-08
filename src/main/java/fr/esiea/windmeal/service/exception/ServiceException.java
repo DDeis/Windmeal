@@ -25,7 +25,7 @@ import fr.esiea.windmeal.model.exception.RestException;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 public class ServiceException extends RestException {
-    public ServiceException(int status, Object model) {
-        super(status, model);
-    }
+	public ServiceException(int status, Object model) {
+		super(status, model);
+	}
 }

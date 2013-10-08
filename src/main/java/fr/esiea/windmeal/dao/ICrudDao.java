@@ -27,14 +27,13 @@ import fr.esiea.windmeal.model.Model;
  */
 public interface ICrudDao<T extends Model> {
 
-    Iterable<T> getAll() throws DaoException;
+	Iterable<T> getAll() throws DaoException;
 
-    T getOne(String id) throws DaoException;
+	T getOne(String id) throws DaoException;
 
-    void save(T model) throws DaoException;
+	void save(T model) throws DaoException;
 
-    void insert(T model) throws DaoException;
+	void insert(T model) throws DaoException;
 
-    void remove(String id) throws DaoException;
-
+	void remove(String id) throws DaoException;
 }

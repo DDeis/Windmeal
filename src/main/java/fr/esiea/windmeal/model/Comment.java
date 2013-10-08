@@ -24,53 +24,53 @@ package fr.esiea.windmeal.model;
  */
 public class Comment extends Model {
 
-    private String userId;
-    private int rate;
-    private String text;
+	private String userId;
+	private int rate;
+	private String text;
 
-    public String getUserId() {
-        return userId;
-    }
+	public String getUserId() {
+		return userId;
+	}
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-    public int getRate() {
-        return rate;
-    }
+	public int getRate() {
+		return rate;
+	}
 
-    public void setRate(int rate) {
-        this.rate = rate;
-    }
+	public void setRate(int rate) {
+		this.rate = rate;
+	}
 
-    public String getText() {
-        return text;
-    }
+	public String getText() {
+		return text;
+	}
 
-    public void setText(String text) {
-        this.text = text;
-    }
+	public void setText(String text) {
+		this.text = text;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Comment)) return false;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Comment)) return false;
 
-        Comment comment = (Comment) o;
+		Comment comment = (Comment) o;
 
-        if (rate != comment.rate) return false;
-        if (text != null ? !text.equals(comment.text) : comment.text != null) return false;
-        if (userId != null ? !userId.equals(comment.userId) : comment.userId != null) return false;
+		if (rate != comment.rate) return false;
+		if (text != null ? !text.equals(comment.text) : comment.text != null) return false;
+		if (userId != null ? !userId.equals(comment.userId) : comment.userId != null) return false;
 
-        return true;
-    }
+		return true;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = userId != null ? userId.hashCode() : 0;
-        result = 31 * result + rate;
-        result = 31 * result + (text != null ? text.hashCode() : 0);
-        return result;
-    }
+	@Override
+	public int hashCode() {
+		int result = userId != null ? userId.hashCode() : 0;
+		result = 31 * result + rate;
+		result = 31 * result + (text != null ? text.hashCode() : 0);
+		return result;
+	}
 }

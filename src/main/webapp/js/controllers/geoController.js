@@ -10,7 +10,7 @@ module.controller('GeoController', function ($scope) {
 
 	$scope.coordinates = {};
 
-	$scope.getCoordinates = function() {
+	$scope.getCoordinates = function () {
 		var geocoder = new google.maps.Geocoder();
 
 		geocoder.geocode(

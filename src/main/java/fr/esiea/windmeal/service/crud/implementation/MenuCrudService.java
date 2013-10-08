@@ -34,7 +34,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MenuCrudService implements ICrudService<Menu> {
 	@Autowired
-    @Qualifier("menuDao")
+	@Qualifier("menuDao")
 	private ICrudDao<Menu> dao;
 
 	@Override
@@ -64,5 +64,4 @@ public class MenuCrudService implements ICrudService<Menu> {
 			throw new InvalidIdException();
 		return menu;
 	}
-
 }

@@ -23,58 +23,58 @@
   -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!--
-       Mongo Configuration
-    -->
+	<!--
+	   Mongo Configuration
+	-->
 
-    <bean id="mongo" class="com.mongodb.MongoClient">
-        <constructor-arg name="host" value="${database.adresse}" type="java.lang.String" index="0"/>
-        <constructor-arg name="port" value="${database.port}" type="int" index="1"/>
-    </bean>
+	<bean id="mongo" class="com.mongodb.MongoClient">
+		<constructor-arg name="host" value="${database.adresse}" type="java.lang.String" index="0" />
+		<constructor-arg name="port" value="${database.port}" type="int" index="1" />
+	</bean>
 
-    <bean id="mongoDatabase" factory-bean="mongo" factory-method="getDB">
-        <constructor-arg value="${database.name}" type="java.lang.String"/>
-    </bean>
+	<bean id="mongoDatabase" factory-bean="mongo" factory-method="getDB">
+		<constructor-arg value="${database.name}" type="java.lang.String" />
+	</bean>
 
-    <bean id="password" class="java.lang.String">
-        <constructor-arg value="${database.password}" type="java.lang.String"/>
-    </bean>
+	<bean id="password" class="java.lang.String">
+		<constructor-arg value="${database.password}" type="java.lang.String" />
+	</bean>
 
-    <bean id="passwordToCharArray" factory-bean="password" factory-method="toCharArray"/>
+	<bean id="passwordToCharArray" factory-bean="password" factory-method="toCharArray" />
 
-    <bean factory-bean="mongoDatabase" factory-method="authenticate">
-        <constructor-arg value="${database.username}" index="0" type="java.lang.String"/>
-        <constructor-arg ref="passwordToCharArray" index="1"/>
-    </bean>
+	<bean factory-bean="mongoDatabase" factory-method="authenticate">
+		<constructor-arg value="${database.username}" index="0" type="java.lang.String" />
+		<constructor-arg ref="passwordToCharArray" index="1" />
+	</bean>
 
 
-    <!--
-       Jongo Configuration
-    -->
-    <bean id="jongo" class="org.jongo.Jongo">
-        <constructor-arg name="database" ref="mongoDatabase" type="com.mongodb.DB" index="0"/>
-    </bean>
+	<!--
+	   Jongo Configuration
+	-->
+	<bean id="jongo" class="org.jongo.Jongo">
+		<constructor-arg name="database" ref="mongoDatabase" type="com.mongodb.DB" index="0" />
+	</bean>
 
-    <!--
-        Mongo Collection
-    -->
+	<!--
+		Mongo Collection
+	-->
 
-    <bean id="userCollection" factory-bean="jongo" factory-method="getCollection">
-        <constructor-arg value="${database.collection.user}" type="java.lang.String"/>
-    </bean>
-    <bean id="providerCollection" factory-bean="jongo" factory-method="getCollection">
-        <constructor-arg value="${database.collection.food.provider}" type="java.lang.String"/>
-    </bean>
-    <bean id="menuCollection" factory-bean="jongo" factory-method="getCollection">
-        <constructor-arg value="${database.collection.menu}" type="java.lang.String"/>
-    </bean>
-    <bean id="orderCollection" factory-bean="jongo" factory-method="getCollection">
-        <constructor-arg value="${database.collection.order}" type="java.lang.String"/>
-    </bean>
+	<bean id="userCollection" factory-bean="jongo" factory-method="getCollection">
+		<constructor-arg value="${database.collection.user}" type="java.lang.String" />
+	</bean>
+	<bean id="providerCollection" factory-bean="jongo" factory-method="getCollection">
+		<constructor-arg value="${database.collection.food.provider}" type="java.lang.String" />
+	</bean>
+	<bean id="menuCollection" factory-bean="jongo" factory-method="getCollection">
+		<constructor-arg value="${database.collection.menu}" type="java.lang.String" />
+	</bean>
+	<bean id="orderCollection" factory-bean="jongo" factory-method="getCollection">
+		<constructor-arg value="${database.collection.order}" type="java.lang.String" />
+	</bean>
 
 
 </beans>

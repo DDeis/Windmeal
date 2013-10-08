@@ -23,11 +23,11 @@ package fr.esiea.windmeal.model.enumeration;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 public enum Tags {
-    SUSHI("sushi");
+	SUSHI("sushi");
 
-    private final String tag;
+	private final String tag;
 
-    private Tags(String tag ) {
-        this.tag = tag;
-    }
+	private Tags(String tag) {
+		this.tag = tag;
+	}
 }

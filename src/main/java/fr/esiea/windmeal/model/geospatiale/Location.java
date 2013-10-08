@@ -24,50 +24,50 @@ package fr.esiea.windmeal.model.geospatiale;
  */
 public class Location {
 
-    private float lng;
-    private float lat;
+	private float lng;
+	private float lat;
 
-    public float getLat() {
-        return lat;
-    }
+	public float getLat() {
+		return lat;
+	}
 
-    public void setLat(float lat) {
-        this.lat = lat;
-    }
+	public void setLat(float lat) {
+		this.lat = lat;
+	}
 
-    public float getLng() {
-        return lng;
-    }
+	public float getLng() {
+		return lng;
+	}
 
-    public void setLng(float lng) {
-        this.lng = lng;
-    }
+	public void setLng(float lng) {
+		this.lng = lng;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Location)) return false;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Location)) return false;
 
-        Location location = (Location) o;
+		Location location = (Location) o;
 
-        if (Float.compare(location.lat, lat) != 0) return false;
-        if (Float.compare(location.lng, lng) != 0) return false;
+		if (Float.compare(location.lat, lat) != 0) return false;
+		if (Float.compare(location.lng, lng) != 0) return false;
 
-        return true;
-    }
+		return true;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = (lng != +0.0f ? Float.floatToIntBits(lng) : 0);
-        result = 31 * result + (lat != +0.0f ? Float.floatToIntBits(lat) : 0);
-        return result;
-    }
+	@Override
+	public int hashCode() {
+		int result = (lng != +0.0f ? Float.floatToIntBits(lng) : 0);
+		result = 31 * result + (lat != +0.0f ? Float.floatToIntBits(lat) : 0);
+		return result;
+	}
 
-    @Override
-    public String toString() {
-        return "Location{" +
-                "lng=" + lng +
-                ", lat=" + lat +
-                "} " + super.toString();
-    }
+	@Override
+	public String toString() {
+		return "Location{" +
+				"lng=" + lng +
+				", lat=" + lat +
+				"} " + super.toString();
+	}
 }

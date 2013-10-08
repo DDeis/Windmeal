@@ -31,37 +31,36 @@ import org.springframework.stereotype.Repository;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 @Repository
-public class OrderDao implements ICrudDao<Order>{
-    @Autowired
-    @Qualifier("orderCollection")
-    MongoCollection collection;
+public class OrderDao implements ICrudDao<Order> {
+	@Autowired
+	@Qualifier("orderCollection")
+	MongoCollection collection;
 
-    @Override
-    public Iterable<Order> getAll() throws DaoException {
+	@Override
+	public Iterable<Order> getAll() throws DaoException {
 
-        Iterable<Order> orders = collection.find().as(Order.class);
-        return orders;
+		Iterable<Order> orders = collection.find().as(Order.class);
+		return orders;
+	}
 
-    }
+	@Override
+	public Order getOne(String id) throws DaoException {
+		Order order = collection.findOne("{'_id':#}", id).as(Order.class);
+		return order;
+	}
 
-    @Override
-    public Order getOne(String id) throws DaoException {
-        Order order = collection.findOne("{'_id':#}",id).as(Order.class);
-        return order;
-    }
+	@Override
+	public void save(Order model) throws DaoException {
+		collection.save(model);
+	}
 
-    @Override
-    public void save(Order model) throws DaoException {
-        collection.save(model);
-    }
+	@Override
+	public void insert(Order model) throws DaoException {
+		collection.save(model);
+	}
 
-    @Override
-    public void insert(Order model) throws DaoException {
-        collection.save(model);
-    }
-
-    @Override
-    public void remove(String id) throws DaoException {
-        collection.remove("{'_id':#}",id);
-    }
+	@Override
+	public void remove(String id) throws DaoException {
+		collection.remove("{'_id':#}", id);
+	}
 }

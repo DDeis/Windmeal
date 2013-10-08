@@ -39,48 +39,48 @@ import java.io.IOException;
 @Controller
 @RequestMapping("/menus")
 public class CrudMenuCtrl {
-    private final static Logger LOGGER = Logger.getLogger(CrudMenuCtrl.class);
-    @Autowired
-    @Qualifier("menuValidationDecorator")
-    ICrudService<Menu> crudService;
+	private final static Logger LOGGER = Logger.getLogger(CrudMenuCtrl.class);
+	@Autowired
+	@Qualifier("menuValidationDecorator")
+	ICrudService<Menu> crudService;
 
-    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public Iterable<Menu> getAll(HttpServletResponse servletResponse) throws ServiceException, DaoException, IOException {
+	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Iterable<Menu> getAll(HttpServletResponse servletResponse) throws ServiceException, DaoException, IOException {
 
-        LOGGER.info("[Controller] Querying Menu list");
-        return crudService.getAll();
-    }
+		LOGGER.info("[Controller] Querying Menu list");
+		return crudService.getAll();
+	}
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public Menu getById(@PathVariable("id") String menuId) throws ServiceException, DaoException {
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Menu getById(@PathVariable("id") String menuId) throws ServiceException, DaoException {
 
-        LOGGER.info("[Controller] Querying Menu with id : \"" + menuId + "\"");
-        return crudService.getOne(menuId);
-    }
+		LOGGER.info("[Controller] Querying Menu with id : \"" + menuId + "\"");
+		return crudService.getOne(menuId);
+	}
 
-    @RequestMapping(method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody Menu menu) throws ServiceException, DaoException {
+	@RequestMapping(method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void create(@RequestBody Menu menu) throws ServiceException, DaoException {
 
-        LOGGER.info("[Controller] Querying to create new menu : " + menu.toString() + "\"");
-        crudService.insert(menu);
-    }
+		LOGGER.info("[Controller] Querying to create new menu : " + menu.toString() + "\"");
+		crudService.insert(menu);
+	}
 
-    @RequestMapping(value = "", method = RequestMethod.PUT, consumes = "application/json")
-    @ResponseStatus(HttpStatus.OK)
-    public void edit(@RequestBody Menu menu) throws ServiceException, DaoException {
+	@RequestMapping(value = "", method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseStatus(HttpStatus.OK)
+	public void edit(@RequestBody Menu menu) throws ServiceException, DaoException {
 
-        LOGGER.info("[Controller] Querying to edit Menu : \"" + menu.toString() + "\"");
-        crudService.save(menu);
-    }
+		LOGGER.info("[Controller] Querying to edit Menu : \"" + menu.toString() + "\"");
+		crudService.save(menu);
+	}
 
-    @RequestMapping(value = "/{idMenu}", method = RequestMethod.DELETE)
-    @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable String idMenu) throws ServiceException, DaoException {
+	@RequestMapping(value = "/{idMenu}", method = RequestMethod.DELETE)
+	@ResponseStatus(HttpStatus.OK)
+	public void delete(@PathVariable String idMenu) throws ServiceException, DaoException {
 
-        LOGGER.info("[Controller] Querying to delete Menu with id : \"" + idMenu + "\"");
-        crudService.remove(idMenu);
-    }
+		LOGGER.info("[Controller] Querying to delete Menu with id : \"" + idMenu + "\"");
+		crudService.remove(idMenu);
+	}
 }

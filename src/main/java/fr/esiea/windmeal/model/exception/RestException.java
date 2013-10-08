@@ -22,21 +22,21 @@ package fr.esiea.windmeal.model.exception;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public class RestException extends Exception{
+public class RestException extends Exception {
 
-    private final Object model;
-    private final int status;
+	private final Object model;
+	private final int status;
 
-    public RestException(int status, Object model) {
-        this.status = status;
-        this.model = model;
-    }
+	public RestException(int status, Object model) {
+		this.status = status;
+		this.model = model;
+	}
 
-    public Object getModel() {
-        return model;
-    }
+	public Object getModel() {
+		return model;
+	}
 
-    public int getStatus() {
-        return status;
-    }
+	public int getStatus() {
+		return status;
+	}
 }

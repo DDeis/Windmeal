@@ -34,7 +34,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderCrudService implements ICrudService<Order> {
 	@Autowired
-    @Qualifier("orderDao")
+	@Qualifier("orderDao")
 	private ICrudDao<Order> dao;
 
 	@Override
@@ -64,5 +64,4 @@ public class OrderCrudService implements ICrudService<Order> {
 			throw new InvalidIdException();
 		return order;
 	}
-
 }

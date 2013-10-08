@@ -48,71 +48,71 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping()
 public class AuthenticationCtrl {
 
-    public static final String FACEBOOK_AUTHENTICATION_URL = "rest/login/authenticationFacebook";
+	public static final String FACEBOOK_AUTHENTICATION_URL = "rest/login/authenticationFacebook";
 
-    @Autowired
-    @Qualifier("userCrudService")
-    private ICrudUserService userService;
+	@Autowired
+	@Qualifier("userCrudService")
+	private ICrudUserService userService;
 
-    @Autowired
-    @Qualifier(value = "authenticationManager")
-    AuthenticationManager authenticationManager;
+	@Autowired
+	@Qualifier(value = "authenticationManager")
+	AuthenticationManager authenticationManager;
 
-    private static final Logger LOGGER = Logger.getLogger(AuthenticationCtrl.class);
+	private static final Logger LOGGER = Logger.getLogger(AuthenticationCtrl.class);
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json")
-    @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
-    public void login(@RequestBody User user, HttpServletResponse response) throws InvalidLoginException {
+	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json")
+	@ResponseBody
+	@ResponseStatus(HttpStatus.OK)
+	public void login(@RequestBody User user, HttpServletResponse response) throws InvalidLoginException {
 
-        LOGGER.info("[Controller] Querying to log in User \"" + user.toString() + "\"");
+		LOGGER.info("[Controller] Querying to log in User \"" + user.toString() + "\"");
 
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
-        try {
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
+		try {
 
-            Authentication auth = authenticationManager.authenticate(token);
-            SecurityContextHolder.getContext().setAuthentication(auth);
-        } catch (BadCredentialsException ex) {
-            throw new InvalidLoginException();
-        }
-    }
+			Authentication auth = authenticationManager.authenticate(token);
+			SecurityContextHolder.getContext().setAuthentication(auth);
+		} catch (BadCredentialsException ex) {
+			throw new InvalidLoginException();
+		}
+	}
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
-    public User currentAccount() throws DaoException, NotConnectedException {
-        LOGGER.info("[Controller] Querying to get User connected in User");
-        //TODO refaire ce code
-        // We send a 204 error /!\
-        Object details = SecurityContextHolder.getContext().getAuthentication().getDetails();
+	@RequestMapping(value = "/login", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	@ResponseStatus(HttpStatus.OK)
+	public User currentAccount() throws DaoException, NotConnectedException {
+		LOGGER.info("[Controller] Querying to get User connected in User");
+		//TODO refaire ce code
+		// We send a 204 error /!\
+		Object details = SecurityContextHolder.getContext().getAuthentication().getDetails();
 
-        if (!(details instanceof String))
-            throw new NotConnectedException();
-        String id = (String) details;
-        if (id.equals("anonymousUser"))
-            throw new NotConnectedException();
-        final User userConnected;
-        try {
-            userConnected = userService.getOne(id);
-        } catch (ServiceException e) {
-            throw new NotConnectedException();
-        }
+		if (!(details instanceof String))
+			throw new NotConnectedException();
+		String id = (String) details;
+		if (id.equals("anonymousUser"))
+			throw new NotConnectedException();
+		final User userConnected;
+		try {
+			userConnected = userService.getOne(id);
+		} catch (ServiceException e) {
+			throw new NotConnectedException();
+		}
 
-        LOGGER.info("[Controller] Querying get the current account " + userConnected);
-        return userConnected;
-    }
+		LOGGER.info("[Controller] Querying get the current account " + userConnected);
+		return userConnected;
+	}
 
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    @ResponseBody
-    public void logout() throws InvalidLoginException, NeedToBeAuthenticatedException, DaoException {
-        //Should may override spring security logout
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	@ResponseBody
+	public void logout() throws InvalidLoginException, NeedToBeAuthenticatedException, DaoException {
+		//Should may override spring security logout
 
-        SecurityContext context = SecurityContextHolder.getContext();
+		SecurityContext context = SecurityContextHolder.getContext();
 
-        LOGGER.info("[Controller] Querying to log out User : \""
-                + context.getAuthentication().getName().toString() + "\"");
+		LOGGER.info("[Controller] Querying to log out User : \""
+				+ context.getAuthentication().getName().toString() + "\"");
 
-        if (context.getAuthentication() != null)
-            SecurityContextHolder.clearContext();
-    }
+		if (context.getAuthentication() != null)
+			SecurityContextHolder.clearContext();
+	}
 }

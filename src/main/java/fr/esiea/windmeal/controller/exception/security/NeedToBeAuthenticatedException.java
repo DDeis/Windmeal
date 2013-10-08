@@ -27,8 +27,7 @@ import org.springframework.http.HttpStatus;
  */
 public class NeedToBeAuthenticatedException extends RestException {
 
-    public NeedToBeAuthenticatedException() {
-        super(HttpStatus.UNAUTHORIZED.value(), null);
-    }
-
+	public NeedToBeAuthenticatedException() {
+		super(HttpStatus.UNAUTHORIZED.value(), null);
+	}
 }

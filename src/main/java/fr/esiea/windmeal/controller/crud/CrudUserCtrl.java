@@ -8,7 +8,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,48 +39,48 @@ import java.io.IOException;
 @Controller
 @RequestMapping("/users")
 public class CrudUserCtrl {
-    private final static Logger LOGGER = Logger.getLogger(CrudUserCtrl.class);
-    @Autowired
-    @Qualifier("userValidationDecorator")
-    ICrudService<User> crudService;
+	private final static Logger LOGGER = Logger.getLogger(CrudUserCtrl.class);
+	@Autowired
+	@Qualifier("userValidationDecorator")
+	ICrudService<User> crudService;
 
-    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public Iterable<User> getAll(HttpServletResponse servletResponse) throws ServiceException, DaoException, IOException {
+	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Iterable<User> getAll(HttpServletResponse servletResponse) throws ServiceException, DaoException, IOException {
 
-        LOGGER.info("[Controller] Querying User list");
-        return crudService.getAll();
-    }
+		LOGGER.info("[Controller] Querying User list");
+		return crudService.getAll();
+	}
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public User getById(@PathVariable("id") String userId) throws ServiceException, DaoException {
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public User getById(@PathVariable("id") String userId) throws ServiceException, DaoException {
 
-        LOGGER.info("[Controller] Querying User with id : \"" + userId + "\"");
-        return crudService.getOne(userId);
-    }
+		LOGGER.info("[Controller] Querying User with id : \"" + userId + "\"");
+		return crudService.getOne(userId);
+	}
 
-    @RequestMapping(method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody User user) throws ServiceException, DaoException {
+	@RequestMapping(method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void create(@RequestBody User user) throws ServiceException, DaoException {
 
-        LOGGER.info("[Controller] Querying to create new user : " + user.toString() + "\"");
-        crudService.insert(user);
-    }
+		LOGGER.info("[Controller] Querying to create new user : " + user.toString() + "\"");
+		crudService.insert(user);
+	}
 
-    @RequestMapping(value = "", method = RequestMethod.PUT, consumes = "application/json")
-    @ResponseStatus(HttpStatus.OK)
-    public void edit(@RequestBody User user) throws ServiceException, DaoException {
+	@RequestMapping(value = "", method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseStatus(HttpStatus.OK)
+	public void edit(@RequestBody User user) throws ServiceException, DaoException {
 
-        LOGGER.info("[Controller] Querying to edit User : \"" + user.toString() + "\"");
-        crudService.save(user);
-    }
+		LOGGER.info("[Controller] Querying to edit User : \"" + user.toString() + "\"");
+		crudService.save(user);
+	}
 
-    @RequestMapping(value = "/{idUser}", method = RequestMethod.DELETE)
-    @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable String idUser) throws ServiceException, DaoException {
+	@RequestMapping(value = "/{idUser}", method = RequestMethod.DELETE)
+	@ResponseStatus(HttpStatus.OK)
+	public void delete(@PathVariable String idUser) throws ServiceException, DaoException {
 
-        LOGGER.info("[Controller] Querying to delete User with id : \"" + idUser + "\"");
-        crudService.remove(idUser);
-    }
+		LOGGER.info("[Controller] Querying to delete User with id : \"" + idUser + "\"");
+		crudService.remove(idUser);
+	}
 }

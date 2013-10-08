@@ -29,8 +29,8 @@ import java.util.Collections;
 public enum Profile {
 
 	ADMIN(Collections.unmodifiableList(Arrays.asList(Role.ROLE_ADMIN, Role.ROLE_USER))),
-	PROVIDER(Collections.unmodifiableList(Arrays.asList(Role.ROLE_PROVIDER,Role.ROLE_ADMIN,Role.ROLE_USER))),
-    USER(Collections.unmodifiableList(Arrays.asList(Role.ROLE_USER)));
+	PROVIDER(Collections.unmodifiableList(Arrays.asList(Role.ROLE_PROVIDER, Role.ROLE_ADMIN, Role.ROLE_USER))),
+	USER(Collections.unmodifiableList(Arrays.asList(Role.ROLE_USER)));
 
 	private Profile(Collection<String> roleList) {
 		this.roleList = roleList;
