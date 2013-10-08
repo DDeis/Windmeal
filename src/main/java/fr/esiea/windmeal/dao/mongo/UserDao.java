@@ -1,6 +1,5 @@
 package fr.esiea.windmeal.dao.mongo;
 
-import fr.esiea.windmeal.dao.ICrudDao;
 import fr.esiea.windmeal.dao.ICrudUserDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.User;

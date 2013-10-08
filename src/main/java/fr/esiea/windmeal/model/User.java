@@ -1,5 +1,7 @@
 package fr.esiea.windmeal.model;
 
+import fr.esiea.windmeal.model.security.Profile;
+
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
  * <p/>
@@ -26,6 +28,7 @@ public class User extends Model {
 
     private String email;
     private String password;
+    private Profile profile = Profile.USER;
 
     public String getEmail() {
         return email;
@@ -41,6 +44,14 @@ public class User extends Model {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 
     @Override
@@ -62,4 +73,6 @@ public class User extends Model {
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
     }
+
+
 }
