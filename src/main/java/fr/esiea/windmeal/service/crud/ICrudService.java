@@ -36,5 +36,5 @@ public interface ICrudService<T extends Model> {
 
 	void insert(T model) throws ServiceException, DaoException;
 
-	T getOne(String Id) throws ServiceException, DaoException;
+	T getOne(String id) throws ServiceException, DaoException;
 }

@@ -12,7 +12,8 @@ var windmealApp = angular.module('windmealApp', [
 	'windmeal.controllers',
 	'windmeal.directives',
 	'windmeal.filters',
-	'windmeal.services'
+	'windmeal.services',
+    'windmeal.interceptors'
 ]);
 
 windmealApp.config(
