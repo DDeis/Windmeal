@@ -46,7 +46,8 @@ module.factory('interceptor401_403', function ($rootScope, $q) {
 				config: response.config,
 				deferred: deferred
 			};
-			console.log("Pushed in request401 " + req)
+			console.log("Pushed in request401 ");
+			console.log(req);
 			$rootScope.requests401.push(req);
 			$rootScope.$broadcast('event:loginRequired');
 			return deferred.promise;

@@ -138,7 +138,7 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 	 */
 	$scope.$on('event:accessForbidden', function (event, Login) {
 		$scope.shouldOpenAccessForbiddenModal = true;
-		console.info("accesForbidden in appController")
+		console.info("accessForbidden in appController")
 	});
 
 });
