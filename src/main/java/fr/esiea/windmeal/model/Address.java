@@ -1,5 +1,7 @@
 package fr.esiea.windmeal.model;
 
+import fr.esiea.windmeal.model.geospatiale.Location;
+
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
  * <p/>
@@ -28,6 +30,7 @@ public class Address {
     private String street;
     private String city;
     private String postalCode;
+    private Location location;
 
     public String getNumber() {
         return number;
@@ -59,6 +62,14 @@ public class Address {
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     @Override
