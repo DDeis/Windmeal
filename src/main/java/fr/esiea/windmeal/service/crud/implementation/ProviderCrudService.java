@@ -34,7 +34,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProviderCrudService implements ICrudService<FoodProvider> {
 	@Autowired
-    @Qualifier("providerDao")
+	@Qualifier("providerDao")
 	private ICrudDao<FoodProvider> dao;
 
 	@Override
@@ -64,5 +64,4 @@ public class ProviderCrudService implements ICrudService<FoodProvider> {
 			throw new InvalidIdException();
 		return provider;
 	}
-
 }

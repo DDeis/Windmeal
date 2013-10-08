@@ -26,5 +26,5 @@ import fr.esiea.windmeal.model.User;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 public interface ICrudUserDao extends ICrudDao<User> {
-    public User getOneByMail(String email) throws  DaoException;
+	public User getOneByMail(String email) throws DaoException;
 }

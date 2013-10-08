@@ -39,53 +39,48 @@ import java.io.IOException;
 @Controller
 @RequestMapping("/orders")
 public class CrudOrderCtrl {
-    private final static Logger LOGGER = Logger.getLogger(CrudOrderCtrl.class);
-    @Autowired
-    @Qualifier("orderValidationDecorator")
-    ICrudService<Order> crudService;
+	private final static Logger LOGGER = Logger.getLogger(CrudOrderCtrl.class);
+	@Autowired
+	@Qualifier("orderValidationDecorator")
+	ICrudService<Order> crudService;
 
-    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public Iterable<Order> getAll(HttpServletResponse servletResponse) throws ServiceException, DaoException, IOException {
+	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Iterable<Order> getAll(HttpServletResponse servletResponse) throws ServiceException, DaoException, IOException {
 
-        LOGGER.info("[Controller] Querying Order list");
-        return crudService.getAll();
+		LOGGER.info("[Controller] Querying Order list");
+		return crudService.getAll();
+	}
 
-    }
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Order getById(@PathVariable("id") String orderId) throws ServiceException, DaoException {
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public Order getById(@PathVariable("id") String orderId) throws ServiceException, DaoException {
+		LOGGER.info("[Controller] Querying Order with id : \"" + orderId + "\"");
+		return crudService.getOne(orderId);
+	}
 
-        LOGGER.info("[Controller] Querying Order with id : \"" + orderId + "\"");
-        return crudService.getOne(orderId);
+	@RequestMapping(method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void create(@RequestBody Order order) throws ServiceException, DaoException {
 
-    }
+		LOGGER.info("[Controller] Querying to create new order : " + order.toString() + "\"");
+		crudService.insert(order);
+	}
 
-    @RequestMapping(method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody Order order) throws ServiceException, DaoException {
+	@RequestMapping(value = "", method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseStatus(HttpStatus.OK)
+	public void edit(@RequestBody Order order) throws ServiceException, DaoException {
 
-        LOGGER.info("[Controller] Querying to create new order : " + order.toString() + "\"");
-        crudService.insert(order);
+		LOGGER.info("[Controller] Querying to edit Order : \"" + order.toString() + "\"");
+		crudService.save(order);
+	}
 
-    }
+	@RequestMapping(value = "/{idOrder}", method = RequestMethod.DELETE)
+	@ResponseStatus(HttpStatus.OK)
+	public void delete(@PathVariable String idOrder) throws ServiceException, DaoException {
 
-    @RequestMapping(value = "", method = RequestMethod.PUT, consumes = "application/json")
-    @ResponseStatus(HttpStatus.OK)
-    public void edit(@RequestBody Order order) throws ServiceException, DaoException {
-
-        LOGGER.info("[Controller] Querying to edit Order : \"" + order.toString() + "\"");
-        crudService.save(order);
-
-    }
-
-    @RequestMapping(value = "/{idOrder}", method = RequestMethod.DELETE)
-    @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable String idOrder) throws ServiceException, DaoException {
-
-        LOGGER.info("[Controller] Querying to delete Order with id : \"" + idOrder + "\"");
-        crudService.remove(idOrder);
-
-    }
+		LOGGER.info("[Controller] Querying to delete Order with id : \"" + idOrder + "\"");
+		crudService.remove(idOrder);
+	}
 }

@@ -25,7 +25,7 @@ import fr.esiea.windmeal.model.exception.RestException;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 public class DaoException extends RestException {
-    public DaoException(int status, Object model) {
-        super(status, model);
-    }
+	public DaoException(int status, Object model) {
+		super(status, model);
+	}
 }

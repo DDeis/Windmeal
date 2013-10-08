@@ -1,18 +1,8 @@
 package fr.esiea.windmeal.controller.provider.dashboard;
 
-import fr.esiea.windmeal.dao.exception.DaoException;
-import fr.esiea.windmeal.model.Menu;
-import fr.esiea.windmeal.service.crud.ICrudService;
-import fr.esiea.windmeal.service.exception.ServiceException;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -40,5 +30,5 @@ import java.io.IOException;
 @Controller
 @RequestMapping("/dashboard")
 public class DashboardCtrl {
-    private final static Logger LOGGER = Logger.getLogger(DashboardCtrl.class);
+	private final static Logger LOGGER = Logger.getLogger(DashboardCtrl.class);
 }

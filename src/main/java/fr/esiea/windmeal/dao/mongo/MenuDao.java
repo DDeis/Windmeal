@@ -33,34 +33,34 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class MenuDao implements ICrudDao<Menu> {
 
-    @Autowired
-    @Qualifier("menuCollection")
-    MongoCollection collection;
+	@Autowired
+	@Qualifier("menuCollection")
+	MongoCollection collection;
 
-    @Override
-    public Iterable<Menu> getAll() throws DaoException {
-        Iterable<Menu> menus = collection.find().as(Menu.class);
-        return menus;
-    }
+	@Override
+	public Iterable<Menu> getAll() throws DaoException {
+		Iterable<Menu> menus = collection.find().as(Menu.class);
+		return menus;
+	}
 
-    @Override
-    public Menu getOne(String id) throws DaoException {
-        Menu menu = collection.findOne("{'_id':#}",id).as(Menu.class);
-        return menu;
-    }
+	@Override
+	public Menu getOne(String id) throws DaoException {
+		Menu menu = collection.findOne("{'_id':#}", id).as(Menu.class);
+		return menu;
+	}
 
-    @Override
-    public void save(Menu model) throws DaoException {
-        collection.save(model);
-    }
+	@Override
+	public void save(Menu model) throws DaoException {
+		collection.save(model);
+	}
 
-    @Override
-    public void insert(Menu model) throws DaoException {
-        collection.save(model);
-    }
+	@Override
+	public void insert(Menu model) throws DaoException {
+		collection.save(model);
+	}
 
-    @Override
-    public void remove(String id) throws DaoException {
-        collection.remove("{'_id':#}",id);
-    }
+	@Override
+	public void remove(String id) throws DaoException {
+		collection.remove("{'_id':#}", id);
+	}
 }

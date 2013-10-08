@@ -27,39 +27,39 @@ import org.jongo.marshall.jackson.oid.Id;
  */
 public class Model {
 
-    @Id
-    private String id;
+	@Id
+	private String id;
 
-    public String getId() {
-        return id;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void generateId() {
-        if(null == id || id.toString().isEmpty())
-            this.id = new ObjectId().toString();
-    }
+	public void generateId() {
+		if (null == id || id.toString().isEmpty())
+			this.id = new ObjectId().toString();
+	}
 
-    @Override
-    public String toString() {
-        return "Model{" +
-                "id='" + id + '\'' +
-                "} " + super.toString();
-    }
+	@Override
+	public String toString() {
+		return "Model{" +
+				"id='" + id + '\'' +
+				"} " + super.toString();
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Model)) return false;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Model)) return false;
 
-        Model model = (Model) o;
+		Model model = (Model) o;
 
-        if (id != null ? !id.equals(model.id) : model.id != null) return false;
+		if (id != null ? !id.equals(model.id) : model.id != null) return false;
 
-        return true;
-    }
+		return true;
+	}
 
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
+	@Override
+	public int hashCode() {
+		return id != null ? id.hashCode() : 0;
+	}
 }

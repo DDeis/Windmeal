@@ -32,36 +32,35 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class ProviderDao implements ICrudDao<FoodProvider> {
-    @Autowired
-    @Qualifier("providerCollection")
-    MongoCollection collection;
+	@Autowired
+	@Qualifier("providerCollection")
+	MongoCollection collection;
 
-    @Override
-    public Iterable<FoodProvider> getAll() throws DaoException {
+	@Override
+	public Iterable<FoodProvider> getAll() throws DaoException {
 
-        Iterable<FoodProvider> providers = collection.find().as(FoodProvider.class);
-        return providers;
+		Iterable<FoodProvider> providers = collection.find().as(FoodProvider.class);
+		return providers;
+	}
 
-    }
+	@Override
+	public FoodProvider getOne(String id) throws DaoException {
+		FoodProvider provider = collection.findOne("{'_id':#}", id).as(FoodProvider.class);
+		return provider;
+	}
 
-    @Override
-    public FoodProvider getOne(String id) throws DaoException {
-        FoodProvider provider = collection.findOne("{'_id':#}",id).as(FoodProvider.class);
-        return provider;
-    }
+	@Override
+	public void save(FoodProvider model) throws DaoException {
+		collection.save(model);
+	}
 
-    @Override
-    public void save(FoodProvider model) throws DaoException {
-        collection.save(model);
-    }
+	@Override
+	public void insert(FoodProvider model) throws DaoException {
+		collection.save(model);
+	}
 
-    @Override
-    public void insert(FoodProvider model) throws DaoException {
-        collection.save(model);
-    }
-
-    @Override
-    public void remove(String id) throws DaoException {
-        collection.remove("{'_id':#}",id);
-    }
+	@Override
+	public void remove(String id) throws DaoException {
+		collection.remove("{'_id':#}", id);
+	}
 }

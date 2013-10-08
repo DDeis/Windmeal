@@ -27,10 +27,10 @@ import org.springframework.http.HttpStatus;
  */
 public class NotConnectedException extends RestException {
 
-    public NotConnectedException() {
-        /*
+	public NotConnectedException() {
+	    /*
          * Best status to return if not connected but can be discussed
          */
-        super(HttpStatus.NOT_FOUND.value(),null);
-    }
+		super(HttpStatus.NOT_FOUND.value(), null);
+	}
 }

@@ -39,48 +39,48 @@ import java.io.IOException;
 @Controller
 @RequestMapping("/providers")
 public class CrudProviderCtrl {
-    private final static Logger LOGGER = Logger.getLogger(CrudProviderCtrl.class);
-    @Autowired
-    @Qualifier("providerValidationDecorator")
-    ICrudService<FoodProvider> crudService;
+	private final static Logger LOGGER = Logger.getLogger(CrudProviderCtrl.class);
+	@Autowired
+	@Qualifier("providerValidationDecorator")
+	ICrudService<FoodProvider> crudService;
 
-    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public Iterable<FoodProvider> getAll(HttpServletResponse servletResponse) throws ServiceException, DaoException, IOException {
+	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Iterable<FoodProvider> getAll(HttpServletResponse servletResponse) throws ServiceException, DaoException, IOException {
 
-        LOGGER.info("[Controller] Querying FoodProvider list");
-        return crudService.getAll();
-    }
+		LOGGER.info("[Controller] Querying FoodProvider list");
+		return crudService.getAll();
+	}
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public FoodProvider getById(@PathVariable("id") String providerId) throws ServiceException, DaoException {
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public FoodProvider getById(@PathVariable("id") String providerId) throws ServiceException, DaoException {
 
-        LOGGER.info("[Controller] Querying FoodProvider with id : \"" + providerId + "\"");
-        return crudService.getOne(providerId);
-    }
+		LOGGER.info("[Controller] Querying FoodProvider with id : \"" + providerId + "\"");
+		return crudService.getOne(providerId);
+	}
 
-    @RequestMapping(method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody FoodProvider provider) throws ServiceException, DaoException {
+	@RequestMapping(method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void create(@RequestBody FoodProvider provider) throws ServiceException, DaoException {
 
-        LOGGER.info("[Controller] Querying to create new provider : " + provider.toString() + "\"");
-        crudService.insert(provider);
-    }
+		LOGGER.info("[Controller] Querying to create new provider : " + provider.toString() + "\"");
+		crudService.insert(provider);
+	}
 
-    @RequestMapping(value = "", method = RequestMethod.PUT, consumes = "application/json")
-    @ResponseStatus(HttpStatus.OK)
-    public void edit(@RequestBody FoodProvider provider) throws ServiceException, DaoException {
+	@RequestMapping(value = "", method = RequestMethod.PUT, consumes = "application/json")
+	@ResponseStatus(HttpStatus.OK)
+	public void edit(@RequestBody FoodProvider provider) throws ServiceException, DaoException {
 
-        LOGGER.info("[Controller] Querying to edit FoodProvider : \"" + provider.toString() + "\"");
-        crudService.save(provider);
-    }
+		LOGGER.info("[Controller] Querying to edit FoodProvider : \"" + provider.toString() + "\"");
+		crudService.save(provider);
+	}
 
-    @RequestMapping(value = "/{idFoodProvider}", method = RequestMethod.DELETE)
-    @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable String idFoodProvider) throws ServiceException, DaoException {
+	@RequestMapping(value = "/{idFoodProvider}", method = RequestMethod.DELETE)
+	@ResponseStatus(HttpStatus.OK)
+	public void delete(@PathVariable String idFoodProvider) throws ServiceException, DaoException {
 
-        LOGGER.info("[Controller] Querying to delete FoodProvider with id : \"" + idFoodProvider + "\"");
-        crudService.remove(idFoodProvider);
-    }
+		LOGGER.info("[Controller] Querying to delete FoodProvider with id : \"" + idFoodProvider + "\"");
+		crudService.remove(idFoodProvider);
+	}
 }

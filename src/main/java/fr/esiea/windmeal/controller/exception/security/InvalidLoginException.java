@@ -27,8 +27,7 @@ import org.springframework.http.HttpStatus;
  */
 public class InvalidLoginException extends RestException {
 
-    public InvalidLoginException() {
-        super(HttpStatus.UNAUTHORIZED.value(), 0);
-    }
-
+	public InvalidLoginException() {
+		super(HttpStatus.UNAUTHORIZED.value(), 0);
+	}
 }

@@ -25,30 +25,30 @@ import java.util.Map;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 public class Menu extends Model {
-    private Map<String,Meal> meals;
+	private Map<String, Meal> meals;
 
-    public Map<String, Meal> getMeals() {
-        return meals;
-    }
+	public Map<String, Meal> getMeals() {
+		return meals;
+	}
 
-    public void setMeals(Map<String, Meal> meals) {
-        this.meals = meals;
-    }
+	public void setMeals(Map<String, Meal> meals) {
+		this.meals = meals;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Menu)) return false;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Menu)) return false;
 
-        Menu menu = (Menu) o;
+		Menu menu = (Menu) o;
 
-        if (meals != null ? !meals.equals(menu.meals) : menu.meals != null) return false;
+		if (meals != null ? !meals.equals(menu.meals) : menu.meals != null) return false;
 
-        return true;
-    }
+		return true;
+	}
 
-    @Override
-    public int hashCode() {
-        return meals != null ? meals.hashCode() : 0;
-    }
+	@Override
+	public int hashCode() {
+		return meals != null ? meals.hashCode() : 0;
+	}
 }

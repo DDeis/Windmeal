@@ -32,41 +32,41 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class UserDao implements ICrudUserDao {
-   
-    @Autowired
-    @Qualifier("userCollection")
-    MongoCollection collection;
 
-    @Override
-    public Iterable<User> getAll() throws DaoException {
-        Iterable<User> users = collection.find().as(User.class);
-        return users;
-    }
+	@Autowired
+	@Qualifier("userCollection")
+	MongoCollection collection;
 
-    @Override
-    public User getOne(String id) throws DaoException {
-        User user = collection.findOne("{'_id':#}",id).as(User.class);
-        return user;
-    }
+	@Override
+	public Iterable<User> getAll() throws DaoException {
+		Iterable<User> users = collection.find().as(User.class);
+		return users;
+	}
 
-    @Override
-    public void save(User model) throws DaoException {
-        collection.save(model);
-    }
+	@Override
+	public User getOne(String id) throws DaoException {
+		User user = collection.findOne("{'_id':#}", id).as(User.class);
+		return user;
+	}
 
-    @Override
-    public void insert(User model) throws DaoException {
-        collection.save(model);
-    }
+	@Override
+	public void save(User model) throws DaoException {
+		collection.save(model);
+	}
 
-    @Override
-    public void remove(String id) throws DaoException {
-        collection.remove("{'_id':#}",id);
-    }
+	@Override
+	public void insert(User model) throws DaoException {
+		collection.save(model);
+	}
 
-    @Override
-    public User getOneByMail(String email) throws DaoException {
-        User user = collection.findOne("{'email':#}",email).as(User.class);
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
+	@Override
+	public void remove(String id) throws DaoException {
+		collection.remove("{'_id':#}", id);
+	}
+
+	@Override
+	public User getOneByMail(String email) throws DaoException {
+		User user = collection.findOne("{'email':#}", email).as(User.class);
+		return null;  //To change body of implemented methods use File | Settings | File Templates.
+	}
 }
