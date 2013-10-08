@@ -1,9 +1,4 @@
-package fr.esiea.windmeal.controller.exception.security;
-
-import fr.esiea.windmeal.model.exception.RestException;
-import org.springframework.http.HttpStatus;
-
-/**
+/*
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
  * <p/>
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -25,12 +20,45 @@ import org.springframework.http.HttpStatus;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public class NotConnectedException extends RestException {
 
-    public NotConnectedException() {
-        /*
-         * Best status to return if not connected but can be discussed
-         */
-        super(HttpStatus.NOT_FOUND.value(),null);
+var module = angular.module('windmeal.interceptors');
+
+module.factory('interceptor401_403',function ($rootScope, $q) {
+
+    $rootScope.requests401 = [];
+
+    function success(response) {
+        return response;
     }
-}
+
+    function error(response) {
+        console.log("In the intercepter");
+        var status = response.status;
+        if (status == 403) {
+            console.info("403 detected an envent accessForbiden is broadcast");
+            $rootScope.$broadcast('event:accessForbidden');
+            return;
+        }
+
+        if (status == 401) {
+            var deferred = $q.defer();
+            var req = {
+                config: response.config,
+                deferred: deferred
+            };
+            console.log("Pushed in request401 " + req)
+            $rootScope.requests401.push(req);
+            $rootScope.$broadcast('event:loginRequired');
+            return deferred.promise;
+        }
+        // otherwise
+        return $q.reject(response);
+
+    }
+
+    return function (promise) {
+        return promise.then(success, error);
+    }
+
+});
+

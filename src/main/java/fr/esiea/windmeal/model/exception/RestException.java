@@ -31,4 +31,12 @@ public class RestException extends Exception{
         this.status = status;
         this.model = model;
     }
+
+    public Object getModel() {
+        return model;
+    }
+
+    public int getStatus() {
+        return status;
+    }
 }
