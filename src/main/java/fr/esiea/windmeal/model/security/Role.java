@@ -1,8 +1,4 @@
-package fr.esiea.windmeal.service.crud;
-
-import fr.esiea.windmeal.dao.exception.DaoException;
-import fr.esiea.windmeal.model.Model;
-import fr.esiea.windmeal.service.exception.ServiceException;
+package fr.esiea.windmeal.model.security;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -26,15 +22,9 @@ import fr.esiea.windmeal.service.exception.ServiceException;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public interface ICrudService<T extends Model> {
+public class Role {
 
-	Iterable<T> getAll() throws ServiceException, DaoException;
-
-	void remove(String id) throws ServiceException, DaoException;
-
-	void save(T model) throws ServiceException, DaoException;
-
-	void insert(T model) throws ServiceException, DaoException;
-
-	T getOne(String Id) throws ServiceException, DaoException;
+	public static final String ROLE_USER = "ROLE_USER";
+    public static final String ROLE_PROVIDER = "ROLE_PROVIDER";
+    public static final String ROLE_ADMIN = "ROLE_ADMIN";
 }

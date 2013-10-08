@@ -1,8 +1,7 @@
-package fr.esiea.windmeal.service.crud;
+package fr.esiea.windmeal.controller.exception.security;
 
-import fr.esiea.windmeal.dao.exception.DaoException;
-import fr.esiea.windmeal.model.Model;
-import fr.esiea.windmeal.service.exception.ServiceException;
+import fr.esiea.windmeal.model.exception.RestException;
+import org.springframework.http.HttpStatus;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -26,15 +25,9 @@ import fr.esiea.windmeal.service.exception.ServiceException;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public interface ICrudService<T extends Model> {
+public class NotConnectedException extends RestException {
 
-	Iterable<T> getAll() throws ServiceException, DaoException;
-
-	void remove(String id) throws ServiceException, DaoException;
-
-	void save(T model) throws ServiceException, DaoException;
-
-	void insert(T model) throws ServiceException, DaoException;
-
-	T getOne(String Id) throws ServiceException, DaoException;
+    public NotConnectedException() {
+        super(HttpStatus.NOT_FOUND.value(),null);
+    }
 }

@@ -1,8 +1,8 @@
-package fr.esiea.windmeal.service.crud;
+package fr.esiea.windmeal.model.security;
 
-import fr.esiea.windmeal.dao.exception.DaoException;
-import fr.esiea.windmeal.model.Model;
-import fr.esiea.windmeal.service.exception.ServiceException;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -26,15 +26,19 @@ import fr.esiea.windmeal.service.exception.ServiceException;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public interface ICrudService<T extends Model> {
+public enum Profile {
 
-	Iterable<T> getAll() throws ServiceException, DaoException;
+	ADMIN(Collections.unmodifiableList(Arrays.asList(Role.ROLE_ADMIN, Role.ROLE_USER))),
+	PROVIDER(Collections.unmodifiableList(Arrays.asList(Role.ROLE_PROVIDER,Role.ROLE_ADMIN,Role.ROLE_USER))),
+    USER(Collections.unmodifiableList(Arrays.asList(Role.ROLE_USER)));
 
-	void remove(String id) throws ServiceException, DaoException;
+	private Profile(Collection<String> roleList) {
+		this.roleList = roleList;
+	}
 
-	void save(T model) throws ServiceException, DaoException;
+	private final Collection<String> roleList;
 
-	void insert(T model) throws ServiceException, DaoException;
-
-	T getOne(String Id) throws ServiceException, DaoException;
+	public Collection<String> getRoleList() {
+		return roleList;
+	}
 }
