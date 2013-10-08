@@ -21,6 +21,7 @@ windmealApp.config(
 		function ($routeProvider) {
 			$routeProvider.
 				when('/', {templateUrl: 'partials/home.html', controller: 'HomeController'}).
+				when('/geo', {templateUrl: 'partials/geo.html', controller: 'GeoController'}).
 
 				otherwise({redirectTo: '/'});
 		}
