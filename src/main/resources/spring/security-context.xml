@@ -10,7 +10,7 @@
 	<!--
 
 		Create the auth restrictions. create-session="stateless" means that
-		a session will never be created, the user will have to send auth credentials
+		a session will never be created, the owner will have to send auth credentials
 		each time.
 
 	-->

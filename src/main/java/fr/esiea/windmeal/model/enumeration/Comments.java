@@ -22,12 +22,12 @@ package fr.esiea.windmeal.model.enumeration;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public enum Tags {
-	SUSHI("sushi");
+public enum Comments {
+	SUSHI("sushi"), ITALIAN("italien");
 
 	private final String tag;
 
-	private Tags(String tag) {
+	private Comments(String tag) {
 		this.tag = tag;
 	}
 

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.esiea.windmeal.dao.ICrudDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.FoodProvider;
-import fr.esiea.windmeal.model.enumeration.Tags;
+import fr.esiea.windmeal.model.enumeration.Comments;
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.Client;
@@ -15,12 +15,8 @@ import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Required;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Repository;
 
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -133,10 +129,10 @@ public class IndexationProviderDecoratorDao implements ICrudDao<FoodProvider> {
         return null;
     }
 
-    private String getTypes(Set<Tags> tags) {
+    private String getTypes(Set<Comments> tags) {
         //TODO Should be possible to optimize
         StringBuilder builder = new StringBuilder();
-        for(Tags tag: tags) {
+        for(Comments tag: tags) {
             builder.append(tag.getTagName()+",");
         }
         builder.deleteCharAt(builder.length() - 1);
