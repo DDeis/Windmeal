@@ -22,10 +22,14 @@ windmealApp.config(['$routeProvider', '$httpProvider', function ($routeProvider,
 		when('/geo', {templateUrl: 'partials/geo.html', controller: 'GeoController'}).
 		when('/signup', {templateUrl: 'partials/signup.html', controller: 'SignUpController'}).
 
+		when('/users/:id/settings', {templateUrl: 'partials/settings.html', controller: 'SettingsController'}).
+
 		when('/foodproviders', {templateUrl: 'partials/food-provider-list.html', controller: 'FoodProviderListController'}).
+		when('/foodproviders/new', {templateUrl: 'partials/food-provider-settings.html', controller: 'FoodProviderSettingsController'}).
 		when('/foodproviders/:id', {templateUrl: 'partials/food-provider-detail.html', controller: 'FoodProviderDetailController'}).
 		when('/foodproviders/:id/order', {templateUrl: 'partials/order.html', controller: 'OrderController'}).
 		when('/foodproviders/:id/dashboard', {templateUrl: 'partials/dashboard.html', controller: 'DashboardController'}).
+		when('/foodproviders/:id/edit', {templateUrl: 'partials/food-provider-settings.html', controller: 'FoodProviderSettingsController'}).
 
 		when('/error', {templateUrl: 'partials/error.html', controller: 'ErrorController'}).
 		when('/error/:status', {templateUrl: 'partials/error.html', controller: 'ErrorController'}).

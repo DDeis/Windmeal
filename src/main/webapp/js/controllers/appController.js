@@ -7,6 +7,7 @@ var module = angular.module('windmeal.controllers');
 module.controller('AppController', function ($rootScope, $scope, $route, $location, Login, Logout) {
 
 	$scope.login = {};
+	$scope.user = {};
 
 	//Permet de verifier après un rafraichissement si on est loggué
 	ping();
@@ -23,7 +24,13 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 		//Default
 		$scope.logged = false;
 
-		Login.get({}, function (data, status) {
+		Login.get(
+			{}, // Params
+			{}, // Post Data
+			function (data, status) {
+				$scope.user = data;
+				console.log("user : ");
+				console.log(data);
 				$scope.$broadcast('event:loginConfirmed');
 			}, function () {
 				console.info("404 is a proof that the user is not authenticated");
