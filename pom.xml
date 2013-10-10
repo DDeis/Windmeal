@@ -133,6 +133,19 @@
         <!--
         Elastic search
         -->
+
+        <dependency>
+            <groupId>fr.pilato.spring</groupId>
+            <artifactId>spring-elasticsearch</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.elasticsearch</groupId>
+                    <artifactId>elasticsearch</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>0.2.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch</artifactId>

@@ -144,4 +144,19 @@ public class FoodProvider extends Model {
 		result = 31 * result + (tags != null ? tags.hashCode() : 0);
 		return result;
 	}
+
+    @Override
+    public String toString() {
+        return "FoodProvider{" +
+                "name='" + name + '\'' +
+                ", address=" + address +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", description='" + description + '\'' +
+                ", menuId='" + menuId + '\'' +
+                ", ownerId='" + ownerId + '\'' +
+                ", comments=" + comments +
+                ", tags=" + tags +
+                "} " + super.toString();
+    }
 }

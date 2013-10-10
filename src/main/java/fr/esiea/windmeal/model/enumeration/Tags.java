@@ -30,4 +30,8 @@ public enum Tags {
 	private Tags(String tag) {
 		this.tag = tag;
 	}
+
+    public String getTagName()   {
+        return tag;
+    }
 }
