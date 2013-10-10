@@ -1,6 +1,6 @@
 package fr.esiea.windmeal.model;
 
-import fr.esiea.windmeal.model.enumeration.Tags;
+import fr.esiea.windmeal.model.enumeration.Comments;
 
 import java.util.Set;
 
@@ -37,7 +37,7 @@ public class FoodProvider extends Model {
 	private String ownerId;
 
 	private Set<Comment> comments;
-	private Set<Tags> tags;
+	private Set<Comments> tags;
 
 	public String getName() {
 		return name;
@@ -95,11 +95,11 @@ public class FoodProvider extends Model {
 		this.ownerId = ownerId;
 	}
 
-	public Set<Tags> getTags() {
+	public Set<Comments> getTags() {
 		return tags;
 	}
 
-	public void setTags(Set<Tags> tags) {
+	public void setTags(Set<Comments> tags) {
 		this.tags = tags;
 	}
 

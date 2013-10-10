@@ -23,63 +23,45 @@
 
 package fr.esiea.windmeal.test.integration.fill;
 
+import fr.esiea.windmeal.dao.ICrudDao;
 import fr.esiea.windmeal.model.*;
+import fr.esiea.windmeal.model.enumeration.Comments;
+import fr.esiea.windmeal.model.exception.RestException;
 import fr.esiea.windmeal.model.security.Profile;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import static fr.esiea.windmeal.test.integration.fill.helper.FillHelper.*;
 public class FillTestDB {
 
-    public static void main(String[] args) {
-        User user = new User();
-        user.setEmail("provider@gmail.com");
-        user.setPassword("pwd");
-        user.setProfile(Profile.PROVIDER);
-        user.generateId();
+    public static void main(String[] args) throws RestException {
+        ICrudDao<User> userDao;
+        ICrudDao<FoodProvider> providerDao;
+        ICrudDao<Menu> menuDao;
 
 
-        Menu menu = new Menu();
+        User user = getUser("provider@gmail.com", "pwd", Profile.PROVIDER);
+        User customer1 = getUser("customer1@gmail.com", "pwd", Profile.USER);
+        User customer2 = getUser("customer2@gmail.com", "pwd", Profile.USER);
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath*:spring/application-context.xml");
 
-        Meal meal1 = createMeal("scalopina limone","viande au citron",20);
-        Meal meal2 = createMeal("pomodora spaghetti","Italian pomodoro pasta",15.5);
-        menu.setMeals(getMeals(meal1,meal2));
+        userDao = (ICrudDao<User>) applicationContext.getBean("userDao");
+        providerDao = (ICrudDao<FoodProvider>) applicationContext.getBean("providerDao");
+        menuDao = (ICrudDao<Menu>) applicationContext.getBean("menuDao");
 
-        FoodProvider provider = new FoodProvider();
-        provider.setTags();
-        provider.setEmail();
-        provider.setDescription();
-        provider.setComments();
-        provider.setAddress(getAddress(null, null, null));
-        provider.setMenuId(menu.getId());
-        provider.setOwnerId(user.getId());
-        provider.setName("Marco Polo");
-        provider.setPhone("0667021042");
+        userDao.save(user);
+        userDao.save(customer1);
+        userDao.save(customer2);
+        Meal meal1 = createMeal("scalopina limone", "viande au citron", 20);
+        Meal meal2 = createMeal("pomodora spaghetti", "Italian pomodoro pasta", 15.5);
+        Menu menu = getMenu(meal1, meal2);
+        menuDao.save(menu);
+        Comment comment1 = getComment(customer1, "Très bon restaurant", 4);
+        Comment comment2 = getComment(customer2, "Très bon restaurant bis", 4);
+
+        FoodProvider provider = getFoodProvider(user,menu,getTags(Comments.ITALIAN), "restaurant", getComments(comment1, comment2), getAddress("8", "rue de condee", "Paris","75006"), "Marco Polo", "0667021042");
+        providerDao.save(provider);
+
     }
 
-    private static Map<String, Meal> getMeals(Meal... meals) {
-        Map map = new HashMap();
-
-        for(Meal meal:meals) {
-            map.put(meal.getId(),meal);
-        }
-
-        return map;
-    }
-
-    private static Meal createMeal(String name,String description, double price) {
-        Meal meal1 = new Meal();
-        meal1.generateId();
-        meal1.setDescription(description);
-        meal1.setName(name);
-        meal1.setPrice(price);
-    }
-
-    public static Address getAddress(String number, String street, String city) {
-        Address address = new Address();
-        address.setNumber(number);
-        address.setStreet(street);
-        address.setCity(city);
-        return address;
-    }
 }
