@@ -1,10 +1,16 @@
 <div class="container">
 	<div class="page-header">
-		<h1>{{FoodProvider.name}}
-			<small></small>
+		<h1>{{fp.name}}
+			<small ng-repeat="tag in fp.tags">{{fp.tags.join(', ')}} </small>
 		</h1>
 	</div>
 	
 	<div>
+		<ul>
+			<li>{{fp.address.number}} {{fp.address.street}}, {{fp.address.postalCode}} {{fp.address.city}}</li>
+			<li>{{fp.phone}}</li>
+			<li>{{fp.email}}</li>
+			<li>{{fp.description}}</li>
+		</ul>
 	</div>
 </div>

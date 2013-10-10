@@ -9,6 +9,13 @@
 	</div>
 	
 	<div>
-		{{user.email}}
+		<ul>
+			<li>{{fp.name}}</li>
+			<li>{{fp.address.number}} {{fp.address.street}}, {{fp.address.postalCode}} {{fp.address.city}}</li>
+			<li>{{fp.phone}}</li>
+			<li>{{fp.email}}</li>
+			<li>{{fp.description}}</li>
+			<li>{{fp.tags}}</li>
+		</ul>
 	</div>
 </div>

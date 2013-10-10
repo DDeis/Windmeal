@@ -13,6 +13,7 @@ module.controller('FoodProviderSettingsController', function ($scope, $routePara
 			{},
 			function(data) {
 				$scope.fp = data;
+				console.log(data);
 			},
 			function(error) {
 				console.log("Error "+error.status);
