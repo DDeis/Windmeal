@@ -67,6 +67,6 @@ public class UserDao implements ICrudUserDao {
 	@Override
 	public User getOneByMail(String email) throws DaoException {
 		User user = collection.findOne("{'email':#}", email).as(User.class);
-		return null;  //To change body of implemented methods use File | Settings | File Templates.
+		return user;  //To change body of implemented methods use File | Settings | File Templates.
 	}
 }
