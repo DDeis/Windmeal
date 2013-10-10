@@ -64,6 +64,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 	@Override
 	public boolean supports(Class<?> aClass) {
-		return true;  //To indicate that this authenticationprovider can handle the auth request. since there's currently only one way of logging in, always return true
+		return(UsernamePasswordAuthenticationToken.class.isAssignableFrom(aClass));
 	}
 }

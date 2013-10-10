@@ -24,16 +24,16 @@ package fr.esiea.windmeal.model;
  */
 public class Meal extends Model {
 
-	private float price;
+	private Double price;
 	private String name;
 	private String description;
 	private String type;
 
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -68,7 +68,7 @@ public class Meal extends Model {
 
 		Meal meal = (Meal) o;
 
-		if (Float.compare(meal.price, price) != 0) return false;
+		if (Double.compare(meal.price, price) != 0) return false;
 		if (description != null ? !description.equals(meal.description) : meal.description != null) return false;
 		if (name != null ? !name.equals(meal.name) : meal.name != null) return false;
 		if (type != null ? !type.equals(meal.type) : meal.type != null) return false;
@@ -78,7 +78,7 @@ public class Meal extends Model {
 
 	@Override
 	public int hashCode() {
-		int result = (price != +0.0f ? Float.floatToIntBits(price) : 0);
+		int result = (price != +0.0f ? price.hashCode() : 0);
 		result = 31 * result + (name != null ? name.hashCode() : 0);
 		result = 31 * result + (description != null ? description.hashCode() : 0);
 		result = 31 * result + (type != null ? type.hashCode() : 0);
