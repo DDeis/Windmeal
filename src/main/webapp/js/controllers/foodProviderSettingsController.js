@@ -7,7 +7,10 @@ var module = angular.module('windmeal.controllers');
 module.controller('FoodProviderSettingsController', function ($scope, $routeParams, FoodProviders) {
 	$scope.fp = {};
 
+	$scope.new = true;
+
 	if($routeParams.id != undefined) {
+		$scope.new = false;
 		FoodProviders.get(
 			{id: $routeParams.id},
 			{},

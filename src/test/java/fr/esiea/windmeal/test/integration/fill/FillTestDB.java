@@ -59,7 +59,7 @@ public class FillTestDB {
         Comment comment1 = getComment(customer1, "Très bon restaurant", 4);
         Comment comment2 = getComment(customer2, "Très bon restaurant bis", 4);
 
-        FoodProvider provider = getFoodProvider(user,menu,getTags(Tag.ITALIAN), "restaurant", getComments(comment1, comment2), getAddress("8", "rue de condee", "Paris","75006"), "Marco Polo", "0667021042");
+        FoodProvider provider = getFoodProvider(user,menu,getTags(Tag.ITALIAN), "restaurant", getComments(comment1, comment2), getAddress("8 rue de condee", "Paris","75006"), "Marco Polo", "0667021042");
         providerDao.save(provider);
 
     }

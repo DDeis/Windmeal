@@ -65,9 +65,8 @@ public class FillHelper {
         return meal;
     }
 
-    public static Address getAddress(String number, String street, String city,String postcode) {
+    public static Address getAddress(String street, String city,String postcode) {
         Address address = new Address();
-        address.setNumber(number);
         address.setStreet(street);
         address.setPostalCode(postcode);
         address.setCity(city);
