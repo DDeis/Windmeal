@@ -22,6 +22,7 @@
         <jongo.version>0.4</jongo.version>
         <joda-time.version>2.3</joda-time.version>
         <elasticsearch.version>0.90.5</elasticsearch.version>
+        <opencsv.version>2.3</opencsv.version>
     </properties>
 
     <build>
@@ -207,6 +208,16 @@
             <artifactId>servlet-api</artifactId>
             <version>${servlet-api.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!--
+              Open Csv (to fill the database)
+          -->
+        <dependency>
+            <groupId>net.sf.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>${opencsv.version}</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
