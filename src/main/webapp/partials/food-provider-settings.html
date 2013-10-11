@@ -20,32 +20,50 @@
 			<div ng-switch-default>
 				<form class="form-horizontal" role="form">
 					<div class="form-group">
-						<label for="inputName" class="col-lg-2 control-label">Name</label>
-						<div class="col-lg-10">
-							<input type="text" class="form-control" id="inputName" placeholder="name" ng-model="fp.name">
+						<label for="name" class="col-lg-2 control-label">Name</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" id="name" placeholder="Name" ng-model="fp.name">
 						</div>
 					</div>
-					<div class="control-group">
-						<label for="address" class="control-label">
-							Street Address
-						</label>
-						<div class="controls"><input name="address" placeholder="W 123 Street" type="text" value="" id="address"><span class="help-inline">  Street Name and/or apartment number</span>
-						</div>
-					</div>
-
-					<div class="control-group">
-						<label for="zip" class="control-label">
-							Zip Code
-						</label>
-						<div class="controls"><input name="zip" type="text" value="" id="zip">
+					<div class="form-group">
+						<label for="address" class="col-lg-2 control-label">Street Address</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" id="address" placeholder="W 123 Street" ng-model="fp.address.street">
 						</div>
 					</div>
 
-					<div class="control-group">
-						<label for="city" class="control-label">
-							City
-						</label>
-						<div class="controls"><input name="city" type="text" value="" id="city">
+					<div class="form-group">
+						<label for="zipcode" class="col-lg-2 control-label">Zip Code</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" id="zipcode" placeholder="Zipcode" ng-model="fp.address.postalCode">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="city" class="col-lg-2 control-label">City</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" id="city" placeholder="City" ng-model="fp.address.city">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="phone" class="col-lg-2 control-label">Phone Number</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" id="phone" placeholder="Phone" ng-model="fp.phone">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="email" class="col-lg-2 control-label">Email</label>
+						<div class="col-lg-8">
+							<input type="text" class="form-control" id="email" placeholder="Email" ng-model="fp.email">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="description" class="col-lg-2 control-label">Description</label>
+						<div class="col-lg-8">
+							<textarea type="text" class="form-control" id="description" placeholder="Description" ng-model="fp.description"></textarea>
 						</div>
 					</div>
 

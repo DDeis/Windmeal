@@ -6,6 +6,7 @@ var module = angular.module('windmeal.controllers');
 
 module.controller('FoodProviderSettingsController', function ($scope, $routeParams, FoodProviders) {
 	$scope.fp = {};
+	$scope.fp.address = {};
 
 	$scope.new = true;
 
