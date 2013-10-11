@@ -10,6 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class UserImportation {
         //By using service u are sure than logic rules are applyed
         userService = (ICrudService<User>) applicationContext.getBean("userCrudService");
         ClassPathResource cpr = new ClassPathResource("data/users.csv");
-        List<Map<String, String>> usersList = readContactCSV(cpr.getURL().getPath());
+        List<Map<String, String>> usersList = readContactCSV(SolveSpaceErrors(cpr.getURL().getPath()));
 
         User user;
 
@@ -61,5 +62,11 @@ public class UserImportation {
             user = getUser(userMap.get("email"),userMap.get("password"),Profile.valueOf(userMap.get("profile")));
             userService.insert(user);
         }
+    }
+
+    private static String SolveSpaceErrors(String path) {
+        //fast fix to solve the macintosh%20hd issue
+        //Should be better handled
+        return path.replace("%20", "\\ ");
     }
 }
