@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.esiea.windmeal.dao.ICrudDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.FoodProvider;
-import fr.esiea.windmeal.model.enumeration.Comments;
+import fr.esiea.windmeal.model.enumeration.Tag;
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.Client;
@@ -129,11 +129,11 @@ public class IndexationProviderDecoratorDao implements ICrudDao<FoodProvider> {
         return null;
     }
 
-    private String getTypes(Set<Comments> tags) {
+    private String getTypes(Set<Tag> tags) {
         //TODO Should be possible to optimize
         StringBuilder builder = new StringBuilder();
-        for(Comments tag: tags) {
-            builder.append(tag.getTagName()+",");
+        for(Tag tag: tags) {
+            builder.append(tag.getTag()+",");
         }
         builder.deleteCharAt(builder.length() - 1);
         LOGGER.info("Builder type for elastic search " + builder);

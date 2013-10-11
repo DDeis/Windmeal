@@ -1,5 +1,7 @@
 package fr.esiea.windmeal.model.enumeration;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
  * <p/>
@@ -22,16 +24,23 @@ package fr.esiea.windmeal.model.enumeration;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public enum Comments {
-	SUSHI("sushi"), ITALIAN("italien");
+public enum Tag {
+	SUSHI("sushi"),
+    ITALIAN("italien");
 
+    @JsonProperty
 	private final String tag;
 
-	private Comments(String tag) {
+	private Tag(String tag) {
 		this.tag = tag;
 	}
 
-    public String getTagName()   {
+    public String getTag()   {
         return tag;
+    }
+
+    @Override
+    public String toString() {
+        return  tag;
     }
 }

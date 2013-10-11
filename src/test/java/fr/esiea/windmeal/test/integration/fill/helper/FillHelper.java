@@ -24,7 +24,7 @@
 package fr.esiea.windmeal.test.integration.fill.helper;
 
 import fr.esiea.windmeal.model.*;
-import fr.esiea.windmeal.model.enumeration.Comments;
+import fr.esiea.windmeal.model.enumeration.Tag;
 import fr.esiea.windmeal.model.security.Profile;
 
 import java.util.HashMap;
@@ -33,10 +33,10 @@ import java.util.Map;
 import java.util.Set;
 
 public class FillHelper {
-    public static Set<Comments> getTags(Comments... tags) {
-        HashSet<Comments> tagsSet = new HashSet<Comments>();
+    public static Set<Tag> getTags(Tag... tags) {
+        HashSet<Tag> tagsSet = new HashSet<Tag>();
 
-        for(Comments tag:tags)  {
+        for(Tag tag:tags)  {
             tagsSet.add(tag);
         }
         return tagsSet;
@@ -74,7 +74,7 @@ public class FillHelper {
         return address;
     }
 
-    public static FoodProvider getFoodProvider(User owner, Menu menu, Set<Comments> tag, String description, Set<Comment> comments, Address address, String name, String phone) {
+    public static FoodProvider getFoodProvider(User owner, Menu menu, Set<Tag> tag, String description, Set<Comment> comments, Address address, String name, String phone) {
         FoodProvider provider = new FoodProvider();
         provider.generateId();
         provider.setTags(tag);
