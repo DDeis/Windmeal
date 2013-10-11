@@ -70,6 +70,17 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 	function connected() {
 		console.log("the user is connected");
 		$scope.logged = true;
+		Login.get(
+			{}, // Params
+			{}, // Post Data
+			function (data, status) {
+				$scope.user = data;
+				console.log("user : ");
+				console.log(data);
+			}, function () {
+			}
+
+		);
 	}
 
 	/**

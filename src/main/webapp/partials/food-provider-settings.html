@@ -9,13 +9,53 @@
 	</div>
 	
 	<div>
-		<ul>
-			<li>{{fp.name}}</li>
-			<li>{{fp.address.number}} {{fp.address.street}}, {{fp.address.postalCode}} {{fp.address.city}}</li>
-			<li>{{fp.phone}}</li>
-			<li>{{fp.email}}</li>
-			<li>{{fp.description}}</li>
-			<li>{{fp.tags}}</li>
-		</ul>
+		<div ng-switch="new">
+
+			<ul ng-switch-when="false">
+				<li>{{fp.address.street}}, {{fp.address.postalCode}} {{fp.address.city}}</li>
+				<li>{{fp.phone}}</li>
+				<li>{{fp.email}}</li>
+				<li>{{fp.description}}</li>
+			</ul>
+			<div ng-switch-default>
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+						<label for="inputName" class="col-lg-2 control-label">Name</label>
+						<div class="col-lg-10">
+							<input type="text" class="form-control" id="inputName" placeholder="name" ng-model="fp.name">
+						</div>
+					</div>
+					<div class="control-group">
+						<label for="address" class="control-label">
+							Street Address
+						</label>
+						<div class="controls"><input name="address" placeholder="W 123 Street" type="text" value="" id="address"><span class="help-inline">  Street Name and/or apartment number</span>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="zip" class="control-label">
+							Zip Code
+						</label>
+						<div class="controls"><input name="zip" type="text" value="" id="zip">
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="city" class="control-label">
+							City
+						</label>
+						<div class="controls"><input name="city" type="text" value="" id="city">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-lg-offset-2 col-lg-10">
+							<button type="submit" class="btn btn-default">Submit</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 </div>

@@ -11,13 +11,13 @@ module.factory('FoodProviders', function ($resource) {
 		query: {method: 'GET', isArray: true},
 		get: {method: 'GET', params: {id: ':id'}},
 		save: {method: 'POST'},
-		update: {method: 'PUT'},
+		update: {method: 'PUT', params: {id: ':id'}},
 		remove: {method: 'DELETE', params: {id: ':id'}}
 	});
 });
 
 module.factory('Users', function ($resource) {
-	return $resource(path + '/addresses/:id', {}, {
+	return $resource(path + '/users/:id', {}, {
 		query: {method: 'GET', isArray: true},
 		get: {method: 'GET', params: {id: ':id'}},
 		save: {method: 'POST'},
@@ -27,7 +27,7 @@ module.factory('Users', function ($resource) {
 });
 
 module.factory('Orders', function ($resource) {
-	return $resource(path + '/addresses/:id', {}, {
+	return $resource(path + '/orders/:id', {}, {
 		query: {method: 'GET', isArray: true},
 		get: {method: 'GET', params: {id: ':id'}},
 		save: {method: 'POST'},
