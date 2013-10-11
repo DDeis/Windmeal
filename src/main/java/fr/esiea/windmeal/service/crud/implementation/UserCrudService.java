@@ -4,6 +4,7 @@ import fr.esiea.windmeal.dao.ICrudUserDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.User;
 import fr.esiea.windmeal.service.crud.ICrudUserService;
+import fr.esiea.windmeal.service.exception.EmailAlreadyExist;
 import fr.esiea.windmeal.service.exception.InvalidIdException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,42 +33,60 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserCrudService implements ICrudUserService {
-	@Autowired
-	private ICrudUserDao dao;
+    @Autowired
+    private ICrudUserDao dao;
 
-	@Override
-	public Iterable<User> getAll() throws DaoException {
-		return dao.getAll();
-	}
+    @Override
+    public Iterable<User> getAll() throws DaoException {
+        return dao.getAll();
+    }
 
-	@Override
-	public void remove(String idUser) throws DaoException {
-		dao.remove(idUser);
-	}
+    @Override
+    public void remove(String idUser) throws DaoException {
+        dao.remove(idUser);
+    }
 
-	@Override
-	public void save(User user) throws DaoException {
-		dao.save(user);
-	}
+    @Override
+    public void save(User user) throws DaoException {
+        if(checkUniqueEmail(user.getEmail(),user.getId())  )
+            dao.save(user);
+    }
 
-	@Override
-	public void insert(User user) throws DaoException {
-		dao.insert(user);
-	}
+    @Override
+    public void insert(User user) throws EmailAlreadyExist, DaoException {
+        if(checkUniqueEmail(user.getEmail()))
+            dao.insert(user);
+        else
+            throw new EmailAlreadyExist();
+    }
 
-	@Override
-	public User getOne(String userId) throws InvalidIdException, DaoException {
-		User user = dao.getOne(userId);
-		if (null == user)
-			throw new InvalidIdException();
-		return user;
-	}
+    @Override
+    public User getOne(String userId) throws InvalidIdException, DaoException {
+        User user = dao.getOne(userId);
+        if (null == user)
+            throw new InvalidIdException();
+        return user;
+    }
 
-	@Override
-	public User getOneByMail(String email) throws InvalidIdException, DaoException {
-		User user = dao.getOneByMail(email);
-		if (null == user)
-			throw new InvalidIdException();
-		return user;
-	}
+    @Override
+    public User getOneByMail(String email) throws InvalidIdException, DaoException {
+        User user = dao.getOneByMail(email);
+        if (null == user)
+            throw new InvalidIdException();
+        return user;
+    }
+
+
+    private boolean checkUniqueEmail(String email) throws DaoException {
+        return dao.getOneByMail(email) == null;
+    }
+
+
+    private boolean checkUniqueEmail(String emailUserUpdated, String idUserUpdated) throws DaoException {
+        User userUpdated = dao.getOneByMail(emailUserUpdated);
+        if(userUpdated == null)
+            return true; // case or the user update is own email
+        else
+            return userUpdated.getId().equals(idUserUpdated);
+    }
 }
