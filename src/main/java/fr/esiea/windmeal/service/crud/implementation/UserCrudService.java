@@ -85,7 +85,7 @@ public class UserCrudService implements ICrudUserService {
     private boolean checkUniqueEmail(String emailUserUpdated, String idUserUpdated) throws DaoException {
         User userUpdated = dao.getOneByMail(emailUserUpdated);
         if(userUpdated == null)
-            return true; // case or the user update is own email
+            return true; //the user update is own email
         else
             return userUpdated.getId().equals(idUserUpdated);
     }

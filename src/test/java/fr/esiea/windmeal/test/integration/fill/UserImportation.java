@@ -1,10 +1,7 @@
 package fr.esiea.windmeal.test.integration.fill;
 
 import au.com.bytecode.opencsv.CSVReader;
-import fr.esiea.windmeal.dao.ICrudDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
-import fr.esiea.windmeal.model.FoodProvider;
-import fr.esiea.windmeal.model.Menu;
 import fr.esiea.windmeal.model.User;
 import fr.esiea.windmeal.model.security.Profile;
 import fr.esiea.windmeal.service.crud.ICrudService;
@@ -13,7 +10,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 
-import javax.activation.DataHandler;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static fr.esiea.windmeal.test.integration.fill.helper.CsvHelper.readContactCSV;
 import static fr.esiea.windmeal.test.integration.fill.helper.FillHelper.getUser;
 
 /**
@@ -64,32 +61,5 @@ public class UserImportation {
             user = getUser(userMap.get("email"),userMap.get("password"),Profile.valueOf(userMap.get("profile")));
             userService.insert(user);
         }
-    }
-
-    public static List<Map<String, String>> readContactCSV(String url) {
-        List<Map<String,String>> list = new ArrayList<Map<String,String>>();
-        String[] header;
-        try {
-            CSVReader reader = new CSVReader(new FileReader(url),';');
-            //get the header
-            if((header= reader.readNext()) == null)
-                return null;//File empty
-            System.out.println(header);
-            String [] nextLine = new String[header.length];
-
-            for(int i=0;(nextLine = reader.readNext()) != null;i++) {
-                Map<String,String> map = new HashMap();
-
-                for(int j=0;j<nextLine.length;j++) {
-                    map.put(header[j],nextLine[j]);
-                }
-                list.add(map);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
-        return list;
     }
 }

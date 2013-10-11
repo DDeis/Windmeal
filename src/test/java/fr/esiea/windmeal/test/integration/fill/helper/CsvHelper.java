@@ -1,4 +1,4 @@
-package fr.esiea.windmeal.test.integration.fill.csv;
+package fr.esiea.windmeal.test.integration.fill.helper;
 
 import au.com.bytecode.opencsv.CSVReader;
 
@@ -29,7 +29,32 @@ import java.util.*;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public class CsvService {
+public class CsvHelper {
+    public static List<Map<String, String>> readContactCSV(String url) {
+        List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+        String[] header;
+        try {
+            CSVReader reader = new CSVReader(new FileReader(url),';');
+            //get the header
+            if((header= reader.readNext()) == null)
+                return null;//File empty
+            System.out.println(header);
+            String [] nextLine = new String[header.length];
 
+            for(int i=0;(nextLine = reader.readNext()) != null;i++) {
+                Map<String,String> map = new HashMap();
+
+                for(int j=0;j<nextLine.length;j++) {
+                    map.put(header[j],nextLine[j]);
+                }
+                list.add(map);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+        return list;
+    }
 
 }
