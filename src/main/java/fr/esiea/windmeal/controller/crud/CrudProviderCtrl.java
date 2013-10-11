@@ -68,9 +68,9 @@ public class CrudProviderCtrl {
 		crudService.insert(provider);
 	}
 
-	@RequestMapping(value = "", method = RequestMethod.PUT, consumes = "application/json")
+	@RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = "application/json")
 	@ResponseStatus(HttpStatus.OK)
-	public void edit(@RequestBody FoodProvider provider) throws ServiceException, DaoException {
+	public void edit(@PathVariable String id,@RequestBody FoodProvider provider) throws ServiceException, DaoException {
 
 		LOGGER.info("[Controller] Querying to edit FoodProvider : \"" + provider.toString() + "\"");
 		crudService.save(provider);

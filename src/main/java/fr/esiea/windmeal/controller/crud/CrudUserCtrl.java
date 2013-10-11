@@ -68,9 +68,9 @@ public class CrudUserCtrl {
 		crudService.insert(user);
 	}
 
-	@RequestMapping(value = "", method = RequestMethod.PUT, consumes = "application/json")
+	@RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = "application/json")
 	@ResponseStatus(HttpStatus.OK)
-	public void edit(@RequestBody User user) throws ServiceException, DaoException {
+	public void edit(@PathVariable String id,@RequestBody User user) throws ServiceException, DaoException {
 
 		LOGGER.info("[Controller] Querying to edit User : \"" + user.toString() + "\"");
 		crudService.save(user);
