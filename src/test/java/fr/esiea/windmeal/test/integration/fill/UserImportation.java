@@ -53,7 +53,6 @@ public class UserImportation {
         User user;
 
         for(Map<String,String> userMap:usersList)  {
-            user = new User();
             user = getUser(userMap.get("email"),userMap.get("password"),Profile.valueOf(userMap.get("profile")));
             userService.insert(user);
         }
