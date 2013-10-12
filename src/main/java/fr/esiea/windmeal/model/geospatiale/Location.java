@@ -24,46 +24,50 @@ package fr.esiea.windmeal.model.geospatiale;
  */
 public class Location {
 
-	private float lng;
-	private float lat;
+	private double lng;
+	private double lat;
 
-	public float getLat() {
+	public double getLat() {
 		return lat;
 	}
 
-	public void setLat(float lat) {
+	public void setLat(double lat) {
 		this.lat = lat;
 	}
 
-	public float getLng() {
+	public double getLng() {
 		return lng;
 	}
 
-	public void setLng(float lng) {
+	public void setLng(double lng) {
 		this.lng = lng;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof Location)) return false;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Location)) return false;
 
-		Location location = (Location) o;
+        Location location = (Location) o;
 
-		if (Float.compare(location.lat, lat) != 0) return false;
-		if (Float.compare(location.lng, lng) != 0) return false;
+        if (Double.compare(location.lat, lat) != 0) return false;
+        if (Double.compare(location.lng, lng) != 0) return false;
 
-		return true;
-	}
+        return true;
+    }
 
-	@Override
-	public int hashCode() {
-		int result = (lng != +0.0f ? Float.floatToIntBits(lng) : 0);
-		result = 31 * result + (lat != +0.0f ? Float.floatToIntBits(lat) : 0);
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(lng);
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(lat);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 
-	@Override
+    @Override
 	public String toString() {
 		return "Location{" +
 				"lng=" + lng +

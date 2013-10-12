@@ -207,6 +207,14 @@
             <version>${opencsv.version}</version>
             <scope>test</scope>
         </dependency>
-
+        <!--
+            Geocoder (to fill the database)
+        -->
+        <dependency>
+            <groupId>com.google.code.geocoder-java</groupId>
+            <artifactId>geocoder-java</artifactId>
+            <version>0.15</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>
