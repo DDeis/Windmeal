@@ -1,4 +1,4 @@
-package fr.esiea.windmeal.test.integration.fill.helper;
+package fr.esiea.windmeal.fill.database.helper;
 
 import au.com.bytecode.opencsv.CSVReader;
 

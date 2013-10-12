@@ -1,4 +1,4 @@
-package fr.esiea.windmeal.test.integration.fill;
+package fr.esiea.windmeal.fill.database;
 
 import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.User;
@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import static fr.esiea.windmeal.test.integration.fill.helper.CsvHelper.readContactCSV;
-import static fr.esiea.windmeal.test.integration.fill.helper.FillHelper.getUser;
+import static fr.esiea.windmeal.fill.database.helper.CsvHelper.readContactCSV;
+import static fr.esiea.windmeal.fill.database.helper.FillHelper.getUser;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs

@@ -1,4 +1,4 @@
-package fr.esiea.windmeal.test.integration.fill;
+package fr.esiea.windmeal.fill.database;
 
 import fr.esiea.windmeal.dao.ICrudDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static fr.esiea.windmeal.test.integration.fill.helper.CsvHelper.readContactCSV;
-import static fr.esiea.windmeal.test.integration.fill.helper.FillHelper.*;
+import static fr.esiea.windmeal.fill.database.helper.CsvHelper.readContactCSV;
+import static fr.esiea.windmeal.fill.database.helper.FillHelper.*;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -86,7 +86,7 @@ public class OwnerAndProviderImportaion {
         int acc =1;
 
         Set<Comment> comments = new HashSet<Comment>();
-        while(dataMap.containsKey("commentemail"+acc))  {
+        while(dataMap.containsKey("commentemail" + acc))  {
             User user = getUser(dataMap.get("commentemail"+acc), dataMap.get("commentpassword"+acc), Profile.USER);
             userService.save(user);
             Comment comment = getComment(user,dataMap.get("commenttext"+acc), Integer.valueOf(dataMap.get("commentrate" + acc)));
@@ -101,7 +101,7 @@ public class OwnerAndProviderImportaion {
         int acc =1;
 
         Set<Tag> tags = new HashSet<Tag>();
-        while(dataMap.containsKey("tag"+acc))  {
+        while(dataMap.containsKey("tag" + acc))  {
             tags.add(Tag.valueOf(dataMap.get("tag"+acc)));
             acc++;
 
@@ -113,7 +113,7 @@ public class OwnerAndProviderImportaion {
         int acc =1;
 
         Set<Meal> menu = new HashSet<Meal>();
-        while(dataMap.containsKey("mealname"+acc))  {
+        while(dataMap.containsKey("mealname" + acc))  {
             Meal meal = createMeal(dataMap.get("mealname" + acc), dataMap.get("mealdescription" + acc), Double.valueOf(dataMap.get("mealprice" + acc)));
             menu.add(meal);
             acc++;
