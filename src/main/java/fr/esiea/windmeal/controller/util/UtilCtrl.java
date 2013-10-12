@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -37,12 +40,13 @@ public class UtilCtrl {
 
     @RequestMapping(value="/tags", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public Iterable<Tag> getAll() {
-
+    public Map getAllTags() {
+        Map map = new HashMap< String,Iterable<Tag>>();
         List<Tag> tags = new ArrayList<Tag>();
         for (Tag tag : Tag.class.getEnumConstants()) {
             tags.add(tag);
         }
-        return tags;
+        map.put("tags", tags);
+        return map;
     }
 }
