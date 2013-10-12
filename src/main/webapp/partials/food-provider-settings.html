@@ -71,15 +71,11 @@
 
 				<div class="col-lg-10">
 
-					<div class="col-lg-2">
-						<label for="italian" class="control-label">Italian</label>
-						<input type="checkbox" id="italian" ng-model="tags.italian">
+					<div class="col-lg-2" ng-repeat="tag in allTags.tags">
+						<label class="control-label">{{tag}}</label>
+						<input type="checkbox"/>
 					</div>
 
-					<div class="col-lg-2">
-						<label for="description" class="control-label">Chinese</label>
-						<input type="checkbox" ng-model="tags.sushi">
-					</div>
 				</div>
 			</div>
 

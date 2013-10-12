@@ -13,8 +13,8 @@
 				</div>
 				<ul>
 					<li>Type</li>
-					<li><input type="checkbox" /> <a href="#">All ({{fps.length}})</a></li>
-					<li><input type="checkbox" /> <a href="#">Italian ({{(fps|filter:"Italian").length}})</a></li>
+					<li><input type="checkbox" ng-model="characteristics.all" ng-value="true" /> <a href="#">All ({{fps.length}})</a></li>
+					<li><input type="checkbox" ng-model="characteristics.Italian"/> <a href="#">Italian ({{(fps|filter:"Italian").length}})</a></li>
 					<li>Distance</li>
 					<li><a href="#">Link</a></li>
 					<li><a href="#">Link</a></li>
@@ -28,7 +28,7 @@
 		</aside>
 
 		<section class="col-lg-9">
-			<article ng-repeat="fp in fps">
+			<article ng-repeat="fp in fps | typeFilter:characteristics">
 				<h4><a href="#">{{fp.name}}</a></h4>
 
 				<p>{{fp.description}}</p>

@@ -46,6 +46,12 @@ module.factory('Orders', function ($resource) {
 	});
 });
 
+module.factory('Tags', function ($resource) {
+	return $resource(path + '/util/tags', {}, {
+		query: {method: 'GET'}
+	});
+});
+
 module.factory('Login', function ($resource) {
 	return $resource(path + '/login/', {}, {
 		get: {method: 'GET'},

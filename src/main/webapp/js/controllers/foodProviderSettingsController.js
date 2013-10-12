@@ -4,11 +4,26 @@
 
 var module = angular.module('windmeal.controllers');
 
-module.controller('FoodProviderSettingsController', function ($scope, $routeParams, FoodProviders) {
+module.controller('FoodProviderSettingsController', function ($scope, $routeParams, FoodProviders, Tags) {
 
 
 	$scope.fp = {};
 	$scope.fp.address = {};
+
+	$scope.allTags = [];
+	$scope.tags = {};
+
+	Tags.query(
+		{},
+		{},
+		function(data) {
+			console.log(data);
+			$scope.allTags = data;
+		},
+		function(error) {
+			console.log(error);
+		}
+	);
 
 	if($routeParams.id != undefined) {
 		FoodProviders.get(
@@ -25,29 +40,30 @@ module.controller('FoodProviderSettingsController', function ($scope, $routePara
 	}
 
 	$scope.submitInfo = function() {
-
-		if($routeParams.id != undefined) {
-			FoodProviders.update(
-				{id: $routeParams.id},
-				$scope.fp,
-				function(data) {
-					console.log(data);
-				},
-				function(error) {
-					console.log("Error "+error.status);
-				});
-		}
-		else {
-			FoodProviders.save(
-				{},
-				$scope.fp,
-				function(data) {
-					console.log(data);
-				},
-				function(error) {
-					console.log("Error "+error.status);
-				});
-		}
+		console.log($scope.tags);
+		console.log($scope.fp);
+//		if($routeParams.id != undefined) {
+//			FoodProviders.update(
+//				{id: $routeParams.id},
+//				$scope.fp,
+//				function(data) {
+//					console.log(data);
+//				},
+//				function(error) {
+//					console.log("Error "+error.status);
+//				});
+//		}
+//		else {
+//			FoodProviders.save(
+//				{},
+//				$scope.fp,
+//				function(data) {
+//					console.log(data);
+//				},
+//				function(error) {
+//					console.log("Error "+error.status);
+//				});
+//		}
 	}
 
 });
