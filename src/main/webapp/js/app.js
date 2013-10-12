@@ -24,12 +24,13 @@ windmealApp.config(['$routeProvider', '$httpProvider', function ($routeProvider,
 
 		when('/users/:id/settings', {templateUrl: 'partials/settings.html', controller: 'SettingsController'}).
 
-		when('/foodproviders', {templateUrl: 'partials/food-provider-list.html', controller: 'FoodProviderListController'}).
-		when('/foodproviders/new', {templateUrl: 'partials/food-provider-settings.html', controller: 'FoodProviderSettingsController'}).
-		when('/foodproviders/:id', {templateUrl: 'partials/food-provider-detail.html', controller: 'FoodProviderDetailController'}).
-		when('/foodproviders/:id/order', {templateUrl: 'partials/order.html', controller: 'OrderController'}).
-		when('/foodproviders/:id/dashboard', {templateUrl: 'partials/dashboard.html', controller: 'DashboardController'}).
-		when('/foodproviders/:id/edit', {templateUrl: 'partials/food-provider-settings.html', controller: 'FoodProviderSettingsController'}).
+		when('/providers', {templateUrl: 'partials/food-provider-list.html', controller: 'FoodProviderListController'}).
+		when('/providers/new', {templateUrl: 'partials/food-provider-settings.html', controller: 'FoodProviderSettingsController'}).
+		when('/providers/:id', {templateUrl: 'partials/food-provider-detail.html', controller: 'FoodProviderDetailController'}).
+		when('/providers/:id/order', {templateUrl: 'partials/order.html', controller: 'OrderController'}).
+		when('/providers/:id/dashboard', {templateUrl: 'partials/dashboard.html', controller: 'DashboardController'}).
+		when('/providers/:id/settings/info', {templateUrl: 'partials/food-provider-settings.html', controller: 'FoodProviderSettingsController'}).
+		when('/providers/:id/settings/menu', {templateUrl: 'partials/menu-settings.html', controller: 'menuSettingsController'}).
 
 		when('/error', {templateUrl: 'partials/error.html', controller: 'ErrorController'}).
 		when('/error/:status', {templateUrl: 'partials/error.html', controller: 'ErrorController'}).

@@ -87,3 +87,12 @@ footer {
 	color: white;
 	height: 50px;
 }
+
+form>.menuItem {
+	margin-bottom: 30px;
+}
+
+form>.menuItem .title {
+	padding: 5px 5px 5px 15px;
+	border-left: 8px solid #285e8e;
+}

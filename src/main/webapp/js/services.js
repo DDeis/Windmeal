@@ -26,6 +26,16 @@ module.factory('Users', function ($resource) {
 	});
 });
 
+module.factory('Menus', function ($resource) {
+	return $resource(path + '/menus/:id', {}, {
+		query: {method: 'GET', isArray: true},
+		get: {method: 'GET', params: {id: ':id'}},
+		save: {method: 'POST'},
+		update: {method: 'PUT', params: {id: ':id'}},
+		remove: {method: 'DELETE', params: {id: ':id'}}
+	});
+});
+
 module.factory('Orders', function ($resource) {
 	return $resource(path + '/orders/:id', {}, {
 		query: {method: 'GET', isArray: true},
