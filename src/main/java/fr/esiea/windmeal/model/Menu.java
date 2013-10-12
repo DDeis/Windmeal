@@ -1,6 +1,6 @@
 package fr.esiea.windmeal.model;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -25,13 +25,13 @@ import java.util.Map;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 public class Menu extends Model {
-	private Map<String, Meal> meals;
+	private List<Meal> meals;
 
-	public Map<String, Meal> getMeals() {
+	public List<Meal> getMeals() {
 		return meals;
 	}
 
-	public void setMeals(Map<String, Meal> meals) {
+	public void setMeals(List<Meal> meals) {
 		this.meals = meals;
 	}
 

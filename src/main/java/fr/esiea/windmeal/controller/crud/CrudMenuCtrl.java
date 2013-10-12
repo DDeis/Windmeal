@@ -68,11 +68,11 @@ public class CrudMenuCtrl {
 		crudService.insert(menu);
 	}
 
-	@RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = "application/json")
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/json")
 	@ResponseStatus(HttpStatus.OK)
 	public void edit(@PathVariable String id, @RequestBody Menu menu) throws ServiceException, DaoException {
 
-		LOGGER.info("[Controller] Querying to edit Menu : \"" + menu.toString() + "\"");
+		LOGGER.info("[Controller] Querying to edit Menu with id : " + menu.getId() + "\"");
 		crudService.save(menu);
 	}
 

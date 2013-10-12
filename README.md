@@ -1,2 +1,2 @@
-windmeal
+Windmeal
 ========

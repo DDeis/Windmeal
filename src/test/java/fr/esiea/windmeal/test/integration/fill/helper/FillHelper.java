@@ -27,10 +27,7 @@ import fr.esiea.windmeal.model.*;
 import fr.esiea.windmeal.model.enumeration.Tag;
 import fr.esiea.windmeal.model.security.Profile;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class FillHelper {
     public static Set<Tag> getTags(Tag... tags) {
@@ -45,13 +42,13 @@ public class FillHelper {
 
     public static Menu getMenu(Meal... meals) {
 
-        Map map = new HashMap();
+        List list = new ArrayList<>();
         Menu menu = new Menu();
         for(Meal meal:meals) {
             meal.generateId();
-            map.put(meal.getId(),meal);
+            list.add(meal);
         }
-        menu.setMeals(map);
+        menu.setMeals(list);
         menu.generateId();
         return menu;
     }

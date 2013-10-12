@@ -12,7 +12,7 @@
 		<form class="form-horizontal" role="form" ng-submit="submitMenu()">
 			<a ng-click="addMenuItem()">add</a>
 
-			<div class="menuItem" ng-repeat="menuItem in menu">
+			<div class="menuItem" ng-repeat="menuItem in menu.meals">
 				<h4 class="title">Item {{$index+1}}
 					<small><a ng-click="deleteMenuItem($index)"><span class="glyphicon glyphicon-trash"></span></a>
 					</small>
@@ -21,7 +21,7 @@
 					<label for="menuItemName{{$index}}" class="col-lg-2 control-label">Name</label>
 
 					<div class="col-lg-8">
-						<input type="text" class="form-control" id="menuItemName{{$index}}" placeholder="Name" ng-model="menu[$index].name">
+						<input type="text" class="form-control" id="menuItemName{{$index}}" placeholder="Name" ng-model="menuItem.name">
 					</div>
 				</div>
 
@@ -29,7 +29,7 @@
 					<label for="price{{$index}}" class="col-lg-2 control-label">Price</label>
 
 					<div class="col-lg-8">
-						<input type="text" class="form-control" id="price{{$index}}" placeholder="Price" ng-model="menu[$index].price">
+						<input type="text" class="form-control" id="price{{$index}}" placeholder="Price" ng-model="menuItem.price">
 					</div>
 				</div>
 
@@ -37,7 +37,7 @@
 					<label for="menuItemDescription{{$index}}" class="col-lg-2 control-label">Description</label>
 
 					<div class="col-lg-8">
-						<textarea type="text" class="form-control" id="menuItemDescription{{$index}}" placeholder="Description" ng-model="menu[$index].description"></textarea>
+						<textarea type="text" class="form-control" id="menuItemDescription{{$index}}" placeholder="Description" ng-model="menuItem.description"></textarea>
 					</div>
 				</div>
 
@@ -45,7 +45,7 @@
 					<label for="menuItemType{{$index}}" class="col-lg-2 control-label">Type</label>
 
 					<div class="col-lg-8">
-						<input type="text" class="form-control" id="menuItemType{{$index}}" placeholder="Type" ng-model="menu[$index].type">
+						<input type="text" class="form-control" id="menuItemType{{$index}}" placeholder="Type" ng-model="menuItem.type">
 					</div>
 				</div>
 			</div>
