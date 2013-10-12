@@ -1,6 +1,15 @@
-package fr.esiea.windmeal.model;
+package fr.esiea.windmeal.controller.util;
 
+import fr.esiea.windmeal.model.enumeration.Tag;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -24,35 +33,18 @@ import java.util.List;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public class Menu extends Model {
-	private List<Meal> meals;
+@Controller
+@RequestMapping("/util")
+public class UtilCtrl {
 
-    public Menu() {
-        generateId();
+    @RequestMapping(value="/tags", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public Iterable<Tag> getAll() {
+
+        List<Tag> tags = new ArrayList<Tag>();
+        for (Tag tag : Tag.class.getEnumConstants()) {
+            tags.add(tag);
+        }
+        return tags;
     }
-
-    public List<Meal> getMeals() {
-		return meals;
-	}
-
-	public void setMeals(List<Meal> meals) {
-		this.meals = meals;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof Menu)) return false;
-
-		Menu menu = (Menu) o;
-
-		if (meals != null ? !meals.equals(menu.meals) : menu.meals != null) return false;
-
-		return true;
-	}
-
-	@Override
-	public int hashCode() {
-		return meals != null ? meals.hashCode() : 0;
-	}
 }

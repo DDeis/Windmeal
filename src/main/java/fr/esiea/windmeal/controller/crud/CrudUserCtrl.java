@@ -46,7 +46,7 @@ public class CrudUserCtrl {
 
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public Iterable<User> getAll(HttpServletResponse servletResponse) throws ServiceException, DaoException, IOException {
+	public Iterable<User> getAll() throws ServiceException, DaoException, IOException {
 
 		LOGGER.info("[Controller] Querying User list");
 		return crudService.getAll();

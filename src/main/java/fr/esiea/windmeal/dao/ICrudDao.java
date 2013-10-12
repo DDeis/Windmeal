@@ -1,6 +1,7 @@
 package fr.esiea.windmeal.dao;
 
 import fr.esiea.windmeal.dao.exception.DaoException;
+import fr.esiea.windmeal.model.FoodProvider;
 import fr.esiea.windmeal.model.Model;
 
 /**
@@ -36,4 +37,5 @@ public interface ICrudDao<T extends Model> {
 	void insert(T model) throws DaoException;
 
 	void remove(String id) throws DaoException;
+
 }

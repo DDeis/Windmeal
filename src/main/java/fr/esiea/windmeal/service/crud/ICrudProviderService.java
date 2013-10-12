@@ -1,6 +1,6 @@
-package fr.esiea.windmeal.model;
+package fr.esiea.windmeal.service.crud;
 
-import java.util.List;
+import fr.esiea.windmeal.model.FoodProvider;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -24,35 +24,8 @@ import java.util.List;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public class Menu extends Model {
-	private List<Meal> meals;
+public interface ICrudProviderService extends ICrudService<FoodProvider> {
 
-    public Menu() {
-        generateId();
-    }
+    Iterable<FoodProvider> getAllProviderFromUser(String ownerId);
 
-    public List<Meal> getMeals() {
-		return meals;
-	}
-
-	public void setMeals(List<Meal> meals) {
-		this.meals = meals;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof Menu)) return false;
-
-		Menu menu = (Menu) o;
-
-		if (meals != null ? !meals.equals(menu.meals) : menu.meals != null) return false;
-
-		return true;
-	}
-
-	@Override
-	public int hashCode() {
-		return meals != null ? meals.hashCode() : 0;
-	}
 }

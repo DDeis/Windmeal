@@ -1,9 +1,9 @@
 package fr.esiea.windmeal.service.crud.implementation;
 
-import fr.esiea.windmeal.dao.ICrudDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
+import fr.esiea.windmeal.dao.ICrudProviderDao;
 import fr.esiea.windmeal.model.FoodProvider;
-import fr.esiea.windmeal.service.crud.ICrudService;
+import fr.esiea.windmeal.service.crud.ICrudProviderService;
 import fr.esiea.windmeal.service.exception.InvalidIdException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -32,10 +32,10 @@ import org.springframework.stereotype.Service;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 @Service
-public class ProviderCrudService implements ICrudService<FoodProvider> {
+public class ProviderCrudService implements ICrudProviderService {
 	@Autowired
 	@Qualifier("providerDao")
-	private ICrudDao<FoodProvider> dao;
+	private ICrudProviderDao dao;
 
 	@Override
 	public Iterable<FoodProvider> getAll() throws DaoException {
@@ -64,4 +64,9 @@ public class ProviderCrudService implements ICrudService<FoodProvider> {
 			throw new InvalidIdException();
 		return provider;
 	}
+
+    @Override
+    public Iterable<FoodProvider> getAllProviderFromUser(String ownerId) {
+        return dao.getAllProviderFromUser(ownerId);
+    }
 }
