@@ -1,6 +1,5 @@
 package fr.esiea.windmeal.test.integration.fill;
 
-import au.com.bytecode.opencsv.CSVReader;
 import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.User;
 import fr.esiea.windmeal.model.security.Profile;
@@ -10,11 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

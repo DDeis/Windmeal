@@ -27,7 +27,10 @@ import fr.esiea.windmeal.model.*;
 import fr.esiea.windmeal.model.enumeration.Tag;
 import fr.esiea.windmeal.model.security.Profile;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class FillHelper {
     public static Set<Tag> getTags(Tag... tags) {

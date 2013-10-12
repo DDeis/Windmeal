@@ -1,7 +1,5 @@
 package fr.esiea.windmeal.service.exception;
 
-import fr.esiea.windmeal.model.exception.RestException;
-
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
  * <p/>

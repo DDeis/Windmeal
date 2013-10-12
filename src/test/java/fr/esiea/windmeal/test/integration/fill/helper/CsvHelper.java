@@ -4,8 +4,10 @@ import au.com.bytecode.opencsv.CSVReader;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.Reader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -33,13 +35,13 @@ public class CsvHelper {
     public static List<Map<String, String>> readContactCSV(String url) {
         List<Map<String,String>> list = new ArrayList<Map<String,String>>();
         String[] header;
-        try {
-            CSVReader reader = new CSVReader(new FileReader(url),';');
+        try(CSVReader reader = new CSVReader(new FileReader(url),';')) {
+
             //get the header
             if((header= reader.readNext()) == null)
                 return null;//File empty
             System.out.println(header);
-            String [] nextLine = new String[header.length];
+            String [] nextLine;
 
             for(int i=0;(nextLine = reader.readNext()) != null;i++) {
                 Map<String,String> map = new HashMap();
