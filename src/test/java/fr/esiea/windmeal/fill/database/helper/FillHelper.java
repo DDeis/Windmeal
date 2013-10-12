@@ -21,18 +21,32 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package fr.esiea.windmeal.test.integration.fill.helper;
+package fr.esiea.windmeal.fill.database.helper;
 
+import com.google.code.geocoder.Geocoder;
+import com.google.code.geocoder.GeocoderRequestBuilder;
+import com.google.code.geocoder.model.GeocodeResponse;
+import com.google.code.geocoder.model.GeocoderRequest;
+import com.google.code.geocoder.model.GeocoderResult;
 import fr.esiea.windmeal.model.*;
 import fr.esiea.windmeal.model.enumeration.Tag;
+import fr.esiea.windmeal.model.geospatiale.Location;
 import fr.esiea.windmeal.model.security.Profile;
+import org.apache.log4j.Logger;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class FillHelper {
+
+    private static final Geocoder geocoder = new Geocoder();
+    private static final Logger LOGGER = Logger.getLogger(FillHelper.class);
+    /*
+             * Should be transformed as builder
+             */
     public static Set<Tag> getTags(Tag... tags) {
         HashSet<Tag> tagsSet = new HashSet<Tag>();
 
@@ -41,7 +55,6 @@ public class FillHelper {
         }
         return tagsSet;
     }
-
 
     public static Menu getMenu(Meal... meals) {
 
@@ -70,6 +83,7 @@ public class FillHelper {
         address.setStreet(street);
         address.setPostalCode(postcode);
         address.setCity(city);
+        address.setLocation(getLocation(address));
         return address;
     }
 
@@ -112,5 +126,30 @@ public class FillHelper {
         user.setProfile(provider);
         user.generateId();
         return user;
+    }
+
+    private static Location getLocation(Address address)   {
+        //Shitty code
+        GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(address.getStreet() + ", " +address.getPostalCode() + ", " + address.getCity()).setLanguage("fr").getGeocoderRequest();
+        GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
+        List<GeocoderResult> results = geocoderResponse.getResults();
+        Location location = new Location();
+
+        if(results.size () == 0)    {
+            LOGGER.error("No Answer");
+            return location;
+
+        }
+
+        if(results.size()>1)    {
+            LOGGER.warn("we can not be sure of the address we take the first response");
+        }
+
+        GeocoderResult result = results.get(0);
+        BigDecimal lat = result.getGeometry().getLocation().getLat();
+        BigDecimal lng = result.getGeometry().getLocation().getLng();
+        location.setLat(lat.doubleValue());
+        location.setLng(lng.doubleValue());
+        return location;
     }
 }
