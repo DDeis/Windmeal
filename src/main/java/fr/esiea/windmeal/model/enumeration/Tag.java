@@ -25,8 +25,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 public enum Tag {
-	SUSHI("sushi"),
-    ITALIAN("italien");
+	SUSHI("Sushi"),
+    ITALIAN("Italian");
 
     @JsonProperty
 	private final String tag;

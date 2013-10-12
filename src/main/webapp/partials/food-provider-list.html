@@ -5,6 +5,34 @@
 		</h1>
 	</div>
 
-	<div>
+	<div class="row">
+		<aside class="col-lg-3" id="sidebar" role="navigation">
+			<div class="well">
+				<div>
+					<input type="text" class="form-control" ng-model="query" />
+				</div>
+				<ul>
+					<li>Type</li>
+					<li><input type="checkbox" /> <a href="#">All ({{fps.length}})</a></li>
+					<li><input type="checkbox" /> <a href="#">Italian ({{(fps|filter:"Italian").length}})</a></li>
+					<li>Distance</li>
+					<li><a href="#">Link</a></li>
+					<li><a href="#">Link</a></li>
+					<li><a href="#">Link</a></li>
+					<li>Price</li>
+					<li><a href="#">Link</a></li>
+					<li><a href="#">Link</a></li>
+				</ul>
+			</div>
+			<!--/.well -->
+		</aside>
+
+		<section class="col-lg-9">
+			<article ng-repeat="fp in fps">
+				<h4><a href="#">{{fp.name}}</a></h4>
+
+				<p>{{fp.description}}</p>
+			</article>
+		</section>
 	</div>
 </div>
