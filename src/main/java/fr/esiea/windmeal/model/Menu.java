@@ -27,7 +27,11 @@ import java.util.List;
 public class Menu extends Model {
 	private List<Meal> meals;
 
-	public List<Meal> getMeals() {
+    public Menu() {
+        generateId();
+    }
+
+    public List<Meal> getMeals() {
 		return meals;
 	}
 
