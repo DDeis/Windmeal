@@ -4,8 +4,29 @@
 			<small>Choose your meal</small>
 		</h1>
 	</div>
-	
-	<div>
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="">Step 1: Choose your meal</a></li>
+		<li><a href="">Step 2: Address & Billing</a></li>
+		<li><a href="">Step 3: Confirm</a></li>
+	</ul>
+	<div class="row">
+		<section class="col-lg-9 row">
+			<div class="col-lg-2" ng-repeat="meal in menu.meals">
+				<ul>
+					<li>{{meal.name}}</li>
+					<li>{{meal.description}}</li>
+					<li>{{meal.price | number:2}} €</li>
+				</ul>
+				<a class="btn btn-default" href="" ng-click="addToCart(meal)">Add</a>
+			</div>
+		</section>
 
+
+		<aside class="col-lg-3 well">
+			<article ng-repeat="item in menu.meals"><span ng-show=item.nb>{{item.nb}} {{item.name}} : {{item.price * item.nb | number:2}} €</span></article>
+			{{total() | number:2}} €
+			<a class="btn btn-primary" ng-class="{'disabled': total() == 0}" href="">Next</a>
+		</aside>
 	</div>
+
 </div>

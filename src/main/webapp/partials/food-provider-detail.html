@@ -1,10 +1,10 @@
 <div class="container">
 	<div class="page-header">
 		<h1>{{fp.name}}
-			<small ng-repeat="tag in fp.tags">{{fp.tags.join(', ')}} </small>
+			<small ng-repeat="tag in fp.tags">{{fp.tags.join(', ')}}</small>
 		</h1>
 	</div>
-	
+
 	<div>
 		<ul>
 			<li>{{fp.address.street}}, {{fp.address.postalCode}} {{fp.address.city}}</li>
@@ -20,8 +20,49 @@
 				<ul>
 					<li>{{meal.name}}</li>
 					<li>{{meal.description}}</li>
-					<li>{{meal.price}}</li>
+					<li>{{meal.price | number:2}} €</li>
 				</ul>
+			</div>
+		</section>
+
+		<a class="btn btn-primary" href="#/providers/{{fp._id}}/order">Order</a>
+
+		<section>
+			<article ng-repeat="comment in fp.comments">
+				{{comment.rate}}
+				<p>{{comment.text}}</p></article>
+
+			<div class="well">
+				<form class="form-horizontal" role="form" ng-submit="submitComment()" ng-init="newComment.userId = user._id">
+
+					<div class="form-group">
+						<label for="inputComment" class="col-lg-2 control-label">Comment</label>
+
+						<div class="col-lg-10">
+							<textarea class="form-control" id="inputComment" rows="3" placeholder="Type your comment" ng-model="newComment.text"></textarea>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="inputRate" class="col-lg-2 control-label">Comment</label>
+
+						<div class="col-lg-2">
+							<select class="form-control" id="inputRate" ng-model="newComment.rate">
+								<option>1</option>
+								<option>2</option>
+								<option>3</option>
+								<option>4</option>
+								<option>5</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-lg-offset-2 col-lg-10">
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</section>
 	</div>
