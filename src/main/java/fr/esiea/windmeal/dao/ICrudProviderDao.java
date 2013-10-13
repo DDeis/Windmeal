@@ -1,5 +1,6 @@
 package fr.esiea.windmeal.dao;
 
+import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.FoodProvider;
 
 /**
@@ -25,5 +26,5 @@ import fr.esiea.windmeal.model.FoodProvider;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 public interface ICrudProviderDao extends ICrudDao<FoodProvider> {
-    Iterable<FoodProvider> getAllProviderFromUser(String userId);
+    Iterable<FoodProvider> getAllProviderFromUser(String userId) throws DaoException;
 }

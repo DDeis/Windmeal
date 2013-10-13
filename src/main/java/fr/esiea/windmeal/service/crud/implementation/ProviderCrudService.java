@@ -66,7 +66,7 @@ public class ProviderCrudService implements ICrudProviderService {
 	}
 
     @Override
-    public Iterable<FoodProvider> getAllProviderFromUser(String ownerId) {
+    public Iterable<FoodProvider> getAllProviderFromUser(String ownerId) throws DaoException {
         return dao.getAllProviderFromUser(ownerId);
     }
 }

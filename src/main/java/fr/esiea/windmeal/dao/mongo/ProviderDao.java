@@ -4,6 +4,7 @@ import fr.esiea.windmeal.dao.ICrudProviderDao;
 import fr.esiea.windmeal.dao.IGeoProviderDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.FoodProvider;
+import fr.esiea.windmeal.model.geospatiale.Location;
 import org.jongo.MongoCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -66,12 +67,14 @@ public class ProviderDao implements ICrudProviderDao,IGeoProviderDao {
 	}
 
     @Override
-    public Iterable<FoodProvider> getAllProviderFromUser(String ownerId) {
+    public Iterable<FoodProvider> getAllProviderFromUser(String ownerId) throws DaoException  {
         return collection.find("{'ownerId':#}", ownerId).as(FoodProvider.class);
     }
 
     @Override
-    public Iterable<FoodProvider> getProviderNear() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public Iterable<FoodProvider> getProviderNear(Location location, int maxDistance) throws DaoException  {
+        return collection.find("{\"address.location\":{$near:{$geometry:{type:\"Point\", coordinates:[#,#]}},$maxDistance : #}})"
+                ,location.getLng(),location.getLat(),maxDistance)
+                .as(FoodProvider.class);
     }
 }
