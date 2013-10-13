@@ -76,5 +76,4 @@
 		<constructor-arg value="${database.collection.order}" type="java.lang.String" />
 	</bean>
 
-
 </beans>

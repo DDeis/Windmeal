@@ -1,7 +1,14 @@
-package fr.esiea.windmeal.service.crud;
+package fr.esiea.windmeal.service.GeoService.implementation;
 
+import fr.esiea.windmeal.dao.IGeoProviderDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.FoodProvider;
+import fr.esiea.windmeal.model.geospatiale.Location;
+import fr.esiea.windmeal.service.GeoService.IGeoProviderService;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -25,8 +32,20 @@ import fr.esiea.windmeal.model.FoodProvider;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public interface ICrudProviderService extends ICrudService<FoodProvider> {
+@Service
+public class GeoProviderService implements IGeoProviderService  {
 
-    Iterable<FoodProvider> getAllProviderFromUser(String ownerId) throws DaoException;
+    @Autowired
+    IGeoProviderDao dao;
 
+    @Value("${geo.search.max.distance}")
+    public int maxDistance;
+
+   private static final Logger LOGGER = Logger.getLogger(GeoProviderService.class);
+
+    @Override
+    public Iterable<FoodProvider> getProviderNear(Location location) throws DaoException {
+        LOGGER.info("Research from ["+location.getLng()+","+location.getLat()+"] with max distance " + maxDistance);
+        return dao.getProviderNear(location,maxDistance);
+    }
 }
