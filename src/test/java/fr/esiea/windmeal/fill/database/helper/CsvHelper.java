@@ -40,7 +40,6 @@ public class CsvHelper {
             //get the header
             if((header= reader.readNext()) == null)
                 return null;//File empty
-            System.out.println(header);
             String [] nextLine;
 
             for(int i=0;(nextLine = reader.readNext()) != null;i++) {
