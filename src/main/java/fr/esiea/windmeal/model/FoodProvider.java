@@ -1,5 +1,6 @@
 package fr.esiea.windmeal.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import fr.esiea.windmeal.model.enumeration.Tag;
 
 import java.util.Set;
@@ -28,16 +29,24 @@ import java.util.Set;
  */
 public class FoodProvider extends Model {
 
+    @JsonView(Views.LightView.class)
 	private String name;
+    @JsonView(Views.FullView.class)
 	private Address address;
-	private String phone;
+    @JsonView(Views.FullView.class)
+    private String phone;
+    @JsonView(Views.FullView.class)
 	private String email;
+    @JsonView(Views.FullView.class)
 	private String description;
+    @JsonView(Views.FullView.class)
 	private String menuId;
+    @JsonView(Views.FullView.class)
 	private String ownerId;
-
+    @JsonView(Views.FullView.class)
 	private Set<Comment> comments;
-	private Set<Tag> tags;
+    @JsonView(Views.FullView.class)
+    private Set<Tag> tags;
 
 	public String getName() {
 		return name;
@@ -158,5 +167,10 @@ public class FoodProvider extends Model {
                 ", comments=" + comments +
                 ", tags=" + tags +
                 "} " + super.toString();
+    }
+
+    public static class Views {
+        public static class LightView {   }
+        public static class FullView extends LightView {    }
     }
 }

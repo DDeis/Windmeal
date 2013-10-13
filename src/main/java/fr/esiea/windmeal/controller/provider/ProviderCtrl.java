@@ -1,5 +1,6 @@
 package fr.esiea.windmeal.controller.provider;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.FoodProvider;
 import fr.esiea.windmeal.service.crud.ICrudProviderService;
@@ -12,10 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -49,18 +48,11 @@ public class ProviderCtrl {
 
     @RequestMapping(value="user/{ownerId}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public Iterable<String> getAll(@PathVariable String ownerId) throws ServiceException, DaoException, IOException {
+    public void getAll(@PathVariable String ownerId,HttpServletResponse servletResponse) throws ServiceException, DaoException, IOException {
 
         LOGGER.info("[Controller] Querying FoodProvider list from the user " + ownerId);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.writerWithView(FoodProvider.Views.LightView.class).writeValue(servletResponse.getOutputStream(), providerService.getAllProviderFromUser(ownerId));
 
-        List<String> foodProviderIds = new ArrayList<String>();
-        Iterator<FoodProvider> iterator = providerService.getAllProviderFromUser(ownerId).iterator();
-        while (iterator.hasNext()) {
-            FoodProvider foodProvider =  iterator.next();
-            foodProviderIds.add(foodProvider.getId());
-        }
-
-        return foodProviderIds;
     }
-
 }

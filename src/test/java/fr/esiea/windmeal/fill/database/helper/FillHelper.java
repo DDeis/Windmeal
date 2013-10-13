@@ -58,7 +58,7 @@ public class FillHelper {
 
     public static Menu getMenu(Meal... meals) {
 
-        List list = new ArrayList<>();
+        List<Meal> list = new ArrayList<Meal>();
         Menu menu = new Menu();
         for(Meal meal:meals) {
             meal.generateId();
