@@ -52,6 +52,12 @@ module.factory('Tags', function ($resource) {
 	});
 });
 
+module.factory('UtilProvider', function ($resource) {
+	return $resource(path + '/providers/user/:id', {}, {
+		query: {method: 'GET', isArray:true, params:{id: 'id'}}
+	});
+});
+
 module.factory('Login', function ($resource) {
 	return $resource(path + '/login/', {}, {
 		get: {method: 'GET'},

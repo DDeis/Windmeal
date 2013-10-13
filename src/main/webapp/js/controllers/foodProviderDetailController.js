@@ -4,15 +4,17 @@
 
 var module = angular.module('windmeal.controllers');
 
-module.controller('FoodProviderDetailController', function ($scope, $routeParams, FoodProviders) {
+module.controller('FoodProviderDetailController', function ($scope, $routeParams, FoodProviders, Menus) {
 	$scope.fp = {};
 
-	if($routeParams.id != undefined) {
-		FoodProviders.get(
-			{id: $routeParams.id},
+	$scope.menu = {};
+
+	var getMenu = function(id) {
+		Menus.get(
+			{id: id},
 			{},
 			function(data) {
-				$scope.fp = data;
+				$scope.menu = data;
 				console.log(data);
 			},
 			function(error) {
@@ -21,5 +23,19 @@ module.controller('FoodProviderDetailController', function ($scope, $routeParams
 		);
 	}
 
+	if($routeParams.id != undefined) {
+		FoodProviders.get(
+			{id: $routeParams.id},
+			{},
+			function(data) {
+				$scope.fp = data;
+				console.log(data);
+				getMenu($scope.fp.menuId);
+			},
+			function(error) {
+				console.log("Error "+error.status);
+			}
+		);
+	}
 
 });

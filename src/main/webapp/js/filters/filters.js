@@ -31,3 +31,12 @@ module.filter('typeFilter', function () {
 		return matches;
 	};
 });
+
+module.filter('tableSort', function() {
+	return function(input) {
+		if(input == undefined) {
+			return;
+		}
+		return input.sort();
+	}
+});

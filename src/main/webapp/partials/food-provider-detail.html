@@ -12,5 +12,17 @@
 			<li>{{fp.email}}</li>
 			<li>{{fp.description}}</li>
 		</ul>
+
+		<a class="btn btn-primary" href="#/providers/{{fp._id}}/order">Order</a>
+
+		<section class="row">
+			<div class="col-lg-2" ng-repeat="meal in menu.meals">
+				<ul>
+					<li>{{meal.name}}</li>
+					<li>{{meal.description}}</li>
+					<li>{{meal.price}}</li>
+				</ul>
+			</div>
+		</section>
 	</div>
 </div>

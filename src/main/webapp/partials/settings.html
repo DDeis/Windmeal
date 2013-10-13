@@ -4,9 +4,46 @@
 			<small></small>
 		</h1>
 	</div>
-	
-	<div>
-		{{user.email}}
-		<a class="btn btn-primary" href="#/providers/new">Create Restaurant</a>
+
+	<div class="row">
+		<aside class="col-lg-3" id="sidebar" role="navigation">
+			<div class="well">
+				<div>
+					<input type="text" class="form-control" ng-model="query" />
+				</div>
+				<ul>
+					<li>User</li>
+					<li><a href="" ng-click="view = 'user'">Account</a></li>
+					<li>Provider</li>
+					<li><a href="" ng-click="view = 'provider'">My restaurant</a></li>
+				</ul>
+			</div>
+			<!--/.well -->
+		</aside>
+
+		<section class="col-lg-9" ng-switch="view" ng-init="view = 'user'">
+			<div ng-switch-when="user">
+				{{user.email}}
+			</div>
+			<div ng-switch-when="provider">
+				<a class="btn btn-primary" href="#/providers/new">Create Restaurant</a>
+				<table class="table table-striped">
+					<th>
+						<td>#</td>
+						<td>Name</td>
+						<td>Address</td>
+						<td>Edit info</td>
+						<td>Edit menu</td>
+					</th>
+					<tr ng-repeat="provider in providers">
+						<td>{{$index + 1}}</td>
+						<td>{{provider.name}}</td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+		</section>
 	</div>
 </div>
