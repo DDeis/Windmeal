@@ -132,6 +132,6 @@ public class OwnerAndProviderImportaion {
     private static String SolveSpaceErrors(String path) {
         //fast fix to solve the macintosh%20hd issue
         //Should be better handled
-        return path.replace("%20", "\\ ");
+        return path.replace("%20", " ");
     }
 }
