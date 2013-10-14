@@ -37,15 +37,15 @@ public class FoodProvider extends Model {
     private String phone;
     @JsonView(Views.FullView.class)
 	private String email;
-    @JsonView(Views.FullView.class)
+    @JsonView(Views.ElasticView.class)
 	private String description;
-    @JsonView(Views.FullView.class)
+    @JsonView(Views.ElasticView.class)
 	private String menuId;
     @JsonView(Views.FullView.class)
 	private String ownerId;
     @JsonView(Views.FullView.class)
 	private Set<Comment> comments;
-    @JsonView(Views.FullView.class)
+    @JsonView(Views.ElasticView.class)
     private Set<Tag> tags;
 
 	public String getName() {
@@ -172,5 +172,7 @@ public class FoodProvider extends Model {
     public static class Views {
         public static class LightView {   }
         public static class FullView extends LightView {    }
+        public class ElasticView {
+        }
     }
 }

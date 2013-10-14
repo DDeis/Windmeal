@@ -35,9 +35,8 @@
 	<import resource="classpath:spring/dao-context.xml" />
 	<import resource="classpath:spring/validation-context.xml" />
     <import resource="classpath:spring/security-context.xml" />
-    <!--<import resource="classpath:spring/elasticsearch-context.xml" />-->
+    <import resource="classpath:spring/elasticsearch-context.xml" />
 
 	<context:component-scan base-package="fr.esiea.windmeal.dao" />
 	<context:component-scan base-package="fr.esiea.windmeal.service" />
-
 </beans>

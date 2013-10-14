@@ -40,7 +40,7 @@ import static junit.framework.Assert.assertEquals;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
         locations = {
-                "classpath*:spring/dao-test-context.xml",
+                "classpath*:spring/application-context.xml",
                 "classpath*:spring/mock-test-model.xml"
         })
 public class DaoTest {

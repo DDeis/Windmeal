@@ -34,7 +34,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProviderCrudService implements ICrudProviderService {
 	@Autowired
-	@Qualifier("providerDao")
+	@Qualifier("elasticSearchIndexation")
 	private ICrudProviderDao dao;
 
 	@Override

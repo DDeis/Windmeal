@@ -45,7 +45,7 @@
 		<mvc:message-converters register-defaults="true">
 			<bean id="jacksonMessageConverter"
 				  class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-                <property name="objectMapper" ref="springMvcObjectMapper"/>
+                <property name="objectMapper" ref="customObjectMapper"/>
             </bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>

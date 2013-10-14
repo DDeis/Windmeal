@@ -30,7 +30,7 @@
 
 <!--TODO a compléter-->
     <bean name="user" class="fr.esiea.windmeal.model.User">
-        <property name="email" value="test@gmail.com"/>
+        <property name="email" value="aaaatest@gmail.com"/>
         <property name="password" value="pwd"/>
     </bean>
 
