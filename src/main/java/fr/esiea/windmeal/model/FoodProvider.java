@@ -29,7 +29,7 @@ import java.util.Set;
  */
 public class FoodProvider extends Model {
 
-    @JsonView(Views.LightView.class)
+    @JsonView(Views.ElasticView.class)
 	private String name;
     @JsonView(Views.FullView.class)
 	private Address address;
@@ -172,7 +172,7 @@ public class FoodProvider extends Model {
     public static class Views {
         public static class LightView {   }
         public static class FullView extends LightView {    }
-        public class ElasticView {
+        public static class ElasticView {
         }
     }
 }
