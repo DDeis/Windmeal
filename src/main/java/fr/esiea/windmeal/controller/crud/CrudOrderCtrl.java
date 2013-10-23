@@ -4,6 +4,7 @@ import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.Order;
 import fr.esiea.windmeal.service.crud.ICrudService;
 import fr.esiea.windmeal.service.exception.ServiceException;
+import fr.esiea.windmeal.service.order.UpdateOrderService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -65,7 +66,7 @@ public class CrudOrderCtrl {
 	public void create(@RequestBody Order order) throws ServiceException, DaoException {
 
 		LOGGER.info("[Controller] Querying to create new order : " + order.toString() + "\"");
-		crudService.insert(order);
+        crudService.insert(order);
 	}
 
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = "application/json")

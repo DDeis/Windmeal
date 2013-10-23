@@ -12,10 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static fr.esiea.windmeal.fill.database.helper.CsvHelper.readContactCSV;
 import static fr.esiea.windmeal.fill.database.helper.FillHelper.*;
@@ -42,13 +39,13 @@ import static fr.esiea.windmeal.fill.database.helper.FillHelper.*;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public class OwnerAndProviderImportaion {
+public class OwnerAndProviderImportation {
     private static ICrudService<User> userService;
     private static ICrudService<FoodProvider> providerService;
     private static ICrudService<Menu> menuService;
+    private static ICrudDao<Order> orderDao;
+
     public static void main(String[] args) throws IOException, DaoException, ServiceException {
-
-
 
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath*:spring/application-context.xml");
 
@@ -56,7 +53,7 @@ public class OwnerAndProviderImportaion {
         userService = (ICrudService<User>) applicationContext.getBean("userCrudService");
         providerService = (ICrudService<FoodProvider>) applicationContext.getBean("providerCrudService");
         menuService = (ICrudService<Menu>) applicationContext.getBean("menuCrudService");
-
+        orderDao = (ICrudDao<Order>) applicationContext.getBean("orderDao");
         ClassPathResource cpr = new ClassPathResource("data/OwnerAndProvider.csv");
         List<Map<String, String>> usersList = readContactCSV(SolveSpaceErrors(cpr.getURL().getPath()));
 
@@ -75,10 +72,17 @@ public class OwnerAndProviderImportaion {
             Address address = getAddress(dataMap.get("street"),dataMap.get("city"),dataMap.get("postcode"));
             foodProvider = getFoodProvider(owner,menu,tags,dataMap.get("description"),comments, address,dataMap.get("name"),dataMap.get("phone"));
 
+            Order order = new Order();
+            HashSet hashSet = new HashSet();
+            hashSet.add(menu.getMeals().get(0));
+            order.setMeals(hashSet);
+            order.setFoodProviderId(foodProvider.getId());
+            order.generateId();
+
             userService.save(owner);
             menuService.save(menu);
             providerService.save(foodProvider);
-
+            orderDao.save(order);
         }
     }
 

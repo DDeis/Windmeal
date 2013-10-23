@@ -1,14 +1,6 @@
-package fr.esiea.windmeal.controller.provider.dashboard;
+package fr.esiea.windmeal.model.deffered;
 
 import fr.esiea.windmeal.model.Order;
-import fr.esiea.windmeal.model.deffered.OrderDeferredResult;
-import fr.esiea.windmeal.service.order.UpdateOrderService;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.async.DeferredResult;
 
 /**
@@ -33,22 +25,18 @@ import org.springframework.web.context.request.async.DeferredResult;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+public class OrderDeferredResult extends DeferredResult<Order> {
+    private String providerId;
 
-@Controller
-@RequestMapping("/dashboard")
-public class DashboardCtrl {
-	private final static Logger LOGGER = Logger.getLogger(DashboardCtrl.class);
-
-    @Autowired
-    UpdateOrderService updateOrderService;
-
-    @RequestMapping("/orderupdate/{providerId}")
-    @ResponseBody
-    public DeferredResult<Order> getUpdate(@PathVariable String providerId) {
-
-        final OrderDeferredResult result = new OrderDeferredResult(60000L);
-        updateOrderService.getUpdate(result,providerId);
-        return result;
+    public OrderDeferredResult(long l) {
+        super(l);
     }
 
+    public String getProviderId() {
+        return providerId;
+    }
+
+    public void setProviderId(String providerId) {
+        this.providerId = providerId;
+    }
 }
