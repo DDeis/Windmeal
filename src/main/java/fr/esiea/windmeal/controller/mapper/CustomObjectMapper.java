@@ -29,9 +29,9 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SpringMvcObjectMapper extends ObjectMapper {
+public class CustomObjectMapper extends ObjectMapper {
 
-    public SpringMvcObjectMapper() {
+    public CustomObjectMapper() {
         super();
         this.configure(SerializationFeature.WRITE_ENUMS_USING_TO_STRING,true);
         this.configure(DeserializationFeature.READ_ENUMS_USING_TO_STRING,true);

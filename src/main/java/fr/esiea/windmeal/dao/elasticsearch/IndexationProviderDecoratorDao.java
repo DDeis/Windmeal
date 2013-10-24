@@ -3,8 +3,10 @@ package fr.esiea.windmeal.dao.elasticsearch;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.esiea.windmeal.dao.ICrudDao;
+import fr.esiea.windmeal.dao.ICrudProviderDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.FoodProvider;
+import fr.esiea.windmeal.model.Menu;
 import fr.esiea.windmeal.model.enumeration.Tag;
 import org.apache.log4j.Logger;
 import org.elasticsearch.action.index.IndexResponse;
@@ -15,6 +17,7 @@ import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
 import java.util.Set;
 
@@ -41,7 +44,7 @@ import java.util.Set;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public class IndexationProviderDecoratorDao implements ICrudDao<FoodProvider> {
+public class IndexationProviderDecoratorDao implements ICrudProviderDao {
 
     private static final String INDEX = "foodprovider";
     private static final Logger LOGGER = Logger.getLogger(IndexationProviderDecoratorDao.class);
@@ -51,7 +54,12 @@ public class IndexationProviderDecoratorDao implements ICrudDao<FoodProvider> {
 
     @Autowired
     @Qualifier("providerDao")
-    private ICrudDao<FoodProvider> foodProviderCrudService;
+    private ICrudProviderDao providerDao;
+
+    @Autowired
+    @Qualifier("menuDao")
+    private ICrudDao<Menu> menuDao;
+
     Client esClient;
 
     public IndexationProviderDecoratorDao(String address,int port, String cluster) {
@@ -65,18 +73,18 @@ public class IndexationProviderDecoratorDao implements ICrudDao<FoodProvider> {
 
     @Override
     public Iterable<FoodProvider> getAll() throws DaoException {
-        return foodProviderCrudService.getAll();
+        return providerDao.getAll();
     }
 
     @Override
     public void remove(String id) throws DaoException {
-        FoodProvider model = foodProviderCrudService.getOne(id);
+        FoodProvider model = providerDao.getOne(id);
 
         esClient.prepareDelete(INDEX, getTypes(model.getTags()), model.getId())
                 .execute()
                 .actionGet();
 
-        foodProviderCrudService.remove(id);
+        providerDao.remove(id);
     }
 
 
@@ -92,7 +100,7 @@ public class IndexationProviderDecoratorDao implements ICrudDao<FoodProvider> {
         if(response.getVersion() == 1)
             LOGGER.error("You update a document that was not indexed by elastic search");
 
-        foodProviderCrudService.save(model);
+        providerDao.save(model);
     }
 
     @Override
@@ -106,7 +114,7 @@ public class IndexationProviderDecoratorDao implements ICrudDao<FoodProvider> {
                 .execute()
                 .actionGet();
 
-        foodProviderCrudService.insert(model);
+        providerDao.insert(model);
         if(response.getVersion() != 1)
             LOGGER.error("You insert a document that was already indexed by elastic search");
     }
@@ -114,13 +122,24 @@ public class IndexationProviderDecoratorDao implements ICrudDao<FoodProvider> {
 
     @Override
     public FoodProvider getOne(String id) throws DaoException {
-        return foodProviderCrudService.getOne(id);
+        return providerDao.getOne(id);
     }
 
-    private String getJson(FoodProvider model) {
+    @Override
+    public Iterable<FoodProvider> getAllProviderFromUser(String userId) throws DaoException {
+        return providerDao.getAllProviderFromUser(userId);
+    }
+
+    private String getJson(FoodProvider model) throws DaoException {
         try {
             //TODO reduce the information given to elasticsearch
-            String json = mapper.writeValueAsString(model);
+            String json = mapper.writerWithView(FoodProvider.Views.ElasticView.class).writeValueAsString(model);
+
+            String menuId = model.getMenuId();
+            Menu menu = menuDao.getOne(menuId);
+
+            json = json.replace("\"menuId\":\""+ menuId+"\"","\"menu\":"+mapper.writeValueAsString(menu));
+
             LOGGER.info("Json for elastic search " + json);
             return json;
         } catch (JsonProcessingException e) {
@@ -139,4 +158,5 @@ public class IndexationProviderDecoratorDao implements ICrudDao<FoodProvider> {
         LOGGER.info("Builder type for elastic search " + builder);
         return builder.toString();
     }
+
 }

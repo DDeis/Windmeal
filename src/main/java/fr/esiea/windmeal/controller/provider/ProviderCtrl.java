@@ -45,13 +45,15 @@ public class ProviderCtrl {
     @Autowired
     ICrudProviderService providerService;
     private final static Logger LOGGER = Logger.getLogger(ProviderCtrl.class);
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @RequestMapping(value="user/{ownerId}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public void getAll(@PathVariable String ownerId,HttpServletResponse servletResponse) throws ServiceException, DaoException, IOException {
 
         LOGGER.info("[Controller] Querying FoodProvider list from the user " + ownerId);
-        ObjectMapper objectMapper = new ObjectMapper();
+        this.objectMapper = new ObjectMapper();
         objectMapper.writerWithView(FoodProvider.Views.LightView.class).writeValue(servletResponse.getOutputStream(), providerService.getAllProviderFromUser(ownerId));
 
     }

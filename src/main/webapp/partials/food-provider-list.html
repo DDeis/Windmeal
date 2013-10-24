@@ -28,7 +28,7 @@
 		</aside>
 
 		<section class="col-lg-9">
-			<article ng-repeat="fp in fps | typeFilter:types">
+			<article ng-repeat="fp in fps | filter:query | typeFilter:types">
 				<h4><a href="#/providers/{{fp._id}}">{{fp.name}}</a></h4>
 
 				<p>{{fp.description}}</p>
