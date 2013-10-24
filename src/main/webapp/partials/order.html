@@ -1,32 +1,45 @@
-<div class="container">
+<div class="container" ng-init="view = 1">
 	<div class="page-header">
 		<h1>Order
 			<small>Choose your meal</small>
 		</h1>
 	</div>
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="">Step 1: Choose your meal</a></li>
-		<li><a href="">Step 2: Address & Billing</a></li>
-		<li><a href="">Step 3: Confirm</a></li>
+		<li ng-class="{active: view == 1}"><a href="">Step 1: Choose your meal</a></li>
+		<li ng-class="{active: view == 2}"><a href="">Step 2: Address & Billing</a></li>
+		<li ng-class="{active: view == 3}"><a href="">Step 3: Confirm</a></li>
 	</ul>
-	<div class="row">
+
+	<div class="row" ng-show="view == 1">
 		<section class="col-lg-9 row">
-			<div class="col-lg-2" ng-repeat="meal in menu.meals">
-				<ul>
-					<li>{{meal.name}}</li>
-					<li>{{meal.description}}</li>
-					<li>{{meal.price | number:2}} €</li>
-				</ul>
+			<div class="col-lg-2 menu-item" ng-repeat="meal in menu.meals">
+				<h5>{{meal.name}}</h5>
+
+				<p>
+					<small>{{meal.description}}</small>
+				</p>
+				<p>{{meal.price | number:2}} €</p>
 				<a class="btn btn-default" href="" ng-click="addToCart(meal)">Add</a>
 			</div>
 		</section>
 
-
 		<aside class="col-lg-3 well">
-			<article ng-repeat="item in menu.meals"><span ng-show=item.nb>{{item.nb}} {{item.name}} : {{item.price * item.nb | number:2}} €</span></article>
+			<article ng-repeat="item in menu.meals">
+				<span ng-show=item.nb>{{item.nb}} {{item.name}} : {{item.price * item.nb | number:2}} €</span>
+			</article>
 			{{total() | number:2}} €
-			<a class="btn btn-primary" ng-class="{'disabled': total() == 0}" href="">Next</a>
+			<a class="btn btn-primary" href="" ng-class="{'disabled': total() == 0}" ng-click="view = '2'">Next</a>
 		</aside>
+	</div>
+
+	<div class="row" ng-show="view == 2">
+		<a class="btn btn-primary" href="" ng-click="view = '1'">Previous</a>
+		<a class="btn btn-primary" href="" ng-click="view = '3'">Next</a>
+	</div>
+
+	<div class="row" ng-show="view == 3">
+		<a class="btn btn-primary" href="" ng-click="view = '2'">Previous</a>
+		<a class="btn btn-primary" ng-class="{'disabled': total() == 0}" href="" ng-click="submitOrder()">Next</a>
 	</div>
 
 </div>

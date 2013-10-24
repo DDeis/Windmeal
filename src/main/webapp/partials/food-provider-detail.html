@@ -6,30 +6,31 @@
 	</div>
 
 	<div>
-		<ul>
-			<li>{{fp.address.street}}, {{fp.address.postalCode}} {{fp.address.city}}</li>
-			<li>{{fp.phone}}</li>
-			<li>{{fp.email}}</li>
-			<li>{{fp.description}}</li>
-		</ul>
+		<section>
+			{{fp.address.street}}, {{fp.address.postalCode}} {{fp.address.city}}<br/>
+			{{fp.phone}}<br/>
+			{{fp.email}}<br/>
+			<p>{{fp.description}}</p>
 
+		</section>
+		<div rating rating-value="averageRating" readonly="true"></div>
 		<a class="btn btn-primary" href="#/providers/{{fp._id}}/order">Order</a>
 
-		<section class="row">
-			<div class="col-lg-2" ng-repeat="meal in menu.meals">
-				<ul>
-					<li>{{meal.name}}</li>
-					<li>{{meal.description}}</li>
-					<li>{{meal.price | number:2}} €</li>
-				</ul>
-			</div>
+		<section class="row menu">
+			<h3>Menu</h3>
+			<article class="col-lg-2 menu-item" ng-repeat="meal in menu.meals">
+				<h4>{{meal.name}}</h4>
+
+				<p>{{meal.description}}</p>
+				<span>{{meal.price | number:2}} €</span>
+			</article>
 		</section>
 
 		<a class="btn btn-primary" href="#/providers/{{fp._id}}/order">Order</a>
 
-		<section>
-			<article ng-repeat="comment in fp.comments">
-				{{comment.rate}}
+		<section class="comments">
+			<article class="comment" ng-repeat="comment in fp.comments">
+				<div rating readonly="true" rating-value="comment.rate"></div>
 				<p>{{comment.text}}</p></article>
 
 			<div class="well">
@@ -44,17 +45,9 @@
 					</div>
 
 					<div class="form-group">
-						<label for="inputRate" class="col-lg-2 control-label">Comment</label>
+						<label for="inputRate" class="col-lg-2 control-label">Rating</label>
 
-						<div class="col-lg-2">
-							<select class="form-control" id="inputRate" ng-model="newComment.rate">
-								<option>1</option>
-								<option>2</option>
-								<option>3</option>
-								<option>4</option>
-								<option>5</option>
-							</select>
-						</div>
+						<div class="col-lg-2" id="inputRate" rating rating-value="newComment.rate" on-rating-selected="saveRating(rating)"></div>
 					</div>
 
 					<div class="form-group">

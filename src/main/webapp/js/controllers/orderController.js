@@ -5,6 +5,9 @@
 var module = angular.module('windmeal.controllers');
 
 module.controller('OrderController', function ($scope, $routeParams, FoodProviders, Menus) {
+
+	$scope.view = 1;
+
 	$scope.fp = {};
 
 	$scope.menu = {};

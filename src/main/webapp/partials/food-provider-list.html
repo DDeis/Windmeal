@@ -11,15 +11,15 @@
 				<div>
 					<input type="text" class="form-control" ng-model="query" />
 				</div>
-				<ul>
-					<li>Type</li>
+				<ul class="provider-list-options">
+					<li class="header">Type</li>
 					<li><input type="checkbox" ng-model="types.all" ng-init="types.all = true" /> <a href="#">All ({{fps.length}})</a></li>
 					<li ng-repeat="tag in allTags.tags | tableSort"><input type="checkbox" ng-model="types[tag]"/> <a href="#">{{tag}} ({{(fps|filter:tag).length}})</a></li>
-					<li>Distance</li>
+					<li class="header">Distance</li>
 					<li><a href="#">Link</a></li>
 					<li><a href="#">Link</a></li>
 					<li><a href="#">Link</a></li>
-					<li>Price</li>
+					<li class="header">Price</li>
 					<li><a href="#">Link</a></li>
 					<li><a href="#">Link</a></li>
 				</ul>
