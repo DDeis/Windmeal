@@ -4,7 +4,7 @@
 			<small>Choose your meal</small>
 		</h1>
 	</div>
-	<ul class="nav nav-tabs">
+	<ul class="nav nav-tabs order-nav">
 		<li ng-class="{active: view == 1}"><a href="">Step 1: Choose your meal</a></li>
 		<li ng-class="{active: view == 2}"><a href="">Step 2: Address & Billing</a></li>
 		<li ng-class="{active: view == 3}"><a href="">Step 3: Confirm</a></li>
@@ -12,22 +12,42 @@
 
 	<div class="row" ng-show="view == 1">
 		<section class="col-lg-9 row">
-			<div class="col-lg-2 menu-item" ng-repeat="meal in menu.meals">
-				<h5>{{meal.name}}</h5>
+			<article class="col-lg-3 menu-item" ng-repeat="meal in menu.meals">
+				<h4 class="text-center">{{meal.name}}</h4>
 
-				<p>
-					<small>{{meal.description}}</small>
-				</p>
-				<p>{{meal.price | number:2}} €</p>
+				<p class="text-muted"><em>{{meal.description}}</em></p>
+				<h5>{{meal.price | number:2}} €</h5>
+
 				<a class="btn btn-default" href="" ng-click="addToCart(meal)">Add</a>
-			</div>
+			</article>
 		</section>
 
-		<aside class="col-lg-3 well">
-			<article ng-repeat="item in menu.meals">
-				<span ng-show=item.nb>{{item.nb}} {{item.name}} : {{item.price * item.nb | number:2}} €</span>
-			</article>
-			{{total() | number:2}} €
+		<aside class="col-lg-3 well order">
+			<table class="table table-striped">
+				<thead>
+				<tr>
+					<td class="col-lg-1 text-center">#</td>
+					<td class="col-lg-6 text-center">Menu item</td>
+					<td class="col-lg-4 text-center">Price</td>
+					<td class="col-lg-1"></td>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="item in menu.meals" ng-show=item.nb>
+					<td class="text-center">{{item.nb}}</td>
+					<td>{{item.name}}</td>
+					<td class="text-right">{{item.price * item.nb | number:2}} €</td>
+					<td><a class="glyphicon glyphicon-remove"></a></td>
+				</tr>
+				</tbody>
+				<tfoot>
+				<tr>
+					<td colspan="2">Total</td>
+					<td class="text-right">{{total() | number:2}} €</td>
+					<td><a class="glyphicon glyphicon-trash"></a></td>
+				</tr>
+				</tfoot>
+			</table>
 			<a class="btn btn-primary" href="" ng-class="{'disabled': total() == 0}" ng-click="view = '2'">Next</a>
 		</aside>
 	</div>

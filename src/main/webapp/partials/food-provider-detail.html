@@ -19,10 +19,10 @@
 		<section class="row menu">
 			<h3>Menu</h3>
 			<article class="col-lg-2 menu-item" ng-repeat="meal in menu.meals">
-				<h4>{{meal.name}}</h4>
+				<h4 class="text-center">{{meal.name}}</h4>
 
-				<p>{{meal.description}}</p>
-				<span>{{meal.price | number:2}} €</span>
+				<p class="text-muted"><em>{{meal.description}}</em></p>
+				<h5>{{meal.price | number:2}} €</h5>
 			</article>
 		</section>
 
