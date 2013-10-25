@@ -45,8 +45,9 @@ public class FillHelper {
     private static final Geocoder geocoder = new Geocoder();
     private static final Logger LOGGER = Logger.getLogger(FillHelper.class);
     /*
-             * Should be transformed as builder
-             */
+     * Should be transformed as builder
+     */
+
     public static Set<Tag> getTags(Tag... tags) {
         HashSet<Tag> tagsSet = new HashSet<Tag>();
 
