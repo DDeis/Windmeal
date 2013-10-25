@@ -5,13 +5,12 @@ import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.FoodProvider;
 import fr.esiea.windmeal.service.exception.ServiceException;
 import fr.esiea.windmeal.service.search.elasticsearch.ISearchProviderService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.Map;
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -39,16 +38,18 @@ import java.util.Map;
 @RequestMapping("/search/providers/request")
 public class ProviderSearchCtrl {
 
+    private static final Logger LOGGER = Logger.getLogger(ProviderSearchCtrl.class);
     @Autowired
     @Qualifier("elasticSearchService")
     private ISearchProviderService searchProvider;
 
-    @RequestMapping(method = RequestMethod.GET, consumes = "application/json;charset=UTF-8")
+    //curl -v -XGET -H "Content-Type:application/json" 'http://localhost:8080/windmeal/rest/search/providers/request' -d '{"request":"restaurant"}'
+    @RequestMapping(method = RequestMethod.GET, params = "request")
     @ResponseBody
-    public Iterable<FoodProvider> SearchProviderNearLocation(@RequestBody Map<String, String> searchedTermes) throws ServiceException, DaoException {
-        if(searchedTermes.containsKey("request"))
-            return searchProvider.search(searchedTermes.get("request"));
-        return  null;
+    public Iterable<FoodProvider> SearchProviderNearLocation(@RequestParam("request") String searchedTerms) throws ServiceException, DaoException {
+        LOGGER.info("The user is querying " + searchedTerms);
+        return searchProvider.search(searchedTerms);
+
     }
 
 }

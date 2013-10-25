@@ -2,9 +2,25 @@
 
 /* Services */
 
-/* User services */
 var module = angular.module('windmeal.services');
 var path = "rest";
+
+/*
+ * Service that retain the foodProvider Result
+ */
+module.service('FoodProviderResult', function () {
+    var data;
+
+    return {
+        getFoodProviderResult: function () {
+            return this.data;
+        },
+        setFoodProviderResult: function(data) {
+            this.data = data;
+
+        }
+    };
+});
 
 module.factory('FoodProviders', function ($resource) {
 	return $resource(path + '/providers/:id', {}, {
@@ -48,7 +64,7 @@ module.factory('Orders', function ($resource) {
 
 module.factory('Tags', function ($resource) {
 	return $resource(path + '/util/tags', {}, {
-		query: {method: 'GET'}
+		getTags: {method: 'GET'}
 	});
 });
 
@@ -75,4 +91,10 @@ module.factory('Logout', function ($resource) {
 	return $resource(path + '/logout/', {}, {
 		save: {method: 'POST'}
 	});
+});
+
+module.factory('Search', function ($resource) {
+    return $resource(path + '/search/providers/request', {}, {
+        search: {method: 'GET', isArray:true}
+    });
 });
