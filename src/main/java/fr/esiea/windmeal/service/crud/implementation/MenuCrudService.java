@@ -2,6 +2,7 @@ package fr.esiea.windmeal.service.crud.implementation;
 
 import fr.esiea.windmeal.dao.ICrudDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
+import fr.esiea.windmeal.model.Meal;
 import fr.esiea.windmeal.model.Menu;
 import fr.esiea.windmeal.service.crud.ICrudService;
 import fr.esiea.windmeal.service.exception.InvalidIdException;
@@ -49,11 +50,21 @@ public class MenuCrudService implements ICrudService<Menu> {
 
 	@Override
 	public void save(Menu menu) throws DaoException {
+		for (Meal meal : menu.getMeals()) {
+			if (meal.getId() == null) {
+				meal.generateId();
+			}
+		}
 		dao.save(menu);
 	}
 
 	@Override
 	public void insert(Menu menu) throws DaoException {
+		for (Meal meal : menu.getMeals()) {
+			if (meal.getId() == null) {
+				meal.generateId();
+			}
+		}
 		dao.insert(menu);
 	}
 

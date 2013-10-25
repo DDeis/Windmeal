@@ -68,7 +68,7 @@ public class OrderDao implements ICrudOrderDao {
 
 	@Override
 	public Iterable<Order> getAllFromProvider(String providerId) throws DaoException {
-		Iterable<Order> orders = collection.find("{foodProviderId: #}", providerId).as(Order.class);
+		Iterable<Order> orders = collection.find("{foodProviderId: #, state: false}", providerId).as(Order.class);
 		return orders;
 	}
 }
