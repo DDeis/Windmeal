@@ -39,10 +39,9 @@ public class ProviderCrudService implements ICrudProviderService {
 	@Autowired
 	@Qualifier("elasticSearchIndexation")
 	private ICrudProviderDao dao;
-
-    @Autowired // Only to add a comment not elegant
-    @Qualifier("providerValidationDecorator")
-    private ICrudService<FoodProvider> validationService;
+	@Autowired // Only to add a comment not elegant
+	@Qualifier("providerValidationDecorator")
+	private ICrudService<FoodProvider> validationService;
 
 	@Override
 	public Iterable<FoodProvider> getAll() throws DaoException {
@@ -72,18 +71,19 @@ public class ProviderCrudService implements ICrudProviderService {
 		return provider;
 	}
 
-    @Override
-    public Iterable<FoodProvider> getAllProviderFromUser(String ownerId) throws DaoException {
-        return dao.getAllProviderFromUser(ownerId);
-    }
+	@Override
+	public Iterable<FoodProvider> getAllProviderFromUser(String ownerId) throws DaoException {
+		return dao.getAllProviderFromUser(ownerId);
+	}
 
-    @Override
-    public void addComment(String providerId, Comment comment) throws DaoException, ServiceException {
-        FoodProvider one = dao.getOne(providerId);
-        if (one == null) {
-            throw new InvalidIdException();
-        }
-        one.addComment(comment);
-        validationService.save(one);
-    }
+	@Override
+	public void addComment(String providerId, Comment comment) throws DaoException, ServiceException {
+		FoodProvider one = dao.getOne(providerId);
+		if (one == null) {
+			throw new InvalidIdException();
+		}
+		comment.generateId();
+		one.addComment(comment);
+		validationService.save(one);
+	}
 }
