@@ -1,18 +1,20 @@
 'use strict';
 
-/* User Controllers */
-
 var module = angular.module('windmeal.controllers');
 
-module.controller('OrderController', function ($scope, $routeParams, FoodProviders, Menus) {
+module.controller('OrderController', function ($scope, $routeParams, FoodProviders, Menus, Orders) {
 
 	$scope.view = 1;
 
 	$scope.fp = {};
 
 	$scope.menu = {};
+	$scope.delivery = {};
+	$scope.payment = {};
 
-	$scope.items = [];
+	$scope.payment.card = "xxxx-xxxx-xxxx-xxx";
+	$scope.payment.cvv = "123";
+	$scope.payment.expiration = "10/2014";
 
 	var getMenu = function(id) {
 		Menus.get(
@@ -63,4 +65,29 @@ module.controller('OrderController', function ($scope, $routeParams, FoodProvide
 
 		return total;
 	};
+
+	$scope.submitOrder = function() {
+		var order = {};
+		order.foodProviderId = $routeParams.id;
+		order.meals = [];
+
+		for(var i=0; i<$scope.menu.meals.length; i++) {
+			if($scope.menu.meals[i].nb) {
+				order.meals.push({mealId: $scope.menu.meals[i]._id, number: $scope.menu.meals[i].nb});
+			}
+		}
+
+		console.log(order);
+
+		Orders.save(
+			{},
+			order,
+			function(data) {
+
+			},
+			function(error) {
+				console.log("Error while submitting the order : "+error.status);
+			}
+		);
+	}
 });

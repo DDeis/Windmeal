@@ -61,6 +61,16 @@ module.factory('Orders', function ($resource) {
 	});
 });
 
+module.factory('Comments', function ($resource) {
+	return $resource(path + '/comments/:id/', {}, {
+		query: {method: 'GET', isArray: true},
+		get: {method: 'GET', params: {id: ':id'}},
+		save: {method: 'POST'},
+		update: {method: 'PUT', params: {id: ':id'}},
+		remove: {method: 'DELETE', params: {id: ':id'}}
+	});
+});
+
 module.factory('Tags', function ($resource) {
 	return $resource(path + '/util/tags', {}, {
 		getTags: {method: 'GET'}
