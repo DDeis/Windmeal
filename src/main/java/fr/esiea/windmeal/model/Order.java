@@ -31,7 +31,7 @@ public class Order extends Model {
 	private String foodProviderId;
 	private Set<MealOrder> meals;
 	private DateTime orderDate;
-	private boolean state;
+	private boolean state = false;
 
 	public String getFoodProviderId() {
 		return foodProviderId;
