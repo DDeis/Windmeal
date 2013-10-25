@@ -9,6 +9,8 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 	$scope.login = {};
 	$scope.user = {};
 
+	$('#loginInfo').hide();
+
 	//Permet de verifier après un rafraichissement si on est loggué
 	ping();
 
@@ -48,7 +50,6 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 
 	$scope.openAuthModal = function () {
 		console.info("In open AuthModal");
-		$scope.shouldOpenAuthModal = true;
 		$('#authenticationModal').modal('show');
 	};
 
@@ -101,10 +102,9 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 	 */
 	$scope.requests401 = [];
 	$scope.$on('event:loginRequired', function () {
-		if ($scope.shouldOpenAuthModal) {
+		if ($('#authenticationModal').is(":visible")) {
 			$('#loginInfo').show();
 		}
-
 		else {
 			$scope.openAuthModal();
 		}

@@ -62,7 +62,7 @@
 
 			<section ng-switch="logged">
 				<h4>Write a Review</h4>
-				<form ng-switch-when="true" class="form-horizontal" role="form" ng-submit="submitComment()" ng-init="newComment.userId = user._id">
+				<form ng-switch-when="true" class="form-horizontal" role="form" ng-submit="submitComment(user._id)">
 					<div class="form-group">
 						<label for="inputComment" class="col-lg-2 control-label">Comment</label>
 
