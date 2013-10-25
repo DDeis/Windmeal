@@ -21,4 +21,5 @@ module.controller('SettingsController', function ($scope, $routeParams, UtilProv
 			console.log(error.status);
 		}
 	);
+
 });

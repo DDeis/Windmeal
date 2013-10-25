@@ -4,6 +4,7 @@
 			<small>Choose your meal</small>
 		</h1>
 	</div>
+
 	<ul class="nav nav-tabs order-nav">
 		<li ng-class="{active: view == 1}"><a href="">Step 1: Choose your meal</a></li>
 		<li ng-class="{active: view == 2}"><a href="">Step 2: Address & Billing</a></li>
@@ -11,6 +12,7 @@
 	</ul>
 
 	<div class="row" ng-show="view == 1">
+		<a href="#/providers/{{fp._id}}">Back to provider</a>
 		<section class="col-lg-9 row">
 			<article class="col-lg-3 menu-item" ng-repeat="meal in menu.meals">
 				<h4 class="text-center">{{meal.name}}</h4>

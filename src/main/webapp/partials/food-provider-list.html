@@ -11,7 +11,7 @@
 				<div>
 					<input type="text" class="form-control" ng-model="query" />
 				</div>
-				<ul class="provider-list-options">
+				<ul class="side-nav">
 					<li class="header">Type</li>
 					<li><input type="checkbox" ng-model="types.all" ng-init="types.all = true" /> <a href="#">All ({{fps.length}})</a></li>
 					<li ng-repeat="tag in allTags.tags | tableSort"><input type="checkbox" ng-model="types[tag]"/> <a href="#">{{tag}} ({{(fps|filter:tag).length}})</a></li>
@@ -28,6 +28,7 @@
 		</aside>
 
 		<section class="col-lg-9">
+			<p ng-show="fps.length==0">No results</p>
 			<article ng-repeat="fp in fps | filter:query | typeFilter:types">
 				<h4><a href="#/providers/{{fp._id}}">{{fp.name}}</a></h4>
 

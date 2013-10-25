@@ -42,8 +42,7 @@
 							<li><a href="#/users/{{user._id}}/settings">Settings</a></li>
 							<li class="divider" ng-show="user.profile == 'PROVIDER'"></li>
 							<li class="dropdown-header" ng-show="user.profile == 'PROVIDER'">Provider</li>
-							<li ng-show="user.profile == 'PROVIDER'"><a href="#/providers/{{provider._id}}/settings/info">Provider info</a></li>
-							<li ng-show="user.profile == 'PROVIDER'"><a href="#/providers/{{provider._id}}/settings/menu">Provider menu</a></li>
+							<li ng-show="user.profile == 'PROVIDER'"><a href="#/providers/{{provider._id}}/dashboard">Dashboard</a></li>
 							<li class="divider"></li>
 							<li><a href="#" ng-click="logout()">Disconnect</a></li>
 						</ul>
@@ -78,6 +77,7 @@
 				<button type="button"  class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<form class="form-signin" ng-submit="connect()">
 					<h2 class="form-signin-heading">Please sign in</h2>
+					<div id="loginInfo" class="text-danger">The login doesn't exist or the password is invalid</div>
 					<input type="text" class="form-control" placeholder="Email address" ng-model="login.email" autofocus required>
 					<input type="password" class="form-control" placeholder="Password" ng-model="login.password">
 					<label class="checkbox">

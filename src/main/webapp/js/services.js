@@ -9,17 +9,16 @@ var path = "rest";
  * Service that retain the foodProvider Result
  */
 module.service('FoodProviderResult', function () {
-    var data;
+	var data = [];
 
-    return {
-        getFoodProviderResult: function () {
-            return this.data;
-        },
-        setFoodProviderResult: function(data) {
-            this.data = data;
-
-        }
-    };
+	return {
+		getFoodProviderResult: function () {
+			return this.data;
+		},
+		setFoodProviderResult: function (data) {
+			this.data = data;
+		}
+	};
 });
 
 module.factory('FoodProviders', function ($resource) {
@@ -80,7 +79,7 @@ module.factory('Tags', function ($resource) {
 
 module.factory('UtilProvider', function ($resource) {
 	return $resource(path + '/providers/user/:id', {}, {
-		query: {method: 'GET', isArray:true, params:{id: 'id'}}
+		query: {method: 'GET', isArray: true, params: {id: 'id'}}
 	});
 });
 
@@ -104,7 +103,7 @@ module.factory('Logout', function ($resource) {
 });
 
 module.factory('Search', function ($resource) {
-    return $resource(path + '/search/providers/request', {}, {
-        search: {method: 'GET', isArray:true}
-    });
+	return $resource(path + '/search/providers/request', {}, {
+		search: {method: 'GET', isArray: true}
+	});
 });

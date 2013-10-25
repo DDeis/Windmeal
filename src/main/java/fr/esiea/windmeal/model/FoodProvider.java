@@ -29,24 +29,24 @@ import java.util.Set;
  */
 public class FoodProvider extends Model {
 
-    @JsonView(Views.ElasticView.class)
+	@JsonView(Views.ElasticView.class)
 	private String name;
-    @JsonView(Views.FullView.class)
+	@JsonView(Views.FullView.class)
 	private Address address;
-    @JsonView(Views.FullView.class)
-    private String phone;
-    @JsonView(Views.FullView.class)
+	@JsonView(Views.FullView.class)
+	private String phone;
+	@JsonView(Views.FullView.class)
 	private String email;
-    @JsonView(Views.ElasticView.class)
+	@JsonView(Views.ElasticView.class)
 	private String description;
-    @JsonView(Views.ElasticView.class)
+	@JsonView(Views.ElasticView.class)
 	private String menuId;
-    @JsonView(Views.FullView.class)
+	@JsonView(Views.FullView.class)
 	private String ownerId;
-    @JsonView(Views.FullView.class)
+	@JsonView(Views.FullView.class)
 	private Set<Comment> comments;
-    @JsonView(Views.ElasticView.class)
-    private Set<Tag> tags;
+	@JsonView(Views.ElasticView.class)
+	private Set<Tag> tags;
 
 	public String getName() {
 		return name;
@@ -154,25 +154,26 @@ public class FoodProvider extends Model {
 		return result;
 	}
 
-    @Override
-    public String toString() {
-        return "FoodProvider{" +
-                "name='" + name + '\'' +
-                ", address=" + address +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", description='" + description + '\'' +
-                ", menuId='" + menuId + '\'' +
-                ", ownerId='" + ownerId + '\'' +
-                ", comments=" + comments +
-                ", tags=" + tags +
-                "} " + super.toString();
-    }
+	@Override
+	public String toString() {
+		return "FoodProvider{" +
+				"name='" + name + '\'' +
+				", address=" + address +
+				", phone='" + phone + '\'' +
+				", email='" + email + '\'' +
+				", description='" + description + '\'' +
+				", menuId='" + menuId + '\'' +
+				", ownerId='" + ownerId + '\'' +
+				", comments=" + comments +
+				", tags=" + tags +
+				"} " + super.toString();
+	}
 
-    public static class Views {
-        public static class LightView {   }
-        public static class FullView extends LightView {    }
-        public static class ElasticView {
-        }
-    }
+	public static class Views {
+		public static class LightView extends ElasticView {}
+
+		public static class FullView extends LightView {}
+
+		public static class ElasticView {}
+	}
 }

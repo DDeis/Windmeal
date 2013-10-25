@@ -6,7 +6,6 @@ import fr.esiea.windmeal.model.FoodProvider;
 import fr.esiea.windmeal.service.crud.ICrudProviderService;
 import fr.esiea.windmeal.service.exception.ServiceException;
 import org.apache.log4j.Logger;
-import org.elasticsearch.action.search.SearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,21 +42,18 @@ import java.io.IOException;
 @RequestMapping("/providers")
 public class ProviderCtrl {
 
-    @Autowired
-    ICrudProviderService providerService;
-    private final static Logger LOGGER = Logger.getLogger(ProviderCtrl.class);
-    @Autowired
-    private ObjectMapper objectMapper;
+	private final static Logger LOGGER = Logger.getLogger(ProviderCtrl.class);
+	@Autowired
+	ICrudProviderService providerService;
+	@Autowired
+	private ObjectMapper objectMapper;
 
-    @RequestMapping(value="user/{ownerId}", method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public void getAll(@PathVariable String ownerId,HttpServletResponse servletResponse) throws ServiceException, DaoException, IOException {
+	@RequestMapping(value = "user/{ownerId}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public void getAll(@PathVariable String ownerId, HttpServletResponse servletResponse) throws ServiceException, DaoException, IOException {
 
-        LOGGER.info("[Controller] Querying FoodProvider list from the user " + ownerId);
-        this.objectMapper = new ObjectMapper();
-        objectMapper.writerWithView(FoodProvider.Views.LightView.class).writeValue(servletResponse.getOutputStream(), providerService.getAllProviderFromUser(ownerId));
-
-    }
-
-
+		LOGGER.info("[Controller] Querying FoodProvider list from the user " + ownerId);
+		this.objectMapper = new ObjectMapper();
+		objectMapper.writerWithView(FoodProvider.Views.LightView.class).writeValue(servletResponse.getOutputStream(), providerService.getAllProviderFromUser(ownerId));
+	}
 }
