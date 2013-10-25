@@ -17,7 +17,6 @@ module.service('FoodProviderResult', function () {
         },
         setFoodProviderResult: function(data) {
             this.data = data;
-
         }
     };
 });
