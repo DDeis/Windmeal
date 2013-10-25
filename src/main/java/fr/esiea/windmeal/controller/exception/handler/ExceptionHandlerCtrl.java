@@ -1,5 +1,6 @@
 package fr.esiea.windmeal.controller.exception.handler;
 
+import fr.esiea.windmeal.controller.exception.security.NotConnectedException;
 import fr.esiea.windmeal.model.exception.RestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,4 +44,12 @@ public class ExceptionHandlerCtrl extends ResponseEntityExceptionHandler {
 		Object model = ex.getModel();
 		return new ResponseEntity<Object>(model, HttpStatus.valueOf(ex.getStatus()));
 	}
+
+    @ExceptionHandler(value = {NotConnectedException.class})
+    protected ResponseEntity<Object> handleException(NotConnectedException ex, WebRequest request) {
+        //Permit to avoid error in log every time that the client ping to know
+        //if the user is connected and get back information about him
+        Object model = ex.getModel();
+        return new ResponseEntity<Object>(model, HttpStatus.valueOf(ex.getStatus()));
+    }
 }
