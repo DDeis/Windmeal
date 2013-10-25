@@ -2,7 +2,9 @@ package fr.esiea.windmeal.controller.crud;
 
 import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.Order;
+import fr.esiea.windmeal.service.crud.ICrudOrderService;
 import fr.esiea.windmeal.service.crud.ICrudService;
+import fr.esiea.windmeal.service.crud.implementation.OrderCrudService;
 import fr.esiea.windmeal.service.exception.ServiceException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -42,14 +43,24 @@ public class CrudOrderCtrl {
 	private final static Logger LOGGER = Logger.getLogger(CrudOrderCtrl.class);
 	@Autowired
 	@Qualifier("orderValidationDecorator")
-	ICrudService<Order> crudService;
+	ICrudService<Order> crudValidationService;
+	@Autowired
+	ICrudOrderService orderService;
 
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public Iterable<Order> getAll(HttpServletResponse servletResponse) throws ServiceException, DaoException, IOException {
+	public Iterable<Order> getAll() throws ServiceException, DaoException, IOException {
 
 		LOGGER.info("[Controller] Querying Order list");
-		return crudService.getAll();
+		return crudValidationService.getAll();
+	}
+
+	@RequestMapping(value = "/{id}/provider", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Iterable<Order> getAllFromProvider(@PathVariable("id") String providerId) throws ServiceException, DaoException, IOException {
+
+		LOGGER.info("[Controller] Querying Order for provider : "+providerId);
+		return orderService.getAllFromProvider(providerId);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = "application/json")
@@ -57,7 +68,7 @@ public class CrudOrderCtrl {
 	public Order getById(@PathVariable("id") String orderId) throws ServiceException, DaoException {
 
 		LOGGER.info("[Controller] Querying Order with id : \"" + orderId + "\"");
-		return crudService.getOne(orderId);
+		return crudValidationService.getOne(orderId);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
@@ -65,7 +76,7 @@ public class CrudOrderCtrl {
 	public void create(@RequestBody Order order) throws ServiceException, DaoException {
 
 		LOGGER.info("[Controller] Querying to create new order : " + order.toString() + "\"");
-		crudService.insert(order);
+		crudValidationService.insert(order);
 	}
 
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = "application/json")
@@ -73,7 +84,7 @@ public class CrudOrderCtrl {
 	public void edit(@PathVariable String id, @RequestBody Order order) throws ServiceException, DaoException {
 
 		LOGGER.info("[Controller] Querying to edit Order : \"" + order.toString() + "\"");
-		crudService.save(order);
+		crudValidationService.save(order);
 	}
 
 	@RequestMapping(value = "/{idOrder}", method = RequestMethod.DELETE)
@@ -81,6 +92,6 @@ public class CrudOrderCtrl {
 	public void delete(@PathVariable String idOrder) throws ServiceException, DaoException {
 
 		LOGGER.info("[Controller] Querying to delete Order with id : \"" + idOrder + "\"");
-		crudService.remove(idOrder);
+		crudValidationService.remove(idOrder);
 	}
 }

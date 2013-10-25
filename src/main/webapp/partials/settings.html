@@ -8,13 +8,10 @@
 	<div class="row">
 		<aside class="col-lg-3" id="sidebar" role="navigation">
 			<div class="well">
-				<div>
-					<input type="text" class="form-control" ng-model="query" />
-				</div>
-				<ul>
-					<li>User</li>
+				<ul class="side-nav">
+					<li class="header">User</li>
 					<li><a href="" ng-click="view = 'user'">Account</a></li>
-					<li>Provider</li>
+					<li class="header">Provider</li>
 					<li><a href="" ng-click="view = 'provider'">My restaurant</a></li>
 				</ul>
 			</div>
@@ -28,20 +25,24 @@
 			<div ng-switch-when="provider">
 				<a class="btn btn-primary" href="#/providers/new">Create Restaurant</a>
 				<table class="table table-striped">
-					<th>
+					<thead>
+					<tr>
 						<td>#</td>
 						<td>Name</td>
 						<td>Address</td>
 						<td>Edit info</td>
 						<td>Edit menu</td>
-					</th>
+					</tr>
+					</thead>
+					<tbody>
 					<tr ng-repeat="provider in providers">
 						<td>{{$index + 1}}</td>
 						<td>{{provider.name}}</td>
-						<td></td>
-						<td></td>
+						<td>{{provider.address}}</td>
+						<td><a href="#/providers/{{provider._id}}/settings/info" class="glyphicon glyphicon-search"></a></td>
 						<td></td>
 					</tr>
+					</tbody>
 				</table>
 			</div>
 		</section>

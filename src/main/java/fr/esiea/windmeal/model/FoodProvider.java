@@ -30,133 +30,135 @@ import java.util.Set;
 public class FoodProvider extends Model {
 
     @JsonView(Views.ElasticView.class)
-	private String name;
+    private String name;
     @JsonView(Views.FullView.class)
-	private Address address;
+    private Address address;
     @JsonView(Views.FullView.class)
     private String phone;
     @JsonView(Views.FullView.class)
-	private String email;
+    private String email;
     @JsonView(Views.ElasticView.class)
-	private String description;
+    private String description;
     @JsonView(Views.ElasticView.class)
-	private String menuId;
+    private String menuId;
     @JsonView(Views.FullView.class)
-	private String ownerId;
+    private String ownerId;
     @JsonView(Views.FullView.class)
-	private Set<Comment> comments;
+    private Set<Comment> comments;
     @JsonView(Views.ElasticView.class)
     private Set<Tag> tags;
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public Address getAddress() {
-		return address;
-	}
+    public Address getAddress() {
+        return address;
+    }
 
-	public void setAddress(Address address) {
-		this.address = address;
-	}
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
+    public String getPhone() {
+        return phone;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public String getMenuId() {
-		return menuId;
-	}
+    public String getMenuId() {
+        return menuId;
+    }
 
-	public void setMenuId(String menuId) {
-		this.menuId = menuId;
-	}
+    public void setMenuId(String menuId) {
+        this.menuId = menuId;
+    }
 
-	public String getOwnerId() {
-		return ownerId;
-	}
+    public String getOwnerId() {
+        return ownerId;
+    }
 
-	public void setOwnerId(String ownerId) {
-		this.ownerId = ownerId;
-	}
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
 
-	public Set<Tag> getTags() {
-		return tags;
-	}
+    public Set<Tag> getTags() {
+        return tags;
+    }
 
-	public void setTags(Set<Tag> tags) {
-		this.tags = tags;
-	}
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
+    }
 
-	public Set<Comment> getComments() {
-		return comments;
-	}
+    public Set<Comment> getComments() {
+        return comments;
+    }
 
-	public void setComments(Set<Comment> comments) {
-		this.comments = comments;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (!(o instanceof FoodProvider)) return false;
-
-		FoodProvider that = (FoodProvider) o;
-
-		if (address != null ? !address.equals(that.address) : that.address != null) return false;
-		if (comments != null ? !comments.equals(that.comments) : that.comments != null) return false;
-		if (description != null ? !description.equals(that.description) : that.description != null) return false;
-		if (email != null ? !email.equals(that.email) : that.email != null) return false;
-		if (menuId != null ? !menuId.equals(that.menuId) : that.menuId != null) return false;
-		if (name != null ? !name.equals(that.name) : that.name != null) return false;
-		if (ownerId != null ? !ownerId.equals(that.ownerId) : that.ownerId != null) return false;
-		if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
-		if (tags != null ? !tags.equals(that.tags) : that.tags != null) return false;
-
-		return true;
-	}
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
 
     public void addComment(Comment comment) {
         comments.add(comment);
     }
 
-	@Override
-	public int hashCode() {
-		int result = name != null ? name.hashCode() : 0;
-		result = 31 * result + (address != null ? address.hashCode() : 0);
-		result = 31 * result + (phone != null ? phone.hashCode() : 0);
-		result = 31 * result + (email != null ? email.hashCode() : 0);
-		result = 31 * result + (description != null ? description.hashCode() : 0);
-		result = 31 * result + (menuId != null ? menuId.hashCode() : 0);
-		result = 31 * result + (ownerId != null ? ownerId.hashCode() : 0);
-		result = 31 * result + (comments != null ? comments.hashCode() : 0);
-		result = 31 * result + (tags != null ? tags.hashCode() : 0);
-		return result;
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof FoodProvider)) return false;
+        if (!super.equals(o)) return false;
+
+        FoodProvider that = (FoodProvider) o;
+
+        if (address != null ? !address.equals(that.address) : that.address != null) return false;
+        if (comments != null ? !comments.equals(that.comments) : that.comments != null) return false;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        if (email != null ? !email.equals(that.email) : that.email != null) return false;
+        if (menuId != null ? !menuId.equals(that.menuId) : that.menuId != null) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (ownerId != null ? !ownerId.equals(that.ownerId) : that.ownerId != null) return false;
+        if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
+        if (tags != null ? !tags.equals(that.tags) : that.tags != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (phone != null ? phone.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (menuId != null ? menuId.hashCode() : 0);
+        result = 31 * result + (ownerId != null ? ownerId.hashCode() : 0);
+        result = 31 * result + (comments != null ? comments.hashCode() : 0);
+        result = 31 * result + (tags != null ? tags.hashCode() : 0);
+        return result;
+    }
 
     @Override
     public String toString() {
@@ -171,12 +173,5 @@ public class FoodProvider extends Model {
                 ", comments=" + comments +
                 ", tags=" + tags +
                 "} " + super.toString();
-    }
-
-
-    public static class Views {
-        public static class LightView  {   }
-        public static class FullView extends LightView {    }
-        public static class ElasticView {}
     }
 }

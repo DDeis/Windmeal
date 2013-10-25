@@ -1,8 +1,10 @@
 package fr.esiea.windmeal.service.crud.implementation;
 
 import fr.esiea.windmeal.dao.ICrudDao;
+import fr.esiea.windmeal.dao.ICrudOrderDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.Order;
+import fr.esiea.windmeal.service.crud.ICrudOrderService;
 import fr.esiea.windmeal.service.crud.ICrudService;
 import fr.esiea.windmeal.service.exception.InvalidIdException;
 import org.joda.time.DateTime;
@@ -33,10 +35,10 @@ import org.springframework.stereotype.Service;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 @Service
-public class OrderCrudService implements ICrudService<Order> {
+public class OrderCrudService implements ICrudOrderService {
 	@Autowired
 	@Qualifier("orderDao")
-	private ICrudDao<Order> dao;
+	private ICrudOrderDao dao;
 
 	@Override
 	public Iterable<Order> getAll() throws DaoException {
@@ -55,7 +57,8 @@ public class OrderCrudService implements ICrudService<Order> {
 
 	@Override
 	public void insert(Order order) throws DaoException {
-        order.setOrderDate(new DateTime());
+		order.setState(false);
+		order.setOrderDate(new DateTime());
 		dao.insert(order);
 	}
 
@@ -65,5 +68,10 @@ public class OrderCrudService implements ICrudService<Order> {
 		if (null == order)
 			throw new InvalidIdException();
 		return order;
+	}
+
+	@Override
+	public Iterable<Order> getAllFromProvider(String providerId) throws DaoException {
+		return dao.getAllFromProvider(providerId);
 	}
 }
