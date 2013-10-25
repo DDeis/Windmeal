@@ -55,8 +55,12 @@
 	<!--
 	   Jongo Configuration
 	-->
+
+    <bean id="jongoCustomMapper" factory-bean="jongoCustomMapperFactory" factory-method="getMapper"/>
+
 	<bean id="jongo" class="org.jongo.Jongo">
 		<constructor-arg name="database" ref="mongoDatabase" type="com.mongodb.DB" index="0" />
+        <constructor-arg name="mapper" ref="jongoCustomMapper" index="1" />
 	</bean>
 
 	<!--
