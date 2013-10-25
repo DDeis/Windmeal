@@ -1,9 +1,12 @@
-package fr.esiea.windmeal.service.GeoService;
+package fr.esiea.windmeal.test.elasticsearch;
 
-import fr.esiea.windmeal.dao.exception.DaoException;
-import fr.esiea.windmeal.model.FoodProvider;
-import fr.esiea.windmeal.model.geospatiale.Location;
-import fr.esiea.windmeal.service.exception.ServiceException;
+import fr.esiea.windmeal.service.search.elasticsearch.implementation.ElasticsearchProviderService;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -27,8 +30,23 @@ import fr.esiea.windmeal.service.exception.ServiceException;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public interface IGeoProviderService {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(
+        locations = {
+                "classpath*:spring/application-context.xml",
+        })
+public class ElasticsearchTest {
 
-    public Iterable<FoodProvider> getProviderNear(Location location) throws DaoException,ServiceException;
+    @Autowired
+    private ElasticsearchProviderService service;
 
+    @Before
+    public void setUp() throws Exception {
+
+    }
+
+    @Test
+    public void testName() throws Exception {
+        System.out.println(service.search("traditionnel marcopolo"));
+    }
 }

@@ -1,13 +1,14 @@
-package fr.esiea.windmeal.controller.provider.search.geo;
+package fr.esiea.windmeal.service.search.geo.implementation;
 
+import fr.esiea.windmeal.dao.IGeoProviderDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.FoodProvider;
 import fr.esiea.windmeal.model.geospatiale.Location;
 import fr.esiea.windmeal.service.search.geo.IGeoProviderService;
-import fr.esiea.windmeal.service.exception.ServiceException;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -29,21 +30,22 @@ import org.springframework.web.bind.annotation.*;
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
  * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- * WITH THE SOFTWARE OR THE USE OR OTHER DELINGS IN THE SOFTWARE.
+ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-@Controller
-@RequestMapping("/search/providers/location")
-public class GeoProviderSearchCtrl {
+@Service
+public class GeoProviderService implements IGeoProviderService  {
 
     @Autowired
-    IGeoProviderService geoService;
-    //curl test on marco polo on data curl -v -XGET -H "Content-Type:application/json" 'http://localhost:8080/windmeal/rest/search/providers/' -d '{"lat":"48.8488576","lng":"2.3354223"}'
-    @RequestMapping(method = RequestMethod.GET, consumes = "application/json;charset=UTF-8")
-    @ResponseBody
-    public Iterable<FoodProvider> SearchProviderNearLocation(@RequestBody Location location) throws ServiceException, DaoException {
-        return geoService.getProviderNear(location);
+    IGeoProviderDao dao;
+
+    @Value("${geo.search.max.distance}")
+    public int maxDistance;
+
+   private static final Logger LOGGER = Logger.getLogger(GeoProviderService.class);
+
+    @Override
+    public Iterable<FoodProvider> getProviderNear(Location location) throws DaoException {
+        LOGGER.info("Research from ["+location.getLng()+","+location.getLat()+"] with max distance " + maxDistance);
+        return dao.getProviderNear(location,maxDistance);
     }
-
 }
-
-

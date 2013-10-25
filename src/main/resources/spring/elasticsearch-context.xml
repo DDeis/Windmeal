@@ -8,10 +8,15 @@
 
     <context:component-scan base-package="fr.esiea.windmeal.controller.mapper" />
 
-    <bean id="elasticSearchIndexation" class="fr.esiea.windmeal.dao.elasticsearch.IndexationProviderDecoratorDao">
+    <bean id="elasticSearchIndexation" class="fr.esiea.windmeal.dao.elasticsearch.IndexationProviderDecoratorDao" >
         <constructor-arg name="address" value="${elasticsearch.address}" index="0"/>
         <constructor-arg name="port" value="${elasticsearch.port}" index="1"/>
         <constructor-arg name="cluster" value="${elasticsearch.cluster}" index="2"/>
     </bean>
 
+    <bean id="elasticSearchService" class="fr.esiea.windmeal.service.search.elasticsearch.implementation.ElasticsearchProviderService" >
+        <constructor-arg name="address" value="${elasticsearch.address}" index="0"/>
+        <constructor-arg name="port" value="${elasticsearch.port}" index="1"/>
+        <constructor-arg name="cluster" value="${elasticsearch.cluster}" index="2"/>
+    </bean>
 </beans>

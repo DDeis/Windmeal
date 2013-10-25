@@ -6,6 +6,7 @@ import fr.esiea.windmeal.model.FoodProvider;
 import fr.esiea.windmeal.service.crud.ICrudProviderService;
 import fr.esiea.windmeal.service.exception.ServiceException;
 import org.apache.log4j.Logger;
+import org.elasticsearch.action.search.SearchResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -57,4 +58,6 @@ public class ProviderCtrl {
         objectMapper.writerWithView(FoodProvider.Views.LightView.class).writeValue(servletResponse.getOutputStream(), providerService.getAllProviderFromUser(ownerId));
 
     }
+
+
 }

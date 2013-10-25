@@ -1,15 +1,18 @@
-package fr.esiea.windmeal.service.GeoService.implementation;
+package fr.esiea.windmeal.controller.provider.search.elastisearch;
 
-import fr.esiea.windmeal.dao.IGeoProviderDao;
+
 import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.FoodProvider;
-import fr.esiea.windmeal.model.geospatiale.Location;
-import fr.esiea.windmeal.service.GeoService.IGeoProviderService;
-import org.apache.log4j.Logger;
+import fr.esiea.windmeal.service.exception.ServiceException;
+import fr.esiea.windmeal.service.search.elasticsearch.ISearchProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import java.util.Map;
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
  * <p/>
@@ -30,22 +33,24 @@ import org.springframework.stereotype.Service;
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
  * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * WITH THE SOFTWARE OR THE USE OR OTHER DELINGS IN THE SOFTWARE.
  */
-@Service
-public class GeoProviderService implements IGeoProviderService  {
+@Controller
+@RequestMapping("/search/providers/request")
+public class ProviderSearchCtrl {
 
     @Autowired
-    IGeoProviderDao dao;
+    @Qualifier("elasticSearchService")
+    private ISearchProviderService searchProvider;
 
-    @Value("${geo.search.max.distance}")
-    public int maxDistance;
-
-   private static final Logger LOGGER = Logger.getLogger(GeoProviderService.class);
-
-    @Override
-    public Iterable<FoodProvider> getProviderNear(Location location) throws DaoException {
-        LOGGER.info("Research from ["+location.getLng()+","+location.getLat()+"] with max distance " + maxDistance);
-        return dao.getProviderNear(location,maxDistance);
+    @RequestMapping(method = RequestMethod.GET, consumes = "application/json;charset=UTF-8")
+    @ResponseBody
+    public Iterable<FoodProvider> SearchProviderNearLocation(@RequestBody Map<String, String> searchedTermes) throws ServiceException, DaoException {
+        if(searchedTermes.containsKey("request"))
+            return searchProvider.search(searchedTermes.get("request"));
+        return  null;
     }
+
 }
+
+

@@ -140,6 +140,10 @@
             <artifactId>elasticsearch</artifactId>
             <version>${elasticsearch.version}</version>
         </dependency>
+        <!--
+        Issue on thread local at org.elasticsearch.common.inject.InjectorImpl when tomcat is stop
+        https://github.com/elasticsearch/elasticsearch/issues/283
+        -->
 
         <!--
             Bean Validation

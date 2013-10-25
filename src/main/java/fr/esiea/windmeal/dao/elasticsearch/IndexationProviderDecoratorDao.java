@@ -64,11 +64,17 @@ public class IndexationProviderDecoratorDao implements ICrudProviderDao {
 
     public IndexationProviderDecoratorDao(String address,int port, String cluster) {
 
-        Settings settings = ImmutableSettings.settingsBuilder()
+        final Settings settings = ImmutableSettings.settingsBuilder()
                 .put("cluster.name", cluster).build();
 
-        esClient= new TransportClient(settings)
+        this.esClient= new TransportClient(settings)
                 .addTransportAddress(new InetSocketTransportAddress("localhost", 9300));
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+        esClient.close();
     }
 
     @Override
