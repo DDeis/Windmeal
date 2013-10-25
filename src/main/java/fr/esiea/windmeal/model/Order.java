@@ -31,6 +31,7 @@ public class Order extends Model {
 	private String foodProviderId;
 	private Set<MealOrder> meals;
 	private DateTime orderDate;
+	private boolean state;
 
 	public String getFoodProviderId() {
 		return foodProviderId;
@@ -56,35 +57,37 @@ public class Order extends Model {
 		this.orderDate = orderDate;
 	}
 
+	public boolean isState() {
+		return state;
+	}
+
+	public void setState(boolean state) {
+		this.state = state;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (!(o instanceof Order)) return false;
+		if (o == null || getClass() != o.getClass()) return false;
+		if (!super.equals(o)) return false;
 
 		Order order = (Order) o;
 
-		if (foodProviderId != null ? !foodProviderId.equals(order.foodProviderId) : order.foodProviderId != null)
-			return false;
-		if (meals != null ? !meals.equals(order.meals) : order.meals != null) return false;
-		if (orderDate != null ? !orderDate.equals(order.orderDate) : order.orderDate != null) return false;
+		if (state != order.state) return false;
+		if (!foodProviderId.equals(order.foodProviderId)) return false;
+		if (!meals.equals(order.meals)) return false;
+		if (!orderDate.equals(order.orderDate)) return false;
 
 		return true;
 	}
 
 	@Override
 	public int hashCode() {
-		int result = foodProviderId != null ? foodProviderId.hashCode() : 0;
-		result = 31 * result + (meals != null ? meals.hashCode() : 0);
-		result = 31 * result + (orderDate != null ? orderDate.hashCode() : 0);
+		int result = super.hashCode();
+		result = 31 * result + foodProviderId.hashCode();
+		result = 31 * result + meals.hashCode();
+		result = 31 * result + orderDate.hashCode();
+		result = 31 * result + (state ? 1 : 0);
 		return result;
-	}
-
-	@Override
-	public String toString() {
-		return "Order{" +
-				"foodProviderId='" + foodProviderId + '\'' +
-				", meals=" + meals +
-				", orderDate=" + orderDate +
-				"} " + super.toString();
 	}
 }

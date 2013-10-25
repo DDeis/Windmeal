@@ -9,24 +9,7 @@
 	</div>
 
 	<div class="row">
-		<aside class="col-lg-3" id="sidebar" role="navigation">
-			<div class="well sidebar-nav">
-				<ul class="nav">
-					<li>Sidebar</li>
-					<li class="active"><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
-					<li>Sidebar</li>
-					<li><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
-					<li>Sidebar</li>
-					<li><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
-				</ul>
-			</div><!--/.well -->
-		</aside>
-		<form class="col-lg-9 form-horizontal" role="form" ng-submit="submitMenu()">
+		<form class="col-lg-12 form-horizontal" role="form" ng-submit="submitMenu()">
 			<a ng-click="addMenuItem()">add</a>
 
 			<div class="menuItem" ng-repeat="menuItem in menu.meals">
@@ -66,6 +49,8 @@
 					</div>
 				</div>
 			</div>
+
+			<a ng-click="addMenuItem()">add</a>
 
 			<div class="form-group">
 				<div class="col-lg-offset-3 col-lg-9">

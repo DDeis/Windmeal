@@ -32,28 +32,29 @@ module.controller('FoodProviderSettingsController', function ($scope, $routePara
 	$scope.submitInfo = function() {
 		console.log($scope.tags);
 		console.log($scope.fp);
-//		if($routeParams.id != undefined) {
-//			FoodProviders.update(
-//				{id: $routeParams.id},
-//				$scope.fp,
-//				function(data) {
-//					console.log(data);
-//				},
-//				function(error) {
-//					console.log("Error "+error.status);
-//				});
-//		}
-//		else {
-//			FoodProviders.save(
-//				{},
-//				$scope.fp,
-//				function(data) {
-//					console.log(data);
-//				},
-//				function(error) {
-//					console.log("Error "+error.status);
-//				});
-//		}
+		if($routeParams.id != undefined) {
+			FoodProviders.update(
+				{id: $routeParams.id},
+				$scope.fp,
+				function(data) {
+					console.log(data);
+				},
+				function(error) {
+					console.log("Error "+error.status);
+				});
+		}
+		else {
+			FoodProviders.save(
+				{},
+				$scope.fp,
+				function(data) {
+					console.log(data);
+				},
+				function(error) {
+					console.log("Error "+error.status);
+				}
+			);
+		}
 	}
 
 });

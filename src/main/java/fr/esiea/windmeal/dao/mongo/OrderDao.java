@@ -1,7 +1,9 @@
 package fr.esiea.windmeal.dao.mongo;
 
 import fr.esiea.windmeal.dao.ICrudDao;
+import fr.esiea.windmeal.dao.ICrudOrderDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
+import fr.esiea.windmeal.model.FoodProvider;
 import fr.esiea.windmeal.model.Order;
 import org.jongo.MongoCollection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +33,7 @@ import org.springframework.stereotype.Repository;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 @Repository
-public class OrderDao implements ICrudDao<Order> {
+public class OrderDao implements ICrudOrderDao {
 	@Autowired
 	@Qualifier("orderCollection")
 	MongoCollection collection;
@@ -61,6 +63,12 @@ public class OrderDao implements ICrudDao<Order> {
 
 	@Override
 	public void remove(String id) throws DaoException {
-		collection.remove("{'_id':#}", id);
+		collection.remove("{_id: #}", id);
+	}
+
+	@Override
+	public Iterable<Order> getAllFromProvider(String providerId) throws DaoException {
+		Iterable<Order> orders = collection.find("{foodProviderId: #}", providerId).as(Order.class);
+		return orders;
 	}
 }

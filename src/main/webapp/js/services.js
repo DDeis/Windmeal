@@ -52,8 +52,8 @@ module.factory('Menus', function ($resource) {
 });
 
 module.factory('Orders', function ($resource) {
-	return $resource(path + '/orders/:id', {}, {
-		query: {method: 'GET', isArray: true},
+	return $resource(path + '/orders/:id/:provider', {}, {
+		getFromProvider: {method: 'GET', isArray: true, params: {id: ':id', provider: 'provider'}},
 		get: {method: 'GET', params: {id: ':id'}},
 		save: {method: 'POST'},
 		update: {method: 'PUT', params: {id: ':id'}},
