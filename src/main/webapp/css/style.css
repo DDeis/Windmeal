@@ -112,28 +112,18 @@ ul.provider-list-options>li.header {
 
 ul.rating {
 	list-style: none;
-	padding-left: 0;
+	padding: 0;
+	margin: 0;
 }
 
 ul.rating>li {
-	display: inline-block;
+	display: inline;
 	margin: 1px;
 }
 
 ul.rating>li a:hover {
 	text-decoration: none;
 	cursor: pointer;
-}
-
-ul.rating>li a.read {
-	text-decoration: none;
-	cursor: default;
-}
-
-ul.rating>li a.read:hover {
-	text-decoration: none;
-	cursor: default;
-	color: #428bca;
 }
 
 ul.order-nav {
@@ -153,3 +143,45 @@ tfoot {
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 }
+
+section {
+	margin-bottom: 50px;
+	color: #888;
+}
+
+section h1,
+section h2,
+section h3,
+section h4,
+section h5,
+section h6 {
+	color: #000;
+}
+
+table.menu a {
+	color: #888;
+}
+
+table.menu a:hover {
+	color: #666;
+	text-decoration: none;
+}
+
+.comment {
+	margin-bottom: 20px;
+}
+
+form div[rating] {
+	padding-top: 7px;
+}
+
+div[rating][readonly="true"] a, div[rating][readonly="true"] a:hover {
+	text-decoration: none;
+	cursor: default;
+	color: #428bca;
+}
+
+.comment div[rating], .comment div[rating] a, .comment div[rating] a:hover {
+	color: #888;
+}
+
