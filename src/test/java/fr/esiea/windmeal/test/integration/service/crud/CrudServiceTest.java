@@ -71,13 +71,11 @@ public class CrudServiceTest {
         menu.generateId();
 
         Meal meal = new Meal();
-        meal.generateId();
         meal.setDescription("desc");
 
         HashSet<MealOrder> mealOrders = new HashSet<MealOrder>();
 
         MealOrder mealOrder= new MealOrder();
-        mealOrder.setMealId(meal.getId());
         mealOrder.setNumber(3);
         mealOrders.add(mealOrder);
 

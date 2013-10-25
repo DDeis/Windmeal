@@ -93,9 +93,9 @@ module.factory('Logout', function ($resource) {
 });
 
 module.factory('Comment', function ($resource) {
-    return $resource(path + '/comment/provider/:id', {}, {
-        addComment: {method: 'POST'}
-    });
+	return $resource(path + '/comment/provider/:id', {}, {
+		addComment: {method: 'POST'}
+	});
 });
 
 module.factory('Search', function ($resource) {

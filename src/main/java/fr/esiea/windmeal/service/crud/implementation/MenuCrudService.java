@@ -50,21 +50,11 @@ public class MenuCrudService implements ICrudService<Menu> {
 
 	@Override
 	public void save(Menu menu) throws DaoException {
-		for (Meal meal : menu.getMeals()) {
-			if (meal.getId() == null) {
-				meal.generateId();
-			}
-		}
 		dao.save(menu);
 	}
 
 	@Override
 	public void insert(Menu menu) throws DaoException {
-		for (Meal meal : menu.getMeals()) {
-			if (meal.getId() == null) {
-				meal.generateId();
-			}
-		}
 		dao.insert(menu);
 	}
 

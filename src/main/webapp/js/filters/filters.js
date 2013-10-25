@@ -5,15 +5,9 @@ module.filter('typeFilter', function () {
 
 		matches = [];
 
-		console.log("items");
-		console.log(items);
-		console.log("options");
-		console.log(options);
-
 		angular.forEach(options, function (value, key) {
 			if (value) {
 				if (key == "all") {
-					console.log("all");
 					matches = items;
 					return;
 				}

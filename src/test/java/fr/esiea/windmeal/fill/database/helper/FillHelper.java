@@ -62,7 +62,6 @@ public class FillHelper {
         List<Meal> list = new ArrayList<Meal>();
         Menu menu = new Menu();
         for(Meal meal:meals) {
-            meal.generateId();
             list.add(meal);
         }
         menu.setMeals(list);
@@ -72,7 +71,6 @@ public class FillHelper {
 
     public static Meal createMeal(String name,String description, double price) {
         Meal meal = new Meal();
-        meal.generateId();
         meal.setDescription(description);
         meal.setName(name);
         meal.setPrice(price);
