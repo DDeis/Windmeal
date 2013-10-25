@@ -4,7 +4,7 @@
 
 var module = angular.module('windmeal.controllers');
 
-module.controller('SignUpController', function ($scope, $location, $route, $timeout, Signup) {
+module.controller('SignUpController', function ($scope, $location, $timeout, Signup) {
 
 	console.log("In signUp");
 
@@ -23,9 +23,9 @@ module.controller('SignUpController', function ($scope, $location, $route, $time
 
 				$scope.$emit('event:loginRequest');
 
-				console.log($scope.previousRoute);
+				console.log($scope.previousRoute)
 				if ($scope.previousRoute) {
-//					$scope.previousRoute.reload();
+					$location.path($scope.previousRoute);
 				}
 				else {
 					$location.path("/");

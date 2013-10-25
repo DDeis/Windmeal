@@ -159,9 +159,9 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 		console.info("accessForbidden in appController")
 	});
 
-	$scope.$on('$routeChangeStart', function (event, currentRoute, previousRoute) {
-		console.log("locationChangeSuccess", previousRoute);
-		$scope.previousRoute = previousRoute;
+	$scope.$on('$locationChangeSuccess', function (event, currentRoute, previousRoute) {
+		var url = "http://localhost:8080/windmeal/#";
+		$scope.previousRoute = previousRoute.substring(url.length, previousRoute.length);
 	});
 
 });
