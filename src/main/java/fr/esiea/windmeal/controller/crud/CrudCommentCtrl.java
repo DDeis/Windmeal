@@ -1,5 +1,20 @@
 package fr.esiea.windmeal.controller.crud;
 
+import fr.esiea.windmeal.dao.exception.DaoException;
+import fr.esiea.windmeal.model.Comment;
+import fr.esiea.windmeal.model.FoodProvider;
+import fr.esiea.windmeal.model.Menu;
+import fr.esiea.windmeal.service.crud.ICrudProviderService;
+import fr.esiea.windmeal.service.crud.ICrudService;
+import fr.esiea.windmeal.service.exception.InvalidIdException;
+import fr.esiea.windmeal.service.exception.ServiceException;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
  * <p/>
@@ -22,7 +37,22 @@ package fr.esiea.windmeal.controller.crud;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+@Controller
+@RequestMapping("/comment")
 public class CrudCommentCtrl {
 
+    private static final Logger LOGGER = Logger.getLogger(CrudCommentCtrl.class);
+
+    @Autowired
+    @Qualifier("providerCrudService")
+    ICrudProviderService crudService;
+
+    @RequestMapping(value = "/provider/{id}", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void create(@RequestBody Comment comment,@PathVariable("id") String providerId) throws ServiceException, DaoException {
+
+        LOGGER.info("[Controller] Querying to add a comment to the provider : " + providerId + "\"");
+        crudService.addComment(providerId,comment);
+    }
 
 }

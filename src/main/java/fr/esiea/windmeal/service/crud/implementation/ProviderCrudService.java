@@ -2,9 +2,12 @@ package fr.esiea.windmeal.service.crud.implementation;
 
 import fr.esiea.windmeal.dao.ICrudProviderDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
+import fr.esiea.windmeal.model.Comment;
 import fr.esiea.windmeal.model.FoodProvider;
 import fr.esiea.windmeal.service.crud.ICrudProviderService;
+import fr.esiea.windmeal.service.crud.ICrudService;
 import fr.esiea.windmeal.service.exception.InvalidIdException;
+import fr.esiea.windmeal.service.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -37,6 +40,10 @@ public class ProviderCrudService implements ICrudProviderService {
 	@Qualifier("elasticSearchIndexation")
 	private ICrudProviderDao dao;
 
+    @Autowired // Only to add a comment not elegant
+    @Qualifier("providerValidationDecorator")
+    private ICrudService<FoodProvider> validationService;
+
 	@Override
 	public Iterable<FoodProvider> getAll() throws DaoException {
 		return dao.getAll();
@@ -68,5 +75,15 @@ public class ProviderCrudService implements ICrudProviderService {
     @Override
     public Iterable<FoodProvider> getAllProviderFromUser(String ownerId) throws DaoException {
         return dao.getAllProviderFromUser(ownerId);
+    }
+
+    @Override
+    public void addComment(String providerId, Comment comment) throws DaoException, ServiceException {
+        FoodProvider one = dao.getOne(providerId);
+        if (one == null) {
+            throw new InvalidIdException();
+        }
+        one.addComment(comment);
+        validationService.save(one);
     }
 }

@@ -61,16 +61,6 @@ module.factory('Orders', function ($resource) {
 	});
 });
 
-module.factory('Comments', function ($resource) {
-	return $resource(path + '/comments/:id/', {}, {
-		query: {method: 'GET', isArray: true},
-		get: {method: 'GET', params: {id: ':id'}},
-		save: {method: 'POST'},
-		update: {method: 'PUT', params: {id: ':id'}},
-		remove: {method: 'DELETE', params: {id: ':id'}}
-	});
-});
-
 module.factory('Tags', function ($resource) {
 	return $resource(path + '/util/tags', {}, {
 		getTags: {method: 'GET'}
@@ -100,6 +90,12 @@ module.factory('Logout', function ($resource) {
 	return $resource(path + '/logout/', {}, {
 		save: {method: 'POST'}
 	});
+});
+
+module.factory('Comment', function ($resource) {
+    return $resource(path + '/comment/provider/:id', {}, {
+        addComment: {method: 'POST'}
+    });
 });
 
 module.factory('Search', function ($resource) {

@@ -1,7 +1,10 @@
 package fr.esiea.windmeal.service.crud;
 
 import fr.esiea.windmeal.dao.exception.DaoException;
+import fr.esiea.windmeal.model.Comment;
 import fr.esiea.windmeal.model.FoodProvider;
+import fr.esiea.windmeal.service.exception.InvalidIdException;
+import fr.esiea.windmeal.service.exception.ServiceException;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -29,4 +32,5 @@ public interface ICrudProviderService extends ICrudService<FoodProvider> {
 
     Iterable<FoodProvider> getAllProviderFromUser(String ownerId) throws DaoException;
 
+    void addComment(String providerId, Comment comment) throws DaoException, InvalidIdException, ServiceException;
 }

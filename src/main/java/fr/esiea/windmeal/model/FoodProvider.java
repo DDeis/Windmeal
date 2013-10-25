@@ -140,6 +140,10 @@ public class FoodProvider extends Model {
 		return true;
 	}
 
+    public void addComment(Comment comment) {
+        comments.add(comment);
+    }
+
 	@Override
 	public int hashCode() {
 		int result = name != null ? name.hashCode() : 0;
@@ -169,10 +173,10 @@ public class FoodProvider extends Model {
                 "} " + super.toString();
     }
 
+
     public static class Views {
-        public static class LightView {   }
+        public static class LightView  {   }
         public static class FullView extends LightView {    }
-        public static class ElasticView {
-        }
+        public static class ElasticView {}
     }
 }

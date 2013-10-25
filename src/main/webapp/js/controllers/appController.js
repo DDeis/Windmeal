@@ -117,7 +117,6 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 		Login.save($scope.login, function (data) {
 			if (data != null)
 				$scope.$broadcast('event:loginConfirmed');
-            //Here u can catch the data from the current user
 		}, function (error) {
 			console.log("Login error, if you are here the interceptor doesn't work");
 		});

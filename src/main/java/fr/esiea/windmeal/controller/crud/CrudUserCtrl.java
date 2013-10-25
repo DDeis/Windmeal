@@ -1,6 +1,7 @@
 package fr.esiea.windmeal.controller.crud;
 
 import fr.esiea.windmeal.dao.exception.DaoException;
+import fr.esiea.windmeal.model.FoodProvider;
 import fr.esiea.windmeal.model.User;
 import fr.esiea.windmeal.service.crud.ICrudService;
 import fr.esiea.windmeal.service.exception.ServiceException;
@@ -39,7 +40,8 @@ import java.io.IOException;
 @RequestMapping("/users")
 public class CrudUserCtrl {
 	private final static Logger LOGGER = Logger.getLogger(CrudUserCtrl.class);
-	@Autowired
+
+    @Autowired
 	@Qualifier("userValidationDecorator")
 	ICrudService<User> crudService;
 
