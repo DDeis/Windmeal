@@ -4,21 +4,36 @@
 
 var module = angular.module('windmeal.controllers');
 
-module.controller('SignUpController', function ($scope,$location,Signup,Login) {
+module.controller('SignUpController', function ($scope, $location, $route, $timeout, Signup) {
 
-    console.log("In signUp");
+	console.log("In signUp");
 
-	$scope.user = {};
+	$scope.newUser = {};
 
 	$scope.signUp = function () {
-        Signup.save($scope.user
-            , function(){
-                console.log("Successfully signed up");
-                $location.path("/");
-            }
-            , function(error){
-                console.log("Error "+error.status);
-            }
-        );
+		console.log($scope.newUser);
+		Signup.save(
+			$scope.newUser
+			, function (data) {
+				console.log(data);
+				console.log("Successfully signed up");
+
+				$scope.login.email = $scope.newUser.email;
+				$scope.login.password = $scope.newUser.password;
+
+				$scope.$emit('event:loginRequest');
+
+				console.log($scope.previousRoute);
+				if ($scope.previousRoute) {
+//					$scope.previousRoute.reload();
+				}
+				else {
+					$location.path("/");
+				}
+			}
+			, function (error) {
+				console.log("Error " + error.status);
+			}
+		);
 	};
 });

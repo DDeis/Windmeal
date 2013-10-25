@@ -68,19 +68,20 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 	/*
 	 * Set data when an user is connected
 	 */
-	function connected() {
-		console.log("the user is connected");
-		$scope.logged = true;
+	$scope.connected = function () {
 		Login.get(
 			{}, // Params
 			{}, // Post Data
 			function (data, status) {
+				console.log("User is now connected");
 				$scope.user = data;
+				$scope.logged = true;
 				console.log("user : ");
 				console.log(data);
 			}, function () {
+				console.log("Login failed");
+				$scope.logged = false;
 			}
-
 		);
 	}
 
@@ -90,10 +91,10 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 	$scope.logout = function () {
 		Logout.get({}, function () {
 				$scope.logged = false;
-				console.info("logout success");
+				console.info("Logout success");
 			}
 			, function () {
-				console.info("logout error");
+				console.info("Logout error");
 			})
 	};
 
@@ -114,6 +115,7 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 	 * On 'event:loginRequest' Ask the server with scope.login
 	 */
 	$scope.$on('event:loginRequest', function (event) {
+		console.log("Login requested");
 		Login.save($scope.login, function (data) {
 			if (data != null)
 				$scope.$broadcast('event:loginConfirmed');
@@ -130,7 +132,7 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 	$scope.$on('event:loginConfirmed', function () {
 		console.info("in login confirmed");
 		$scope.closeAuthModal();
-		connected();
+		$scope.connected();
 		var i, requests = $scope.requests401;
 		console.info("request length " + requests.length);
 		for (i = 0; i < requests.length; i++) {
@@ -155,6 +157,11 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 	$scope.$on('event:accessForbidden', function (event, Login) {
 		$scope.shouldOpenAccessForbiddenModal = true;
 		console.info("accessForbidden in appController")
+	});
+
+	$scope.$on('$routeChangeStart', function (event, currentRoute, previousRoute) {
+		console.log("locationChangeSuccess", previousRoute);
+		$scope.previousRoute = previousRoute;
 	});
 
 });
