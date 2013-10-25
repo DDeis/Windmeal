@@ -16,19 +16,13 @@ module.directive('rating', function () {
 		link: function (scope, elem, attrs) {
 
 			var updateStars = function () {
-
-				var read = "";
-				if (scope.readonly && scope.readonly === 'true') {
-					read = " read"
-				}
-
 				scope.stars = [];
 				for (var i = 0; i < 5; i++) {
 					if(i < scope.ratingValue) {
-						scope.stars.push("glyphicon-star"+read);
+						scope.stars.push("glyphicon-star");
 					}
 					else {
-						scope.stars.push("glyphicon-star-empty"+read);
+						scope.stars.push("glyphicon-star-empty");
 					}
 				}
 			};

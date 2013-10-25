@@ -5,35 +5,64 @@
 		</h1>
 	</div>
 
-	<div>
-		<section>
-			{{fp.address.street}}, {{fp.address.postalCode}} {{fp.address.city}}<br/>
-			{{fp.phone}}<br/>
-			{{fp.email}}<br/>
-			<p>{{fp.description}}</p>
+	<div class="row">
+		<aside class="col-lg-2">
+			<section>
+				<h4>Info</h4>
 
-		</section>
-		<div rating rating-value="averageRating" readonly="true"></div>
-		<a class="btn btn-primary" href="#/providers/{{fp._id}}/order">Order</a>
+				<p>
+					Address: {{fp.address.street}}, {{fp.address.postalCode}} {{fp.address.city}}<br />
+					Phone number: {{fp.phone}}<br />
+					Email address: {{fp.email}}
+				</p>
 
-		<section class="row menu">
-			<h3>Menu</h3>
-			<article class="col-lg-2 menu-item" ng-repeat="meal in menu.meals">
-				<h4 class="text-center">{{meal.name}}</h4>
+				<h4>Customer Ratings</h4>
+				<div rating rating-value="averageRating" readonly="true"></div> {{fp.comments.length}} Ratings
+			</section>
+			<a class="btn btn-primary" href="#/providers/{{fp._id}}/order">Order</a>
+		</aside>
+		<div class="col-lg-10">
 
-				<p class="text-muted"><em>{{meal.description}}</em></p>
-				<h5>{{meal.price | number:2}} €</h5>
-			</article>
-		</section>
+			<section>
+				<h4>Description</h4>
 
-		<a class="btn btn-primary" href="#/providers/{{fp._id}}/order">Order</a>
+				<p>{{fp.description}}</p>
 
-		<section class="comments">
-			<article class="comment" ng-repeat="comment in fp.comments">
-				<div rating readonly="true" rating-value="comment.rate"></div>
-				<p>{{comment.text}}</p></article>
+			</section>
 
-			<div class="well">
+			<section>
+				<h4>Menu</h4>
+
+				<table class="col-lg-12 menu" ng-init="predicate='name'">
+					<thead>
+					<tr>
+						<td class="col-lg-2 text-center"><a href="" ng-click="predicate='name'">Name</a></td>
+						<td class="col-lg-9 text-center">Description</td>
+						<td class="col-lg-1 text-center"><a href="" ng-click="predicate='price'">Price</a></td>
+					</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="menuItem in menu.meals | orderBy:predicate:reverse">
+						<td><strong>{{menuItem.name}}</strong></td>
+						<td class="text-muted"><em>{{menuItem.description}}</em></td>
+						<td class="text-center">{{menuItem.price | number:2}} €</td>
+					</tr>
+					</tbody>
+				</table>
+			</section>
+
+			<section class="comments">
+				<h4>Customer Review</h4>
+				<article class="comment" ng-repeat="comment in fp.comments">
+					<strong>{{users[comment.userId].email}}</strong>
+
+					<div rating readonly="true" rating-value="comment.rate"></div>
+					<p>{{comment.text}}</p></article>
+			</section>
+
+			<section>
+				<h4>Write a Review</h4>
+
 				<form class="form-horizontal" role="form" ng-submit="submitComment()" ng-init="newComment.userId = user._id">
 
 					<div class="form-group">
@@ -47,7 +76,7 @@
 					<div class="form-group">
 						<label for="inputRate" class="col-lg-2 control-label">Rating</label>
 
-						<div class="col-lg-2" id="inputRate" rating rating-value="newComment.rate" on-rating-selected="saveRating(rating)"></div>
+						<div class="col-lg-10" id="inputRate" rating rating-value="newComment.rate" on-rating-selected="saveRating(rating)"></div>
 					</div>
 
 					<div class="form-group">
@@ -56,7 +85,9 @@
 						</div>
 					</div>
 				</form>
-			</div>
-		</section>
+			</section>
+
+		</div>
+
 	</div>
 </div>

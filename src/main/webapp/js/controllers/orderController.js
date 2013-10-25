@@ -44,14 +44,12 @@ module.controller('OrderController', function ($scope, $routeParams, FoodProvide
 	};
 
 	$scope.addToCart = function(menuItem) {
-//		$scope.items[$scope.items.length] = menuItem;
 		if(menuItem.nb == undefined) {
 			menuItem.nb = 1;
 		}
 		else {
 			menuItem.nb++;
 		}
-		console.log($scope.items);
 	};
 
 	$scope.total = function() {

@@ -4,7 +4,7 @@
 
 var module = angular.module('windmeal.controllers');
 
-module.controller('FoodProviderDetailController', function ($scope, $routeParams, FoodProviders, Menus) {
+module.controller('FoodProviderDetailController', function ($scope, $routeParams, FoodProviders, Menus, Users) {
 	$scope.fp = {};
 
 	$scope.menu = {};
@@ -12,8 +12,11 @@ module.controller('FoodProviderDetailController', function ($scope, $routeParams
 	$scope.averageRating = 1;
 	$scope.ratingValue = "";
 
+	$scope.users = {};
+
 	$scope.newComment = {};
 	$scope.newComment.rate = 1;
+
 
 	var getMenu = function(id) {
 		Menus.get(
@@ -37,12 +40,26 @@ module.controller('FoodProviderDetailController', function ($scope, $routeParams
 		$scope.averageRating = total / $scope.fp.comments.length;
 	}
 
+	var getUsers = function() {
+		for(var i= 0; i<$scope.fp.comments.length; i++) {
+			Users.get(
+				{id: $scope.fp.comments[i].userId},
+				{},
+				function(data) {
+					$scope.users[data._id] = data;
+				},
+				function(error) {}
+			);
+		}
+	}
+
 	if($routeParams.id != undefined) {
 		FoodProviders.get(
 			{id: $routeParams.id},
 			{},
 			function(data) {
 				$scope.fp = data;
+				getUsers();
 				console.log(data);
 				getAverageRating();
 				getMenu($scope.fp.menuId);
