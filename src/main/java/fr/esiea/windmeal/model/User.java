@@ -33,8 +33,17 @@ public class User extends Model {
     @NotNull
     private String password;
 	private Profile profile = Profile.USER;
+    private Address adress;
 
-	public String getEmail() {
+    public Address getAdress() {
+        return adress;
+    }
+
+    public void setAdress(Address adress) {
+        this.adress = adress;
+    }
+
+    public String getEmail() {
 		return email;
 	}
 
