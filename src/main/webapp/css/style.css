@@ -129,6 +129,9 @@ ul.rating>li a:hover {
 ul.order-nav {
 	margin-bottom: 20px;
 }
+ul.order-nav a:hover {
+	cursor: default;
+}
 
 thead,
 tfoot {
@@ -156,6 +159,7 @@ section h4,
 section h5,
 section h6 {
 	color: #000;
+	margin-bottom: 10px;
 }
 
 table.menu a {
