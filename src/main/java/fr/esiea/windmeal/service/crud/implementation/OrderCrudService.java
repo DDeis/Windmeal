@@ -5,6 +5,7 @@ import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.Order;
 import fr.esiea.windmeal.service.crud.ICrudService;
 import fr.esiea.windmeal.service.exception.InvalidIdException;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,7 @@ public class OrderCrudService implements ICrudService<Order> {
 
 	@Override
 	public void insert(Order order) throws DaoException {
+        order.setOrderDate(new DateTime());
 		dao.insert(order);
 	}
 
