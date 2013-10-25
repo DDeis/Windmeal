@@ -1,7 +1,5 @@
 'use strict';
 
-/* User Controllers */
-
 var module = angular.module('windmeal.controllers');
 
 module.controller('FoodProviderDetailController', function ($scope, $routeParams, FoodProviders, Menus, Users) {

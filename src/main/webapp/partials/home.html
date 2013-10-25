@@ -5,8 +5,8 @@
 
 		<p>Find restaurant around you</p>
 
-		<form method="POST" action="#/providers">
-			<input type="search" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" placeholder="Your address" />
+		<form role="form" name="search_form" ng-submit="search()">
+			<input type="search" id="inputSearch" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"  ng-model=request placeholder="Any idea ?" >
 		</form>
 	</div>
 </div>
