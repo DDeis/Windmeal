@@ -32,5 +32,5 @@ public interface ICrudProviderService extends ICrudService<FoodProvider> {
 
     Iterable<FoodProvider> getAllProviderFromUser(String ownerId) throws DaoException;
 
-    void addComment(String providerId, Comment comment) throws DaoException, InvalidIdException, ServiceException;
+    void addComment(String providerId, Comment comment) throws DaoException,  ServiceException;
 }

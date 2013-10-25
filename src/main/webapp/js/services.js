@@ -63,7 +63,7 @@ module.factory('Orders', function ($resource) {
 
 module.factory('Tags', function ($resource) {
 	return $resource(path + '/util/tags', {}, {
-		getTags: {method: 'GET'}
+		getTags: {method: 'GET', isArray:true}
 	});
 });
 

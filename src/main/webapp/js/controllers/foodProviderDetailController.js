@@ -51,32 +51,40 @@ module.controller('FoodProviderDetailController', function ($scope, $routeParams
         }
     }
 
-    if($routeParams.id != undefined) {
-        FoodProviders.get(
-            {id: $routeParams.id},
-            {},
-            function(data) {
-                $scope.fp = data;
-                getUsers();
-                console.log(data);
-                getAverageRating();
-                getMenu($scope.fp.menuId);
-            },
-            function(error) {
-                console.log("Error "+error.status);
-            }
-        );
+    var loadFoodProvider = function()   {
+        if($routeParams.id != undefined) {
+           FoodProviders.get(
+                {id: $routeParams.id},
+                {},
+                function(data) {
+                    $scope.fp = data;
+                    getUsers();
+                    console.log(data);
+                    getAverageRating();
+                    getMenu($scope.fp.menuId);
+                },
+                function(error) {
+                    console.log("Error "+error.status);
+                }
+            );
+        }
     }
 
     $scope.submitComment = function() {
         console.log($scope.newComment);
         Comment.addComment({id:$scope.fp._id},$scope.newComment,function() {
-                $scope.fp.comments.push($scope.newComment);
+                loadFoodProvider();
+
+                $scope.newComment = {};
+                $scope.newComment.rate = 1;
             },
             {
 
             }
         );
     }
+
+    loadFoodProvider();
+
 
 });
