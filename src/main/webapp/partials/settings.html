@@ -10,118 +10,117 @@
 			<div class="well">
 				<ul class="side-nav">
 					<li class="header">User</li>
-					<li><a href="" ng-click="view = 'user'">Account</a></li>
+					<li><a href="" ng-click="scrollTo('userSection')">Account</a></li>
 					<li class="header">Provider</li>
-					<li><a href="" ng-click="view = 'provider'">My restaurants</a></li>
+					<li><a href="" ng-click="scrollTo('providerSection')">My restaurants</a></li>
 				</ul>
 			</div>
 			<!--/.well -->
 		</aside>
 
-		<section class="col-lg-9" ng-switch="view" ng-init="view = 'user'">
-			<div ng-switch-when="user">
-				<form class="form-horizontal" role="form" ng-submit="editAccount()" name="signup_form" novalidate>
+		<section class="col-lg-9">
+			<h3 id="userSection">Account</h3>
+			<form class="form-horizontal" role="form" ng-submit="editAccount()" name="signup_form" novalidate>
 
-					<div class="form-group">
-						<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="signup_form.email.$dirty && signup_form.email.$invalid">
-							<small ng-show="signup_form.email.$error.email">
-								That is not a valid email. Please input a valid email.
-							</small>
-						</div>
-						<label for="inputEmail" class="col-lg-2 control-label">Email</label>
-
-						<div class="col-lg-10">
-							<input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email" ng-model="user.email" required>
-						</div>
+				<div class="form-group">
+					<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="signup_form.email.$dirty && signup_form.email.$invalid">
+						<small ng-show="signup_form.email.$error.email">
+							That is not a valid email. Please input a valid email.
+						</small>
 					</div>
+					<label for="inputEmail" class="col-lg-2 control-label">Email</label>
 
-					<div class="form-group">
-						<label for="inputPassword" class="col-lg-2 control-label">Password</label>
-
-						<div class="col-lg-10">
-							<input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" ng-model="user.password" required>
-						</div>
+					<div class="col-lg-10">
+						<input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email" ng-model="user.email" required>
 					</div>
+				</div>
 
-					<div class="form-group">
-						<label for="name" class="col-lg-2 control-label">Name</label>
+				<div class="form-group">
+					<label for="inputPassword" class="col-lg-2 control-label">Password</label>
 
-						<div class="col-lg-8">
-							<input type="text" class="form-control" id="name" placeholder="Name" ng-model="user.name">
-						</div>
+					<div class="col-lg-10">
+						<input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" ng-model="user.password" required>
 					</div>
+				</div>
 
-					<div class="form-group">
-						<label for="address" class="col-lg-2 control-label">Street Address</label>
+				<div class="form-group">
+					<label for="name" class="col-lg-2 control-label">Name</label>
 
-						<div class="col-lg-8">
-							<input type="text" class="form-control" id="address" placeholder="W 123 Street"
-								   ng-model="user.address.street">
-						</div>
+					<div class="col-lg-8">
+						<input type="text" class="form-control" id="name" placeholder="Name" ng-model="user.name">
 					</div>
+				</div>
 
-					<div class="form-group">
-						<label for="zipcode" class="col-lg-2 control-label">Zip Code</label>
+				<div class="form-group">
+					<label for="address" class="col-lg-2 control-label">Street Address</label>
 
-						<div class="col-lg-8">
-							<input type="text" class="form-control" id="zipcode" placeholder="Zipcode" ng-model="user.address.postalCode">
-						</div>
+					<div class="col-lg-8">
+						<input type="text" class="form-control" id="address" placeholder="W 123 Street"
+							   ng-model="user.address.street">
 					</div>
+				</div>
 
-					<div class="form-group">
-						<label for="city" class="col-lg-2 control-label">City</label>
+				<div class="form-group">
+					<label for="zipcode" class="col-lg-2 control-label">Zip Code</label>
 
-						<div class="col-lg-8">
-							<input type="text" class="form-control" id="city" placeholder="City" ng-model="user.address.city">
-						</div>
+					<div class="col-lg-8">
+						<input type="text" class="form-control" id="zipcode" placeholder="Zipcode" ng-model="user.address.postalCode">
 					</div>
+				</div>
 
-					<div class="form-group">
-						<div class="col-lg-offset-2 col-lg-4">
-							<button type="submit" class="btn btn-primary" ng-disabled="signup_form.$invalid">Save</button>
-						</div>
+				<div class="form-group">
+					<label for="city" class="col-lg-2 control-label">City</label>
+
+					<div class="col-lg-8">
+						<input type="text" class="form-control" id="city" placeholder="City" ng-model="user.address.city">
 					</div>
-				</form>
+				</div>
 
-				<a href="" ng-click="delete('user', user._id)" class="btn btn-default">Delete my account</a>
-			</div>
-			<div ng-switch-when="provider">
-				<a class="btn btn-primary" href="#/providers/new">Create Restaurant</a>
-				<table class="table table-striped col-lg-12">
-					<thead>
-					<tr>
-						<td class="col-lg-1 text-center">#</td>
-						<td class="col-lg-3 text-center">Name</td>
-						<td class="col-lg-2 text-center">Dashboard</td>
-						<td class="col-lg-2 text-center">Edit info</td>
-						<td class="col-lg-2 text-center">Edit menu</td>
-						<td class="col-lg-2 text-center">Delete</td>
-					</tr>
-					</thead>
-					<tbody>
-					<tr ng-repeat="provider in providers">
-						<td class="text-center">{{$index + 1}}</td>
-						<td>{{provider.name}}</td>
-						<td class="text-center">
-							<a href="#/providers/{{provider._id}}/dashboard" class="glyphicon glyphicon-list"></a>
-						</td>
-						<td class="text-center">
-							<a href="#/providers/{{provider._id}}/settings/info" class="glyphicon glyphicon-edit"></a>
-						</td>
-						<td class="text-center">
-							<a href="#/providers/{{provider._id}}/settings/menu" class="glyphicon glyphicon-edit"></a>
-						</td>
-						<td class="text-center">
-							<a href="" ng-click="delete('provider', provider._id)" class="glyphicon glyphicon-trash"></a>
-						</td>
-					</tr>
-					</tbody>
-				</table>
-			</div>
+				<div class="form-group">
+					<div class="col-lg-offset-2 col-lg-4">
+						<button type="submit" class="btn btn-primary" ng-disabled="signup_form.$invalid">Save</button>
+					</div>
+				</div>
+			</form>
+
+			<a href="" ng-click="delete('user', user._id)" class="btn btn-default col-lg-offset-2">Delete my account</a>
+		</section>
+		<section class="col-lg-offset-3 col-lg-9">
+			<h3 id="providerSection">Provider</h3>
+			<p><a class="btn btn-primary" href="#/providers/new">Create Restaurant</a></p>
+			<table class="table table-striped col-lg-12">
+				<thead>
+				<tr>
+					<td class="col-lg-1 text-center">#</td>
+					<td class="col-lg-3 text-center">Name</td>
+					<td class="col-lg-2 text-center">Dashboard</td>
+					<td class="col-lg-2 text-center">Edit info</td>
+					<td class="col-lg-2 text-center">Edit menu</td>
+					<td class="col-lg-2 text-center">Delete</td>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="provider in providers">
+					<td class="text-center">{{$index + 1}}</td>
+					<td>{{provider.name}}</td>
+					<td class="text-center">
+						<a href="#/providers/{{provider._id}}/dashboard" class="glyphicon glyphicon-list"></a>
+					</td>
+					<td class="text-center">
+						<a href="#/providers/{{provider._id}}/settings/info" class="glyphicon glyphicon-edit"></a>
+					</td>
+					<td class="text-center">
+						<a href="#/providers/{{provider._id}}/settings/menu" class="glyphicon glyphicon-edit"></a>
+					</td>
+					<td class="text-center">
+						<a href="" ng-click="delete('provider', provider._id)" class="glyphicon glyphicon-trash"></a>
+					</td>
+				</tr>
+				</tbody>
+			</table>
 		</section>
 	</div>
 </div>
-
 
 <!-- Modal -->
 <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">

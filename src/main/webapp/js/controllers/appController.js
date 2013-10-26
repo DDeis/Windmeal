@@ -4,7 +4,7 @@
 
 var module = angular.module('windmeal.controllers');
 
-module.controller('AppController', function ($rootScope, $scope, $route, $location, Login, Logout) {
+module.controller('AppController', function ($rootScope, $scope, $route, $location, $anchorScroll, Login, Logout) {
 
 	$scope.login = {};
 	$scope.user = {};
@@ -128,5 +128,10 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 		var url = "http://localhost:8080/windmeal/#";
 		$scope.previousRoute = previousLocation.substring(url.length, previousLocation.length);
 	});
+
+	$scope.scrollTo = function(id) {
+		$location.hash(id);
+		$anchorScroll();
+	}
 
 });

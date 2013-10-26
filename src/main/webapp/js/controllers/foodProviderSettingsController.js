@@ -32,6 +32,8 @@ module.controller('FoodProviderSettingsController', function ($scope, $routePara
 
 	$scope.submitInfo = function () {
 
+		$scope.fp.tags = [];
+
 		angular.forEach($scope.tags, function(value, key) {
 			if(value) {
 				$scope.fp.tags.push(key);
@@ -48,7 +50,7 @@ module.controller('FoodProviderSettingsController', function ($scope, $routePara
 				$scope.fp,
 				function(data) {
 					console.log("Provider successfully updated:", data);
-					$location.path("/providers/"+$routeParams.id+"/settings");
+					$location.path("/users/"+$scope.user._id+"/settings");
 				},
 				function(error) {
 					console.log("Failed to update Provider: Error "+error.status);
@@ -60,7 +62,7 @@ module.controller('FoodProviderSettingsController', function ($scope, $routePara
 				$scope.fp,
 				function(data) {
 					console.log("Provider successfully created:", data);
-					$location.path("/users/"+$scope.user._id+"/settings")
+					$location.path("/users/"+$scope.user._id+"/settings");
 				},
 				function(error) {
 					console.log("Failed to create Provider: Error", error.status);

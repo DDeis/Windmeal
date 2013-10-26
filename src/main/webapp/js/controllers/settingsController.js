@@ -5,7 +5,6 @@
 var module = angular.module('windmeal.controllers');
 
 module.controller('SettingsController', function ($scope, $routeParams, $location, UtilProvider, FoodProviders, Users) {
-	$scope.view = "";
 
 	$scope.providers = [];
 
@@ -18,7 +17,7 @@ module.controller('SettingsController', function ($scope, $routeParams, $locatio
 			{id: $routeParams.id},
 			{},
 			function (data) {
-				console.log(data);
+				console.log("Providers", data);
 				$scope.providers = data;
 			},
 			function (error) {
@@ -102,4 +101,5 @@ module.controller('SettingsController', function ($scope, $routeParams, $locatio
 			}
 		);
 	}
+
 });

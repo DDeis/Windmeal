@@ -197,3 +197,9 @@ div[rating][readonly="true"] a, div[rating][readonly="true"] a:hover {
 	text-decoration: line-through;
 	color: #888;
 }
+
+section>h3 {
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 20px;
+}
