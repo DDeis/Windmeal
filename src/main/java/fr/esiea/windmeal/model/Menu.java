@@ -1,5 +1,6 @@
 package fr.esiea.windmeal.model;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -25,6 +26,7 @@ import java.util.List;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 public class Menu extends Model {
+    @Valid
 	private List<Meal> meals;
 
     public Menu() {

@@ -1,5 +1,7 @@
 package fr.esiea.windmeal.model;
 
+import javax.validation.constraints.Min;
+
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
  * <p/>
@@ -25,6 +27,7 @@ package fr.esiea.windmeal.model;
 public class MealOrder {
 
 	private String mealId;
+    @Min(value=0)
 	private int number;
 
 	public String getMealId() {

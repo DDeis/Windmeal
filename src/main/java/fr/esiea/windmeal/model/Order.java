@@ -2,6 +2,8 @@ package fr.esiea.windmeal.model;
 
 import org.joda.time.DateTime;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 /**
@@ -27,8 +29,9 @@ import java.util.Set;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 public class Order extends Model {
-
+    @NotNull
 	private String foodProviderId;
+    @Valid
 	private Set<MealOrder> meals;
 	private DateTime orderDate;
 	private boolean state = false;

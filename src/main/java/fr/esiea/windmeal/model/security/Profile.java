@@ -27,9 +27,10 @@ import java.util.Collections;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 public enum Profile {
-
+    //Not used
 	ADMIN(Collections.unmodifiableList(Arrays.asList(Role.ROLE_ADMIN, Role.ROLE_USER))),
-	PROVIDER(Collections.unmodifiableList(Arrays.asList(Role.ROLE_PROVIDER, Role.ROLE_ADMIN, Role.ROLE_USER))),
+	//Not used
+    PROVIDER(Collections.unmodifiableList(Arrays.asList(Role.ROLE_PROVIDER, Role.ROLE_ADMIN, Role.ROLE_USER))),
 	USER(Collections.unmodifiableList(Arrays.asList(Role.ROLE_USER)));
 
 	private Profile(Collection<String> roleList) {

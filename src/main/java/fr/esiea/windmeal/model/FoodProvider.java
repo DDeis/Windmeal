@@ -3,6 +3,9 @@ package fr.esiea.windmeal.model;
 import com.fasterxml.jackson.annotation.JsonView;
 import fr.esiea.windmeal.model.enumeration.Tag;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.Set;
 
 /**
@@ -30,22 +33,34 @@ import java.util.Set;
 public class FoodProvider extends Model {
 
 	@JsonView(Views.ElasticView.class)
+    @Pattern(regexp="[A-Za-z0-9 _.,!\"'/$]*")
 	private String name;
 	@JsonView(Views.FullView.class)
+    @Valid
 	private Address address;
 	@JsonView(Views.FullView.class)
+    @Pattern(regexp="/^[0-9]{10}", message="A phone number was asked")
 	private String phone;
 	@JsonView(Views.FullView.class)
-	private String email;
+    @NotNull
+    @Pattern(regexp="^[a-zA-Z0-9\\-_]+[a-zA-Z0-9\\.\\-_]*@[a-zA-Z0-9\\-_]+\\.[a-zA-Z\\.\\-_]{1,}[a-zA-Z\\-_]+",
+            message="An email was asked")
+    private String email;
 	@JsonView(Views.ElasticView.class)
+    @NotNull
+    @Pattern(regexp="[A-Za-z0-9 _.,!\"'/$]*")
 	private String description;
 	@JsonView(Views.ElasticView.class)
+    @NotNull
 	private String menuId;
 	@JsonView(Views.FullView.class)
-	private String ownerId;
+    @NotNull
+    private String ownerId;
 	@JsonView(Views.FullView.class)
+    @Valid
 	private Set<Comment> comments;
 	@JsonView(Views.ElasticView.class)
+    @Valid
 	private Set<Tag> tags;
 
 	public String getName() {
