@@ -28,6 +28,6 @@ import org.springframework.http.HttpStatus;
 public class NotPermitException extends ServiceException {
 
 	public NotPermitException() {
-		super(HttpStatus.UNAUTHORIZED.value(), null);
+		super(HttpStatus.FORBIDDEN.value(), null);
 	}
 }
