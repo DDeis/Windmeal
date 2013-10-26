@@ -16,20 +16,6 @@ module.controller('OrderController', function ($scope, $routeParams, FoodProvide
 	$scope.payment.cvv = "123";
 	$scope.payment.expiration = "10/2014";
 
-	var getMenu = function(id) {
-		Menus.get(
-			{id: id},
-			{},
-			function(data) {
-				$scope.menu = data;
-				console.log(data);
-			},
-			function(error) {
-				console.log("Error "+error.status);
-			}
-		);
-	}
-
 	if($routeParams.id != undefined) {
 		FoodProviders.get(
 			{id: $routeParams.id},
@@ -40,10 +26,25 @@ module.controller('OrderController', function ($scope, $routeParams, FoodProvide
 				getMenu($scope.fp.menuId);
 			},
 			function(error) {
-				console.log("Error "+error.status);
+				console.log("Error while fetching provider:", error.status);
 			}
 		);
 	};
+
+	 function getMenu(id) {
+		Menus.get(
+			{id: id},
+			{},
+			function(data) {
+				$scope.menu = data;
+				console.log(data);
+			},
+			function(error) {
+				console.log("Error while fetching menu:", error.status);
+			}
+		);
+	}
+
 
 	$scope.addToCart = function(menuItem) {
 		if(menuItem.nb == undefined) {
@@ -73,7 +74,12 @@ module.controller('OrderController', function ($scope, $routeParams, FoodProvide
 
 		for(var i=0; i<$scope.menu.meals.length; i++) {
 			if($scope.menu.meals[i].nb) {
-				order.meals.push({mealId: $scope.menu.meals[i]._id, number: $scope.menu.meals[i].nb});
+				order.meals.push(
+					{
+						mealId: $scope.menu.meals[i]._id,
+						number: $scope.menu.meals[i].nb
+					}
+				);
 			}
 		}
 
