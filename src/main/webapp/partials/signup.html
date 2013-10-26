@@ -9,6 +9,11 @@
 		<form class="form-horizontal" role="form" ng-submit="signUp()" name="signup_form" novalidate>
 
 			<div class="form-group">
+				<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="signup_form.email.$dirty && signup_form.email.$invalid">
+					<small ng-show="signup_form.email.$error.email">
+						That is not a valid email. Please input a valid email.
+					</small>
+				</div>
 				<label for="inputEmail" class="col-lg-2 control-label">Email</label>
 
 				<div class="col-lg-10">
@@ -59,7 +64,7 @@
 
 			<div class="form-group">
 				<div class="col-lg-offset-2 col-lg-4">
-					<button type="submit" class="btn btn-primary">Sign Up</button>
+					<button type="submit" class="btn btn-primary" ng-disabled="signup_form.$invalid">Sign Up</button>
 				</div>
 			</div>
 		</form>

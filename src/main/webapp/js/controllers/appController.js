@@ -9,107 +9,37 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 	$scope.login = {};
 	$scope.user = {};
 
+	$scope.requests401 = [];
+
 	$('#loginInfo').hide();
 
-	//Permet de verifier après un rafraichissement si on est loggué
-	ping();
+	// Permet de verifier après un rafraichissement si on est loggué
+	fetchUserData();
 
-	$scope.opts = {
-		backdropFade: true,
-		dialogFade: true
+	/**
+	 * Set data when an user is connected
+	 */
+	function fetchUserData() {
+		Login.get(
+			{}, // Post Data
+			function (data) {
+				$scope.user = data;
+				$scope.logged = true;
+				console.log("Fetched user: ", data);
+				$scope.$broadcast('event:loginConfirmed');
+			}, function (error) {
+				console.log("Login failed : Error", error.status);
+				$scope.logged = false;
+			}
+		);
 	};
 
 	/**
-	 * Ping server to figure out if user is already logged in.
-	 */
-	function ping() {
-		//Default
-		$scope.logged = false;
-
-		Login.get(
-			{}, // Params
-			{}, // Post Data
-			function (data, status) {
-				$scope.user = data;
-				console.log("user : ");
-				console.log(data);
-				$scope.$broadcast('event:loginConfirmed');
-			}, function () {
-				console.info("404 is a proof that the user is not authenticated");
-			}
-
-		);
-	}
-
-	/*
 	 * Called when the authentication form is field
 	 */
 	$scope.connect = function () {
 		$scope.$broadcast('event:loginRequest');
 	};
-
-	$scope.openAuthModal = function () {
-		console.info("In open AuthModal");
-		$('#authenticationModal').modal('show');
-	};
-
-	$scope.closeAuthModal = function () {
-		console.info("In close AuthModal");
-		$('#authenticationModal').modal('hide');
-	};
-	/*
-	 * Permit to broadcast that a login  is required
-	 */
-	$scope.loginRequired = function () {
-		console.info("Send event login request");
-		$scope.$broadcast('event:loginRequired');
-	};
-
-	/*
-	 * Set data when an user is connected
-	 */
-	$scope.connected = function () {
-		Login.get(
-			{}, // Params
-			{}, // Post Data
-			function (data, status) {
-				console.log("User is now connected");
-				$scope.user = data;
-				$scope.logged = true;
-				console.log("user : ");
-				console.log(data);
-			}, function () {
-				console.log("Login failed");
-				$scope.logged = false;
-			}
-		);
-	}
-
-	/**
-	 * On 'logoutRequest' invoke logout on the server and broadcast 'event:loginRequired'.
-	 */
-	$scope.logout = function () {
-		Logout.get({}, function () {
-				$scope.logged = false;
-				console.info("Logout success");
-			}
-			, function () {
-				console.info("Logout error");
-			})
-	};
-
-	/**
-	 * Holds all the requests which failed due to 401 response.
-	 */
-	$scope.requests401 = [];
-	$scope.$on('event:loginRequired', function () {
-		if ($('#authenticationModal').is(":visible")) {
-			$('#loginInfo').show();
-		}
-		else {
-			$scope.openAuthModal();
-		}
-	});
 
 	/**
 	 * On 'event:loginRequest' Ask the server with scope.login
@@ -117,22 +47,40 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 	$scope.$on('event:loginRequest', function (event) {
 		console.log("Login requested");
 		Login.save($scope.login, function (data) {
-			if (data != null)
+			if (data != null) {
 				$scope.$broadcast('event:loginConfirmed');
+				fetchUserData();
+				$scope.login = {};
+			}
 		}, function (error) {
-			console.log("Login error, if you are here the interceptor doesn't work");
+			console.log("Login failed (the interceptor may not works):", error.status);
 		});
-		$scope.login = {};
-
 	});
+
+	/**
+	 * On 'logoutRequest' invoke logout on the server and broadcast 'event:loginRequired'.
+	 */
+	$scope.logout = function () {
+		Logout.get(
+			{},
+			function () {
+				$scope.logged = false;
+				$scope.user = {};
+				console.info("Logout success");
+			},
+			function (error) {
+				console.info("Logout failed:", error.status);
+			}
+		);
+	};
 
 	/**
 	 * On 'event:loginConfirmed', resend all the 401 requests.
 	 */
 	$scope.$on('event:loginConfirmed', function () {
 		console.info("in login confirmed");
-		$scope.closeAuthModal();
-		$scope.connected();
+		$('#authenticationModal').modal('hide');
+		console.log("User is now connected");
 		var i, requests = $scope.requests401;
 		console.info("request length " + requests.length);
 		for (i = 0; i < requests.length; i++) {
@@ -146,22 +94,39 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 			});
 		}
 
-		//$scope.$broadcast('updateContactList');
-		$route.reload();
-		//Handle the fact the the side bar is not in this scope
+		// $route.reload();
+	});
+
+	/**
+	 * Permit to broadcast that a login is required
+	 */
+	$scope.loginRequired = function () {
+		console.info("Send event login request");
+		$scope.$broadcast('event:loginRequired');
+	};
+
+	/**
+	 * Holds all the requests which failed due to 401 response.
+	 */
+	$scope.$on('event:loginRequired', function () {
+		if ($('#authenticationModal').is(":visible")) {
+			$('#loginInfo').show();
+		}
+		else {
+			$('#authenticationModal').modal('show');
+		}
 	});
 
 	/**
 	 * On 'event:accessForbidden' pop up a modal
 	 */
-	$scope.$on('event:accessForbidden', function (event, Login) {
-		$scope.shouldOpenAccessForbiddenModal = true;
-		console.info("accessForbidden in appController")
+	$scope.$on('event:accessForbidden', function (event) {
+		console.info("accessForbidden in appController");
 	});
 
-	$scope.$on('$locationChangeSuccess', function (event, currentRoute, previousRoute) {
+	$scope.$on('$locationChangeSuccess', function (event, currentLocation, previousLocation) {
 		var url = "http://localhost:8080/windmeal/#";
-		$scope.previousRoute = previousRoute.substring(url.length, previousRoute.length);
+		$scope.previousRoute = previousLocation.substring(url.length, previousLocation.length);
 	});
 
 });
