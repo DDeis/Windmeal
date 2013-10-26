@@ -5,75 +5,91 @@
 var module = angular.module('windmeal.controllers');
 
 module.controller('FoodProviderListController', function ($scope, FoodProviders, FoodProviderResult, Tags, Search) {
-    $scope.fps = [];
-    if($scope.user != undefined && $scope.user.address != undefined)    {
-        $scope.address = $scope.user.address.street
-            + " " + $scope.user.address.postalCode
-            + " " + $scope.user.address.city;
-    }
-    $scope.request = "";
 
-    var coordinates = {};
+	$scope.fps = [];
 
-    if (FoodProviderResult.getFoodProviderResult()) {
-        $scope.fps = FoodProviderResult.getFoodProviderResult();
-    }
-    else {
-        $scope.fps = FoodProviders.query();
-    }
+	if ($scope.logged && $scope.user.address) {
+		$scope.address = $scope.user.address.street
+			+ " " + $scope.user.address.postalCode
+			+ " " + $scope.user.address.city;
+	}
 
-    if (FoodProviderResult.getQuery()) {
-        $scope.request = FoodProviderResult.getQuery();
-    }
+	$scope.request = "";
 
-    $scope.allTags = Tags.getTags();
+	var coordinates = {};
 
-    $scope.searchAddress = function () {
-        console.log("Fetching coordinates for:", $scope.address);
-        var geocoder = new google.maps.Geocoder();
+	if (FoodProviderResult.getFoodProviderResult()) {
+		$scope.fps = FoodProviderResult.getFoodProviderResult();
+	}
+	else {
+		$scope.fps = FoodProviders.query();
+	}
 
-        geocoder.geocode(
-            {address: $scope.address},
-            function (results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    coordinates.lat = results[0].geometry.location.lb;
-                    coordinates.lng = results[0].geometry.location.mb;
+	if (FoodProviderResult.getQuery()) {
+		$scope.request = FoodProviderResult.getQuery();
+	}
 
-                    console.log("Coordinates:", coordinates);
+	$scope.allTags = Tags.getTags();
 
-                    var params =
-                    {
-                        type: "location",
-                        longitude: coordinates.lat,
-                        latitude: coordinates.lat
-                    };
-                    performSearch(params);
-                } else {
-                    console.log("Geocode was not successful for the following reason:", status);
-                }
-            }
-        );
+	$scope.searchAddress = function () {
+		console.log("Fetching coordinates for:", $scope.address);
+		var geocoder = new google.maps.Geocoder();
 
-    }
+		geocoder.geocode(
+			{address: $scope.address},
+			function (results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					coordinates.lat = results[0].geometry.location.lb;
+					coordinates.lng = results[0].geometry.location.mb;
 
-    $scope.search = function () {
-        var params = {type: "request", request: $scope.request};
-        performSearch(params);
-    }
+					console.log("Coordinates:", coordinates);
 
-    function performSearch(params) {
-        console.log("Searching:", params);
-        Search.search(
-            params,
-            {},
-            function (data) {
-                console.log("Found results:", data);
-                $scope.fps = data;
-            },
-            function (error) {
-                console.log("Encountered error while searching:", error.status);
-            }
-        );
-    }
+					var params =
+					{
+						type: "location",
+						longitude: coordinates.lat,
+						latitude: coordinates.lat
+					};
+					performSearch(params);
+				} else {
+					console.log("Geocode was not successful for the following reason:", status);
+				}
+			}
+		);
+	}
 
+	$scope.search = function () {
+		var params = {type: "request", request: $scope.request};
+		performSearch(params);
+	}
+
+	function performSearch(params) {
+		console.log("Searching:", params);
+		Search.search(
+			params,
+			{},
+			function (data) {
+				console.log("Found results:", data);
+				$scope.fps = data;
+			},
+			function (error) {
+				console.log("Encountered error while searching:", error.status);
+			}
+		);
+	}
+
+	$scope.select = function (tag) {
+		if (tag != 'all') {
+			$scope.types.all = false;
+			$scope.types[tag] = !$scope.types[tag];
+
+		}
+		else {
+			angular.forEach($scope.types, function (value, key) {
+				$scope.types[key] = false;
+			});
+			$scope.types.all = true;
+		}
+		console.log($scope.types);
+	};
 });

@@ -6,16 +6,19 @@ module.filter('typeFilter', function () {
 		matches = [];
 
 		angular.forEach(options, function (value, key) {
+			console.log(key, value);
 			if (value) {
 				if (key == "all") {
 					matches = items;
 					return;
 				}
 				for(var i=0; i < items.length; i++){
-					for(var j=0; j < items[i].tags.length; j++){
-						if(items[i].tags[j] == key) {
-							matches[matches.length] = items[i];
-							break;
+					if(items[i].tags) {
+						for(var j=0; j < items[i].tags.length; j++){
+							if(items[i].tags[j] == key) {
+								matches[matches.length] = items[i];
+								break;
+							}
 						}
 					}
 				}
