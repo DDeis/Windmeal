@@ -80,12 +80,6 @@ module.factory('Login', function ($resource) {
 	});
 });
 
-module.factory('Signup', function ($resource) {
-	return $resource(path + '/users/', {}, {
-		save: {method: 'POST'}
-	});
-});
-
 module.factory('Logout', function ($resource) {
 	return $resource(path + '/logout/', {}, {
 		save: {method: 'POST'}

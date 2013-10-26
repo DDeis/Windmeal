@@ -133,6 +133,10 @@ ul.order-nav a:hover {
 	cursor: default;
 }
 
+table {
+	vertical-align: middle;
+}
+
 thead,
 tfoot {
 	font-weight: bold;
