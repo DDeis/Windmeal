@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -71,6 +72,7 @@ public class CrudOrderCtrl {
 		return crudValidationService.getOne(orderId);
 	}
 
+    @Secured("ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void create(@RequestBody Order order) throws ServiceException, DaoException {
@@ -79,6 +81,7 @@ public class CrudOrderCtrl {
 		crudValidationService.insert(order);
 	}
 
+    @Secured("ROLE_USER")
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = "application/json")
 	@ResponseStatus(HttpStatus.OK)
 	public void edit(@PathVariable String id, @RequestBody Order order) throws ServiceException, DaoException {
@@ -87,6 +90,7 @@ public class CrudOrderCtrl {
 		crudValidationService.save(order);
 	}
 
+    @Secured("ROLE_USER")
 	@RequestMapping(value = "/{idOrder}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.OK)
 	public void delete(@PathVariable String idOrder) throws ServiceException, DaoException {

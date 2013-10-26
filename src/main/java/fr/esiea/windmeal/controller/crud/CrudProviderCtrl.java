@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,6 +61,7 @@ public class CrudProviderCtrl {
 		return crudService.getOne(providerId);
 	}
 
+    @Secured("ROLE_USER")
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void create(@RequestBody FoodProvider provider) throws ServiceException, DaoException {
@@ -68,6 +70,7 @@ public class CrudProviderCtrl {
 		crudService.insert(provider);
 	}
 
+    @Secured("ROLE_USER")
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = "application/json")
 	@ResponseStatus(HttpStatus.OK)
 	public void edit(@PathVariable String id,@RequestBody FoodProvider provider) throws ServiceException, DaoException {
@@ -76,6 +79,7 @@ public class CrudProviderCtrl {
 		crudService.save(provider);
 	}
 
+    @Secured("ROLE_USER")
 	@RequestMapping(value = "/{idFoodProvider}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.OK)
 	public void delete(@PathVariable String idFoodProvider) throws ServiceException, DaoException {

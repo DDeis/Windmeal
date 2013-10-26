@@ -7,6 +7,7 @@ import fr.esiea.windmeal.service.crud.ICrudProviderService;
 import fr.esiea.windmeal.service.exception.ServiceException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +49,7 @@ public class ProviderCtrl {
 	@Autowired
 	private ObjectMapper objectMapper;
 
+    @Secured("ROLE_USER")
 	@RequestMapping(value = "user/{ownerId}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public void getAll(@PathVariable String ownerId, HttpServletResponse servletResponse) throws ServiceException, DaoException, IOException {
