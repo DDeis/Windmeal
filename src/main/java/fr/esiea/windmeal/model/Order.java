@@ -77,7 +77,6 @@ public class Order extends Model {
         if (foodProviderId != null ? !foodProviderId.equals(order.foodProviderId) : order.foodProviderId != null)
             return false;
         if (meals != null ? !meals.equals(order.meals) : order.meals != null) return false;
-        if (orderDate != null ? !orderDate.equals(order.orderDate) : order.orderDate != null) return false;
 
         return true;
     }
