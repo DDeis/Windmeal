@@ -88,6 +88,7 @@ public class CrudServiceTest {
 
 		ICrudService<Menu> dao = (ICrudService<Menu>) appCont.getBean("menuCrudService");
 
+        menu.generateId();
 		//Insert a new menu
 		dao.insert(menu);
 		Menu menuToCheck = dao.getOne(menu.getId());
@@ -100,6 +101,7 @@ public class CrudServiceTest {
 		dao.remove(menu.getId());
 		menuToCheck = dao.getOne(menu.getId());
 		assertEquals(null, menuToCheck);
+
 	}
 
 	@Test(expected = InvalidIdException.class)

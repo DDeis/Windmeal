@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
  * <p/>
@@ -34,45 +36,49 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class MenuCrudService implements ICrudService<Menu> {
-	@Autowired
-	@Qualifier("menuDao")
-	private ICrudDao<Menu> dao;
+    @Autowired
+    @Qualifier("menuDao")
+    private ICrudDao<Menu> dao;
 
-	@Override
-	public Iterable<Menu> getAll() throws DaoException {
-		return dao.getAll();
-	}
+    @Override
+    public Iterable<Menu> getAll() throws DaoException {
+        return dao.getAll();
+    }
 
-	@Override
-	public void remove(String idMenu) throws DaoException {
-		dao.remove(idMenu);
-	}
+    @Override
+    public void remove(String idMenu) throws DaoException {
+        dao.remove(idMenu);
+    }
 
-	@Override
-	public void save(Menu menu) throws DaoException {
-		for (Meal meal : menu.getMeals()) {
-			if (meal.getId() == null) {
-				meal.generateId();
-			}
-		}
-		dao.save(menu);
-	}
+    @Override
+    public void save(Menu menu) throws DaoException {
+        List<Meal> meals = menu.getMeals();
+        if(meals!=null)
+            for (Meal meal : menu.getMeals()) {
+                if (meal.getId() == null) {
+                    meal.generateId();
+                }
+            }
+        dao.save(menu);
+    }
 
-	@Override
-	public void insert(Menu menu) throws DaoException {
-		for (Meal meal : menu.getMeals()) {
-			if (meal.getId() == null) {
-				meal.generateId();
-			}
-		}
-		dao.insert(menu);
-	}
+    @Override
+    public void insert(Menu menu) throws DaoException {
+        List<Meal> meals = menu.getMeals();
+        if(meals!=null)
+            for (Meal meal : meals) {
+                if (meal.getId() == null) {
+                    meal.generateId();
+                }
+            }
+        dao.insert(menu);
+    }
 
-	@Override
-	public Menu getOne(String menuId) throws InvalidIdException, DaoException {
-		Menu menu = dao.getOne(menuId);
-		if (null == menu)
-			throw new InvalidIdException();
-		return menu;
-	}
+    @Override
+    public Menu getOne(String menuId) throws InvalidIdException, DaoException {
+        Menu menu = dao.getOne(menuId);
+        if (null == menu)
+            throw new InvalidIdException();
+        return menu;
+    }
 }
