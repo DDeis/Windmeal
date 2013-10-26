@@ -34,7 +34,7 @@ module.controller('HomeController', function ($scope, $location, Search, FoodPro
 					longitude: $scope.user.address.location.lng,
 					latitude: $scope.user.address.location.lat
 				},
-				$scope.user.address.location,
+				{},
 				function (data) {
 					FoodProviderResult.setFoodProviderResult(data);
 					console.log("Found results:", data);

@@ -8,20 +8,26 @@
 	<div class="row">
 		<aside class="col-lg-3" id="sidebar" role="navigation">
 			<div class="well">
+				<h5>Search</h5>
+
 				<div>
-					<input type="text" class="form-control" ng-model="query" />
+					<form ng-submit="search()">
+						<input type="search" class="form-control" ng-model="request" placeholder="Search" />
+					</form>
+				</div>
+				<h5>Address</h5>
+
+				<div>
+					<form ng-submit="searchAddress()">
+						<input type="search" class="form-control" ng-model="address" placeholder="Address" />
+					</form>
 				</div>
 				<ul class="side-nav">
 					<li class="header">Type</li>
-					<li><input type="checkbox" ng-model="types.all" ng-init="types.all = true" /> <a href="#">All ({{fps.length}})</a></li>
-					<li ng-repeat="tag in allTags.tags | tableSort"><input type="checkbox" ng-model="types[tag]"/> <a href="#">{{tag}} ({{(fps|filter:tag).length}})</a></li>
-					<li class="header">Distance</li>
-					<li><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
-					<li class="header">Price</li>
-					<li><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
+					<li><input type="checkbox" ng-model="types.all" ng-init="types.all = true" />
+						<a href="#">All ({{fps.length}})</a></li>
+					<li ng-repeat="tag in allTags.tags | tableSort"><input type="checkbox" ng-model="types[tag]" />
+						<a href="#">{{tag}} ({{(fps|filter:tag).length}})</a></li>
 				</ul>
 			</div>
 			<!--/.well -->
