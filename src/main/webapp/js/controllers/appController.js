@@ -8,7 +8,6 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 
 	$scope.login = {};
 	$scope.user = {};
-	$scope.coordinates = {};
 
 	$scope.requests401 = [];
 
@@ -28,7 +27,6 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 				$scope.logged = true;
 				console.log("Fetched user: ", data);
 				$scope.$broadcast('event:loginConfirmed');
-				getCoordinates({address: data.address.street+" "+data.address.postalCode+" "+data.address.city});
 			}, function (error) {
 				console.log("Login failed : Error", error.status);
 				$scope.logged = false;
@@ -130,24 +128,5 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 		var url = "http://localhost:8080/windmeal/#";
 		$scope.previousRoute = previousLocation.substring(url.length, previousLocation.length);
 	});
-
-	function getCoordinates(address) {
-		console.log("Fetching coordinates for:", address);
-		var geocoder = new google.maps.Geocoder();
-
-		geocoder.geocode(
-			address,
-			function (results, status) {
-				if (status == google.maps.GeocoderStatus.OK) {
-					$scope.coordinates.latitude = results[0].geometry.location.lb;
-					$scope.coordinates.longitude = results[0].geometry.location.mb;
-
-					console.log("Coordinates:", $scope.coordinates);
-				} else {
-					console.log("Geocode was not successful for the following reason:", status);
-				}
-			}
-		);
-	}
 
 });
