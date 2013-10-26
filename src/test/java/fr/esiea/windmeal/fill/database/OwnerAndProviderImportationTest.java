@@ -7,9 +7,14 @@ import fr.esiea.windmeal.model.enumeration.Tag;
 import fr.esiea.windmeal.model.security.Profile;
 import fr.esiea.windmeal.service.crud.ICrudService;
 import fr.esiea.windmeal.service.exception.ServiceException;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -41,16 +46,22 @@ import static fr.esiea.windmeal.fill.database.helper.FillHelper.*;
  * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-public class OwnerAndProviderImportaion {
+ */@RunWith(SpringJUnit4ClassRunner.class)
+   @ContextConfiguration(
+           locations = {
+                   "classpath*:spring/application-context.xml",
+           })
+public class OwnerAndProviderImportationTest {
+
+    @Autowired
+    ApplicationContext applicationContext;
+
     private static ICrudService<User> userService;
     private static ICrudService<FoodProvider> providerService;
     private static ICrudService<Menu> menuService;
-    public static void main(String[] args) throws IOException, DaoException, ServiceException {
 
-
-
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath*:spring/application-context.xml");
+    @Test
+    public void fillDbElasticsearch() throws Exception {
 
         //By using service u are sure than logic rules are applyed
         userService = (ICrudService<User>) applicationContext.getBean("userCrudService");
