@@ -30,9 +30,9 @@
 			</div>
 			<div class="collapse navbar-collapse" ng-switch="logged">
 				<!--<ul class="nav navbar-nav">-->
-					<!--<li class="active"><a href="#">Home</a></li>-->
-					<!--<li><a href="">About</a></li>-->
-					<!--<li><a href="#/geo">Geo</a></li>-->
+				<!--<li class="active"><a href="#">Home</a></li>-->
+				<!--<li><a href="">About</a></li>-->
+				<!--<li><a href="#/geo">Geo</a></li>-->
 				<!--</ul>-->
 				<ul class="nav navbar-nav navbar-right" ng-switch-when="true">
 					<li class="dropdown">
@@ -42,7 +42,8 @@
 							<li><a href="#/users/{{user._id}}/settings">Settings</a></li>
 							<li class="divider" ng-show="user.profile == 'PROVIDER'"></li>
 							<li class="dropdown-header" ng-show="user.profile == 'PROVIDER'">Provider</li>
-							<li ng-show="user.profile == 'PROVIDER'"><a href="#/providers/{{provider._id}}/dashboard">Dashboard</a></li>
+							<li ng-show="user.profile == 'PROVIDER'">
+								<a href="#/providers/{{provider._id}}/dashboard">Dashboard</a></li>
 							<li class="divider"></li>
 							<li><a href="" ng-click="logout()">Disconnect</a></li>
 						</ul>
@@ -74,11 +75,11 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-body">
-				<button type="button"  class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<form class="form-signin" ng-submit="connect()">
 					<h2 class="form-signin-heading">Please sign in</h2>
 
-                    <div id="loginInfo" class="text-danger">The login doesn't exist or the password is invalid</div>
+					<div id="loginInfo" class="text-danger">The login doesn't exist or the password is invalid</div>
 					<input type="text" class="form-control" placeholder="Email address" ng-model="login.email" autofocus required>
 					<input type="password" class="form-control" placeholder="Password" ng-model="login.password">
 					<label class="checkbox">

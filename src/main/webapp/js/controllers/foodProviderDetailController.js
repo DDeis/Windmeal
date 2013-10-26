@@ -32,7 +32,7 @@ module.controller('FoodProviderDetailController', function ($scope, $routeParams
 	var getAverageRating = function () {
 		var total = 0;
 		for (var i = 0; i < $scope.fp.comments.length; i++) {
-			if($scope.fp.comments[i].rate) {
+			if ($scope.fp.comments[i].rate) {
 				total += $scope.fp.comments[i].rate;
 			}
 		}
@@ -74,23 +74,24 @@ module.controller('FoodProviderDetailController', function ($scope, $routeParams
 		}
 	}
 
-	$scope.submitComment = function (id) {
-		$scope.newComment.userId = id;
+	$scope.submitComment = function () {
+		$scope.newComment.userId = $scope.user._id;
 		console.log($scope.newComment);
-		if($scope.newComment && $scope.newComment.userId && $scope.newComment.text)
-		Comment.addComment(
-			{id: $scope.fp._id},
-			$scope.newComment,
-			function () {
-				loadFoodProvider();
+		if ($scope.newComment && $scope.newComment.userId && $scope.newComment.text) {
+			Comment.addComment(
+				{id: $scope.fp._id},
+				$scope.newComment,
+				function () {
+					loadFoodProvider();
 
-				$scope.newComment = {};
-				$scope.newComment.rate = 1;
-			},
-			function () {
+					$scope.newComment = {};
+					$scope.newComment.rate = 1;
+				},
+				function () {
 
-			}
-		);
+				}
+			);
+		}
 	}
 
 	loadFoodProvider();
