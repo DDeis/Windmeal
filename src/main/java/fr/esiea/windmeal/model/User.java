@@ -2,7 +2,10 @@ package fr.esiea.windmeal.model;
 
 import fr.esiea.windmeal.model.security.Profile;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -29,12 +32,17 @@ import javax.validation.constraints.NotNull;
 public class User extends Model {
 
 	@NotNull
+    @Pattern(regexp="^[a-zA-Z0-9\\-_]+[a-zA-Z0-9\\.\\-_]*@[a-zA-Z0-9\\-_]+\\.[a-zA-Z\\.\\-_]{1,}[a-zA-Z\\-_]+",
+    message="An email was asked")
 	private String email;
 	@NotNull
+    @Size(min = 4, max = 12)
 	private String password;
-	//	@NotNull
+    @NotNull
+    @Size(min = 4, max = 16)
 	private String name;
 	private Profile profile = Profile.USER;
+    @Valid
 	private Address address;
 
 	public String getEmail() {

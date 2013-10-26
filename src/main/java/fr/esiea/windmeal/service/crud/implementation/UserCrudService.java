@@ -1,11 +1,13 @@
 package fr.esiea.windmeal.service.crud.implementation;
 
+import fr.esiea.windmeal.service.security.AbstractSecurityService;
 import fr.esiea.windmeal.dao.ICrudUserDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.User;
 import fr.esiea.windmeal.service.crud.ICrudUserService;
 import fr.esiea.windmeal.service.exception.EmailAlreadyExist;
 import fr.esiea.windmeal.service.exception.InvalidIdException;
+import fr.esiea.windmeal.service.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +34,7 @@ import org.springframework.stereotype.Service;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 @Service
-public class UserCrudService implements ICrudUserService {
+public class UserCrudService extends AbstractSecurityService implements ICrudUserService {
     @Autowired
     private ICrudUserDao dao;
 
@@ -42,12 +44,14 @@ public class UserCrudService implements ICrudUserService {
     }
 
     @Override
-    public void remove(String idUser) throws DaoException {
+    public void remove(String idUser) throws DaoException, ServiceException {
+        isTheUserOwnTheModel(idUser);
         dao.remove(idUser);
     }
 
     @Override
-    public void save(User user) throws DaoException {
+    public void save(User user) throws DaoException, ServiceException {
+        isTheUserOwnTheModel(user.getId());
         if(checkUniqueEmail(user.getEmail(),user.getId())  )
             dao.save(user);
     }

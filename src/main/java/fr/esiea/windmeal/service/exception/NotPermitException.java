@@ -1,8 +1,7 @@
-package fr.esiea.windmeal.controller.provider.dashboard;
+package fr.esiea.windmeal.service.exception;
 
-import org.apache.log4j.Logger;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import fr.esiea.windmeal.service.exception.ServiceException;
+import org.springframework.http.HttpStatus;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -26,9 +25,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+public class NotPermitException extends ServiceException {
 
-@Controller
-@RequestMapping("/dashboard")
-public class DashboardCtrl {
-	private final static Logger LOGGER = Logger.getLogger(DashboardCtrl.class);
+	public NotPermitException() {
+		super(HttpStatus.FORBIDDEN.value(), null);
+	}
 }

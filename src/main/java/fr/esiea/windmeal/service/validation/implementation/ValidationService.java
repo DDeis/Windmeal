@@ -5,6 +5,7 @@ import fr.esiea.windmeal.service.validation.IValidationService;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.Path;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import java.util.Collections;
@@ -49,7 +50,8 @@ public class ValidationService<T extends Model> implements IValidationService<T>
 
 		HashMap<Object, String> errorMap = new HashMap<Object, String>();
 		for (ConstraintViolation<T> violation : violations) {
-			errorMap.put(violation.getInvalidValue(), violation.getMessage());
+           String[] propertyPath = violation.getPropertyPath().toString().split("\\.");
+            errorMap.put(propertyPath[propertyPath.length-1], violation.getMessage());
 		}
 
 		return errorMap;

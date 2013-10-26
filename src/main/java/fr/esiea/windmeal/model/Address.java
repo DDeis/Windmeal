@@ -2,6 +2,8 @@ package fr.esiea.windmeal.model;
 
 import fr.esiea.windmeal.model.geospatiale.Location;
 
+import javax.validation.constraints.Pattern;
+
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
  * <p/>
@@ -25,8 +27,11 @@ import fr.esiea.windmeal.model.geospatiale.Location;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 public class Address {
+    @Pattern(regexp="[A-Za-z0-9 _.,!\"'/$]*")
 	private String street;
+    @Pattern(regexp="[A-Za-z0-9 _.,!\"'/$]*")
 	private String city;
+    @Pattern(regexp="/^[0-9]{5}$", message="A postal code was asked")
 	private String postalCode;
 	private Location location;
 

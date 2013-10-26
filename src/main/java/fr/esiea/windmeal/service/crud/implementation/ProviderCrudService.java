@@ -8,6 +8,7 @@ import fr.esiea.windmeal.service.crud.ICrudProviderService;
 import fr.esiea.windmeal.service.crud.ICrudService;
 import fr.esiea.windmeal.service.exception.InvalidIdException;
 import fr.esiea.windmeal.service.exception.ServiceException;
+import fr.esiea.windmeal.service.security.AbstractSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,7 @@ import org.springframework.stereotype.Service;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 @Service
-public class ProviderCrudService implements ICrudProviderService {
+public class ProviderCrudService extends AbstractSecurityService implements ICrudProviderService {
 	@Autowired
 	@Qualifier("elasticSearchIndexation")
 	private ICrudProviderDao dao;
@@ -49,18 +50,21 @@ public class ProviderCrudService implements ICrudProviderService {
 	}
 
 	@Override
-	public void remove(String idFoodProvider) throws DaoException {
+	public void remove(String idFoodProvider) throws DaoException, ServiceException {
+        isTheUserOwnTheModel(dao.getOne(idFoodProvider).getOwnerId());
 		dao.remove(idFoodProvider);
 	}
 
 	@Override
-	public void save(FoodProvider provider) throws DaoException {
-		dao.save(provider);
+	public void save(FoodProvider provider) throws DaoException, ServiceException {
+        isTheUserOwnTheModel(provider.getOwnerId());
+        dao.save(provider);
 	}
 
 	@Override
-	public void insert(FoodProvider provider) throws DaoException {
-		dao.insert(provider);
+	public void insert(FoodProvider provider) throws DaoException, ServiceException {
+        isTheUserOwnTheModel(provider.getOwnerId());
+        dao.insert(provider);
 	}
 
 	@Override
@@ -78,7 +82,8 @@ public class ProviderCrudService implements ICrudProviderService {
 
 	@Override
 	public void addComment(String providerId, Comment comment) throws DaoException, ServiceException {
-		FoodProvider one = dao.getOne(providerId);
+		isTheUserOwnTheModel(comment.getUserId());
+        FoodProvider one = dao.getOne(providerId);
 		if (one == null) {
 			throw new InvalidIdException();
 		}

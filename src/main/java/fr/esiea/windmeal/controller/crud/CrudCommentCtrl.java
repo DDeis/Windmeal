@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,6 +48,7 @@ public class CrudCommentCtrl {
     @Qualifier("providerCrudService")
     ICrudProviderService crudService;
 
+    @Secured("ROLE_USER")
     @RequestMapping(value = "/provider/{id}", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody Comment comment,@PathVariable("id") String providerId) throws ServiceException, DaoException {

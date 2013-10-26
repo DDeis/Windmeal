@@ -1,5 +1,10 @@
 package fr.esiea.windmeal.model;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
  * <p/>
@@ -23,9 +28,12 @@ package fr.esiea.windmeal.model;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 public class Comment extends Model {
-
+    @NotNull(message = "This comment should come from someone")
 	private String userId;
+    @Min(value=0)
+    @Max(value=5)
 	private int rate;
+    @Pattern(regexp="[A-Za-z0-9 _.,!\"'/$]*")
 	private String text;
 
 	public String getUserId() {

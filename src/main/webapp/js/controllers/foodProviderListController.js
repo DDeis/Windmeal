@@ -5,6 +5,7 @@
 var module = angular.module('windmeal.controllers');
 
 module.controller('FoodProviderListController', function ($scope, FoodProviders, FoodProviderResult, Tags, Search) {
+
 	$scope.fps = [];
 
 	if ($scope.logged && $scope.user.address) {

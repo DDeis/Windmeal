@@ -1,17 +1,25 @@
 package fr.esiea.windmeal.controller.crud;
 
+import fr.esiea.windmeal.controller.exception.security.NeedToBeAuthenticatedException;
+import fr.esiea.windmeal.dao.ICrudDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.FoodProvider;
+import fr.esiea.windmeal.model.User;
 import fr.esiea.windmeal.service.crud.ICrudService;
+import fr.esiea.windmeal.service.exception.InvalidIdException;
 import fr.esiea.windmeal.service.exception.ServiceException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
 import java.io.IOException;
 
 /**
@@ -60,6 +68,7 @@ public class CrudProviderCtrl {
 		return crudService.getOne(providerId);
 	}
 
+    @Secured("ROLE_USER")
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void create(@RequestBody FoodProvider provider) throws ServiceException, DaoException {
@@ -68,6 +77,7 @@ public class CrudProviderCtrl {
 		crudService.insert(provider);
 	}
 
+    @Secured("ROLE_USER")
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = "application/json")
 	@ResponseStatus(HttpStatus.OK)
 	public void edit(@PathVariable String id,@RequestBody FoodProvider provider) throws ServiceException, DaoException {
@@ -76,11 +86,12 @@ public class CrudProviderCtrl {
 		crudService.save(provider);
 	}
 
+    @Secured("ROLE_USER")
 	@RequestMapping(value = "/{idFoodProvider}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.OK)
-	public void delete(@PathVariable String idFoodProvider) throws ServiceException, DaoException {
-
+	public void delete(@PathVariable String idFoodProvider) throws ServiceException, DaoException, NeedToBeAuthenticatedException {
 		LOGGER.info("[Controller] Querying to delete FoodProvider with id : \"" + idFoodProvider + "\"");
 		crudService.remove(idFoodProvider);
 	}
+
 }
