@@ -7,9 +7,11 @@ var module = angular.module('windmeal.controllers');
 module.controller('FoodProviderListController', function ($scope, FoodProviders, FoodProviderResult, Tags, Search) {
 	$scope.fps = [];
 
-	$scope.address = $scope.user.address.street
-		+ " " + $scope.user.address.postalCode
-		+ " " + $scope.user.address.city;
+	if ($scope.logged && $scope.user.address) {
+		$scope.address = $scope.user.address.street
+			+ " " + $scope.user.address.postalCode
+			+ " " + $scope.user.address.city;
+	}
 
 	$scope.request = "";
 
@@ -53,7 +55,6 @@ module.controller('FoodProviderListController', function ($scope, FoodProviders,
 				}
 			}
 		);
-
 	}
 
 	$scope.search = function () {
@@ -76,4 +77,18 @@ module.controller('FoodProviderListController', function ($scope, FoodProviders,
 		);
 	}
 
+	$scope.select = function (tag) {
+		if (tag != 'all') {
+			$scope.types.all = false;
+			$scope.types[tag] = !$scope.types[tag];
+
+		}
+		else {
+			angular.forEach($scope.types, function (value, key) {
+				$scope.types[key] = false;
+			});
+			$scope.types.all = true;
+		}
+		console.log($scope.types);
+	};
 });

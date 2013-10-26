@@ -24,10 +24,13 @@
 				</div>
 				<ul class="side-nav">
 					<li class="header">Type</li>
-					<li><input type="checkbox" ng-model="types.all" ng-init="types.all = true" />
-						<a href="#">All ({{fps.length}})</a></li>
-					<li ng-repeat="tag in allTags.tags | tableSort"><input type="checkbox" ng-model="types[tag]" />
-						<a href="#">{{tag}} ({{(fps|filter:tag).length}})</a></li>
+					<li><input type="checkbox" ng-model="types.all" ng-init="types.all = true" disabled />
+						<a href="" ng-click="select('all')">All ({{fps.length}})</a>
+					</li>
+					<li ng-repeat="tag in allTags.tags | tableSort">
+						<input type="checkbox" ng-model="types[tag]" disabled />
+						<a href="" ng-click="select(tag)">{{tag}} ({{(fps|filter:tag).length}})</a>
+					</li>
 				</ul>
 			</div>
 			<!--/.well -->
