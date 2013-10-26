@@ -19,6 +19,9 @@ module.controller('FoodProviderSettingsController', function ($scope, $routePara
 			{},
 			function (data) {
 				$scope.fp = data;
+				for(var i=0; i<$scope.fp.tags.length; i++) {
+					$scope.tags[$scope.fp.tags[i]] = true;
+				}
 				console.log(data);
 			},
 			function (error) {
@@ -28,13 +31,16 @@ module.controller('FoodProviderSettingsController', function ($scope, $routePara
 	}
 
 	$scope.submitInfo = function () {
-		console.log($scope.tags);
 
 		angular.forEach($scope.tags, function(value, key) {
 			if(value) {
 				$scope.fp.tags.push(key);
 			}
 		});
+
+		$scope.ownerId = $scope.user._id;
+
+		console.log("FP", $scope.fp);
 
 		if($routeParams.id != undefined) {
 			FoodProviders.update(
