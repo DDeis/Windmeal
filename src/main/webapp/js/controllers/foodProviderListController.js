@@ -21,6 +21,11 @@ module.controller('FoodProviderListController', function ($scope, FoodProviders,
 	else {
 		$scope.fps = FoodProviders.query();
 	}
+
+	if (FoodProviderResult.getQuery()) {
+		$scope.request = FoodProviderResult.getQuery();
+	}
+
 	$scope.allTags = Tags.getTags();
 
 	$scope.searchAddress = function () {
