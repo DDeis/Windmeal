@@ -25,6 +25,7 @@
 				{{user.address.street}}, {{user.address.postalCode}} {{user.address.city}}<br/>
 
 				<a href="#/users/{{user._id}}/edit" class="btn btn-primary">Edit</a>
+				<a href="" ng-click="delete('user', user._id)" class="btn btn-default">Delete my account</a>
 			</div>
 			<div ng-switch-when="provider">
 				<a class="btn btn-primary" href="#/providers/new">Create Restaurant</a>
@@ -44,7 +45,7 @@
 						<td class="text-center">{{$index + 1}}</td>
 						<td>{{provider.name}}</td>
 						<td class="text-center">
-							<a href="#/providers/{{provider._id}}/settings/info" class="glyphicon glyphicon-list"></a>
+							<a href="#/providers/{{provider._id}}/dashboard" class="glyphicon glyphicon-list"></a>
 						</td>
 						<td class="text-center">
 							<a href="#/providers/{{provider._id}}/settings/info" class="glyphicon glyphicon-edit"></a>
@@ -53,7 +54,7 @@
 							<a href="#/providers/{{provider._id}}/settings/menu" class="glyphicon glyphicon-edit"></a>
 						</td>
 						<td class="text-center">
-							<a href="" class="glyphicon glyphicon-trash"></a>
+							<a href="" ng-click="delete('provider', provider._id)" class="glyphicon glyphicon-trash"></a>
 						</td>
 					</tr>
 					</tbody>
@@ -62,3 +63,26 @@
 		</section>
 	</div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModal" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Confirmation</h4>
+			</div>
+			<div class="modal-body">
+				<p>Are you sure?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Keep it</button>
+				<button type="button" class="btn btn-primary" ng-click="confirm()">Delete</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

@@ -6,6 +6,7 @@
 	</div>
 	<div id="pageContent">
 		<div class="panel-group" id="accordion">
+			<p ng-hide="orders.length"><em>No orders</em></p>
 			<div class="panel panel-default" ng-repeat="order in orders">
 				<div class="panel-heading">
 					<h4 class="panel-title" ng-class="{done: order.state}">
