@@ -15,21 +15,42 @@ module.controller('FoodProviderDetailController', function ($scope, $routeParams
 	$scope.newComment = {};
 	$scope.newComment.rate = 1;
 
-	var getMenu = function (id) {
+	fetchProviderData();
+
+	function fetchProviderData() {
+		if ($routeParams.id != undefined) {
+			FoodProviders.get(
+				{id: $routeParams.id},
+				{},
+				function (data) {
+					console.log("Fetched Provider: ", data);
+					$scope.fp = data;
+					fetchCommentUsers();
+					getAverageRating();
+					fetchMenu($scope.fp.menuId);
+				},
+				function (error) {
+					console.log("Error while fetching provider:", error.status);
+				}
+			);
+		}
+	}
+
+	function fetchMenu(id) {
 		Menus.get(
 			{id: id},
 			{},
 			function (data) {
 				$scope.menu = data;
-				console.log(data);
+				console.log("Fetched Menu: ", data);
 			},
 			function (error) {
-				console.log("Error " + error.status);
+				console.log("Error while fetching menu:", error.status);
 			}
 		);
 	}
 
-	var getAverageRating = function () {
+	function getAverageRating() {
 		var total = 0;
 		for (var i = 0; i < $scope.fp.comments.length; i++) {
 			if ($scope.fp.comments[i].rate) {
@@ -39,7 +60,7 @@ module.controller('FoodProviderDetailController', function ($scope, $routeParams
 		$scope.averageRating = Math.round(total / $scope.fp.comments.length);
 	}
 
-	var getUsers = function () {
+	function fetchCommentUsers() {
 		for (var i = 0; i < $scope.fp.comments.length; i++) {
 			if ($scope.fp.comments[i].userId) {
 				Users.get(
@@ -49,51 +70,30 @@ module.controller('FoodProviderDetailController', function ($scope, $routeParams
 						$scope.users[data._id] = data;
 					},
 					function (error) {
+						console.log("Error while fetching users:",  error.status);
 					}
 				);
 			}
 		}
 	}
 
-	var loadFoodProvider = function () {
-		if ($routeParams.id != undefined) {
-			FoodProviders.get(
-				{id: $routeParams.id},
-				{},
-				function (data) {
-					console.log(data);
-					$scope.fp = data;
-					getUsers();
-					getAverageRating();
-					getMenu($scope.fp.menuId);
-				},
-				function (error) {
-					console.log("Error " + error.status);
-				}
-			);
-		}
-	}
-
 	$scope.submitComment = function () {
 		$scope.newComment.userId = $scope.user._id;
-		console.log($scope.newComment);
+		console.log("Posting comment: ", $scope.newComment);
 		if ($scope.newComment && $scope.newComment.userId && $scope.newComment.text) {
 			Comment.addComment(
 				{id: $scope.fp._id},
 				$scope.newComment,
 				function () {
-					loadFoodProvider();
-
+					fetchProviderData();
 					$scope.newComment = {};
 					$scope.newComment.rate = 1;
 				},
-				function () {
-
+				function (error) {
+					console.log("Error while posting comment:", error.status);
 				}
 			);
 		}
-	}
-
-	loadFoodProvider();
+	};
 
 });

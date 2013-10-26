@@ -15,15 +15,14 @@ module.controller('SignUpController', function ($scope, $location, $timeout, Sig
 		Signup.save(
 			$scope.newUser
 			, function (data) {
-				console.log(data);
 				console.log("Successfully signed up");
+				console.log("Signed up user:", data);
 
 				$scope.login.email = $scope.newUser.email;
 				$scope.login.password = $scope.newUser.password;
 
 				$scope.$emit('event:loginRequest');
 
-				console.log($scope.previousRoute)
 				if ($scope.previousRoute) {
 					$location.path($scope.previousRoute);
 				}

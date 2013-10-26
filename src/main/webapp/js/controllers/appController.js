@@ -8,15 +8,19 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 
 	$scope.login = {};
 	$scope.user = {};
+	$scope.coordinates = {};
 
 	$scope.requests401 = [];
 
 	$('#loginInfo').hide();
 
+	// Permet de verifier après un rafraichissement si on est loggué
+	fetchUserData();
+
 	/**
 	 * Set data when an user is connected
 	 */
-	$scope.fetchUserData = function () {
+	function fetchUserData() {
 		Login.get(
 			{}, // Post Data
 			function (data) {
@@ -24,15 +28,13 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 				$scope.logged = true;
 				console.log("Fetched user: ", data);
 				$scope.$broadcast('event:loginConfirmed');
+				getCoordinates({address: data.address.street+" "+data.address.postalCode+" "+data.address.city});
 			}, function (error) {
-				console.log("Login failed : Error " + error.status);
+				console.log("Login failed : Error", error.status);
 				$scope.logged = false;
 			}
 		);
 	};
-
-	// Permet de verifier après un rafraichissement si on est loggué
-	$scope.fetchUserData();
 
 	/**
 	 * Called when the authentication form is field
@@ -49,12 +51,12 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 		Login.save($scope.login, function (data) {
 			if (data != null) {
 				$scope.$broadcast('event:loginConfirmed');
-				$scope.fetchUserData();
+				fetchUserData();
+				$scope.login = {};
 			}
 		}, function (error) {
-			console.log("Login error, if you are here the interceptor doesn't work");
+			console.log("Login failed (the interceptor may not works):", error.status);
 		});
-		$scope.login = {};
 	});
 
 	/**
@@ -65,10 +67,11 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 			{},
 			function () {
 				$scope.logged = false;
+				$scope.user = {};
 				console.info("Logout success");
 			},
-			function () {
-				console.info("Logout error");
+			function (error) {
+				console.info("Logout failed:", error.status);
 			}
 		);
 	};
@@ -92,7 +95,7 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 				req.deferred.resolve(response);
 			});
 		}
-		
+
 		// $route.reload();
 	});
 
@@ -127,5 +130,24 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 		var url = "http://localhost:8080/windmeal/#";
 		$scope.previousRoute = previousLocation.substring(url.length, previousLocation.length);
 	});
+
+	function getCoordinates(address) {
+		console.log("Fetching coordinates for:", address);
+		var geocoder = new google.maps.Geocoder();
+
+		geocoder.geocode(
+			address,
+			function (results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					$scope.coordinates.latitude = results[0].geometry.location.lb;
+					$scope.coordinates.longitude = results[0].geometry.location.mb;
+
+					console.log("Coordinates:", $scope.coordinates);
+				} else {
+					console.log("Geocode was not successful for the following reason:", status);
+				}
+			}
+		);
+	}
 
 });

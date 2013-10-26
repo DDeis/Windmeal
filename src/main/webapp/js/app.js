@@ -19,7 +19,6 @@ var windmealApp = angular.module('windmealApp', [
 windmealApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
 	$routeProvider.
 		when('/', {templateUrl: 'partials/home.html', controller: 'HomeController'}).
-		when('/geo', {templateUrl: 'partials/geo.html', controller: 'GeoController'}).
 		when('/signup', {templateUrl: 'partials/signup.html', controller: 'SignUpController'}).
 
 		when('/users/:id/settings', {templateUrl: 'partials/settings.html', controller: 'SettingsController'}).
