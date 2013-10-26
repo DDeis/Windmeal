@@ -99,7 +99,7 @@ module.factory('Comment', function ($resource) {
 });
 
 module.factory('Search', function ($resource) {
-	return $resource(path + '/search/providers/request', {}, {
-		search: {method: 'GET', isArray: true}
+	return $resource(path + '/search/providers/:type', {}, {
+		search: {method: 'GET', isArray: true, params: {type: 'type'}}
 	});
 });

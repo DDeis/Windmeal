@@ -45,7 +45,7 @@ public class GeoProviderService implements IGeoProviderService  {
 
     @Override
     public Iterable<FoodProvider> getProviderNear(Location location) throws DaoException {
-        LOGGER.info("Research from ["+location.getLng()+","+location.getLat()+"] with max distance " + maxDistance);
+        LOGGER.info("Research from ["+location.getLng()+", "+location.getLat()+"] with max distance " + maxDistance);
         return dao.getProviderNear(location,maxDistance);
     }
 }

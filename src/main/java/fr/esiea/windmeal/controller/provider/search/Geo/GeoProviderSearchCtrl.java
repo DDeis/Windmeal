@@ -3,11 +3,14 @@ package fr.esiea.windmeal.controller.provider.search.geo;
 import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.FoodProvider;
 import fr.esiea.windmeal.model.geospatiale.Location;
-import fr.esiea.windmeal.service.search.geo.IGeoProviderService;
 import fr.esiea.windmeal.service.exception.ServiceException;
+import fr.esiea.windmeal.service.search.geo.IGeoProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -35,15 +38,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/search/providers/location")
 public class GeoProviderSearchCtrl {
 
-    @Autowired
-    IGeoProviderService geoService;
-    //curl test on marco polo on data curl -v -XGET -H "Content-Type:application/json" 'http://localhost:8080/windmeal/rest/search/providers/' -d '{"lat":"48.8488576","lng":"2.3354223"}'
-    @RequestMapping(method = RequestMethod.GET, consumes = "application/json;charset=UTF-8")
-    @ResponseBody
-    public Iterable<FoodProvider> SearchProviderNearLocation(@RequestBody Location location) throws ServiceException, DaoException {
-        return geoService.getProviderNear(location);
-    }
+	@Autowired
+	IGeoProviderService geoService;
 
+	//curl test on marco polo on data curl -v -XGET -H "Content-Type:application/json" 'http://localhost:8080/windmeal/rest/search/providers/' -d '{"lat":"48.8488576","lng":"2.3354223"}'
+	@RequestMapping(method = RequestMethod.GET, params = {"longitude", "latitude"})
+	@ResponseBody
+	public Iterable<FoodProvider> SearchProviderNearLocation(@RequestParam("longitude") String longitude, @RequestParam("latitude") String latitude) throws ServiceException, DaoException {
+		Location location = new Location();
+		location.setLng(Double.valueOf(longitude));
+		location.setLat(Double.valueOf(latitude));
+		return geoService.getProviderNear(location);
+	}
 }
 
 
