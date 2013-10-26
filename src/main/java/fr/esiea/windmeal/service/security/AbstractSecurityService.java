@@ -1,8 +1,14 @@
-package fr.esiea.windmeal.controller.exception.security;
+package fr.esiea.windmeal.service.security;
 
-import fr.esiea.windmeal.model.exception.RestException;
+import fr.esiea.windmeal.controller.exception.security.NeedToBeAuthenticatedException;
+import fr.esiea.windmeal.dao.ICrudDao;
+import fr.esiea.windmeal.dao.exception.DaoException;
+import fr.esiea.windmeal.model.User;
+import fr.esiea.windmeal.service.exception.NotPermitException;
 import fr.esiea.windmeal.service.exception.ServiceException;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -26,9 +32,25 @@ import org.springframework.http.HttpStatus;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public class NeedToBeAuthenticatedException extends ServiceException {
+public abstract class AbstractSecurityService {
 
-	public NeedToBeAuthenticatedException() {
-		super(HttpStatus.UNAUTHORIZED.value(), null);
-	}
+    @Autowired
+    ICrudDao<User> userDao;
+    final protected User getUserConnected() throws DaoException, NotPermitException {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User userAuthenticate =  userDao.getOne(authentication.getDetails().toString());
+
+        if(null == userAuthenticate)
+            throw new NotPermitException();
+
+        return userAuthenticate;
+    }
+
+
+    public void isTheUserOwnTheModel(String id) throws ServiceException, DaoException {
+        if(getUserConnected().getId() != id)
+            throw new NotPermitException();
+    }
+
 }

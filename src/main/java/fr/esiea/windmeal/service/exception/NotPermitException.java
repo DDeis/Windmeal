@@ -1,6 +1,5 @@
-package fr.esiea.windmeal.controller.exception.security;
+package fr.esiea.windmeal.service.exception;
 
-import fr.esiea.windmeal.model.exception.RestException;
 import fr.esiea.windmeal.service.exception.ServiceException;
 import org.springframework.http.HttpStatus;
 
@@ -26,9 +25,9 @@ import org.springframework.http.HttpStatus;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public class NeedToBeAuthenticatedException extends ServiceException {
+public class NotPermitException extends ServiceException {
 
-	public NeedToBeAuthenticatedException() {
+	public NotPermitException() {
 		super(HttpStatus.UNAUTHORIZED.value(), null);
 	}
 }
