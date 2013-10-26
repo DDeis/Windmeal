@@ -8,15 +8,35 @@
 		<div class="panel-group" id="accordion">
 			<div class="panel panel-default" ng-repeat="order in orders">
 				<div class="panel-heading">
-					<h4 class="panel-title">
+					<h4 class="panel-title" ng-class="{done: order.state}">
 						<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-							{{order.meals.length}} meals - {{ order.orderDate | date:'yyyy/MM/dd HH:mm:ss'}}
+							<span class="pull-left">{{ order.orderDate | date:'yyyy/MM/dd - HH:mm'}}</span>
+							<span class="pull-right">{{getTotalMenuItems($index)}} meals - {{getTotalPrice($index) | number:2}} €</span>
+							<span class="clearfix"></span>
 						</a>
 					</h4>
 				</div>
 				<div id="collapseOne" class="panel-collapse collapse">
 					<div class="panel-body">
-						Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+						<table class="table table-stripped col-lg-12">
+							<thead>
+							<tr>
+								<td class="col-lg-1 text-center">#</td>
+								<td class="col-lg-9 text-center">Menu Item</td>
+								<td class="col-lg-1 text-center">Item Price</td>
+								<td class="col-lg-1 text-center">Price</td>
+							</tr>
+							</thead>
+							<tbody>
+							<tr ng-repeat="item in order.meals">
+								<td class="text-center">{{item.number}}</td>
+								<td class="text-center">{{menu[item.mealId].name}}</td>
+								<td class="text-center">{{menu[item.mealId].price | number:2}} €</td>
+								<td class="text-center">{{item.number * menu[item.mealId].price | number:2}} €</td>
+							</tr>
+							</tbody>
+						</table>
+						<a href="" class="btn btn-primary" ng-click="order.state = true">Done</a>
 					</div>
 				</div>
 			</div>

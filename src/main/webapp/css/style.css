@@ -189,3 +189,7 @@ div[rating][readonly="true"] a, div[rating][readonly="true"] a:hover {
 	color: #888;
 }
 
+.done a span {
+	text-decoration: line-through;
+	color: #888;
+}
