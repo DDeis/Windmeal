@@ -13,38 +13,17 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 
 	$('#loginInfo').hide();
 
-	// Permet de verifier après un rafraichissement si on est loggué
-	ping();
-
-	/**
-	 * Ping server to figure out if user is already logged in.
-	 */
-	function ping() {
-		//Default
-
-		Login.get(
-			{}, // Post Data
-			function (data) {
-				$scope.user = data;
-				console.log("User :", data);
-				$scope.$broadcast('event:loginConfirmed');
-			}, function (error) {
-				console.info("Error " + error.status);
-			}
-		);
-	}
-
 	/**
 	 * Set data when an user is connected
 	 */
 	$scope.fetchUserData = function () {
-
 		Login.get(
 			{}, // Post Data
 			function (data) {
 				$scope.user = data;
 				$scope.logged = true;
 				console.log("Fetched user: ", data);
+				$scope.$broadcast('event:loginConfirmed');
 			}, function (error) {
 				console.log("Login failed : Error " + error.status);
 				$scope.logged = false;
@@ -52,29 +31,30 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 		);
 	};
 
+	// Permet de verifier après un rafraichissement si on est loggué
+	$scope.fetchUserData();
 
 	/**
-	 * On 'event:loginConfirmed', resend all the 401 requests.
+	 * Called when the authentication form is field
 	 */
-	$scope.$on('event:loginConfirmed', function () {
-		console.info("in login confirmed");
-		$('#authenticationModal').modal('hide');
-		console.log("User is now connected");
-		$scope.fetchUserData();
-		var i, requests = $scope.requests401;
-		console.info("request length " + requests.length);
-		for (i = 0; i < requests.length; i++) {
-			retry(requests[i]);
-		}
-		$scope.requests401 = [];
+	$scope.connect = function () {
+		$scope.$broadcast('event:loginRequest');
+	};
 
-		function retry(req) {
-			$http(req.config).then(function (response) {
-				req.deferred.resolve(response);
-			});
-		}
-
-		$route.reload();
+	/**
+	 * On 'event:loginRequest' Ask the server with scope.login
+	 */
+	$scope.$on('event:loginRequest', function (event) {
+		console.log("Login requested");
+		Login.save($scope.login, function (data) {
+			if (data != null) {
+				$scope.$broadcast('event:loginConfirmed');
+				$scope.fetchUserData();
+			}
+		}, function (error) {
+			console.log("Login error, if you are here the interceptor doesn't work");
+		});
+		$scope.login = {};
 	});
 
 	/**
@@ -94,28 +74,30 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 	};
 
 	/**
-	 * Called when the authentication form is field
+	 * On 'event:loginConfirmed', resend all the 401 requests.
 	 */
-	$scope.connect = function () {
-		$scope.$broadcast('event:loginRequest');
-	};
+	$scope.$on('event:loginConfirmed', function () {
+		console.info("in login confirmed");
+		$('#authenticationModal').modal('hide');
+		console.log("User is now connected");
+		var i, requests = $scope.requests401;
+		console.info("request length " + requests.length);
+		for (i = 0; i < requests.length; i++) {
+			retry(requests[i]);
+		}
+		$scope.requests401 = [];
 
-	/**
-	 * On 'event:loginRequest' Ask the server with scope.login
-	 */
-	$scope.$on('event:loginRequest', function (event) {
-		console.log("Login requested");
-		Login.save($scope.login, function (data) {
-			if (data != null)
-				$scope.$broadcast('event:loginConfirmed');
-		}, function (error) {
-			console.log("Login error, if you are here the interceptor doesn't work");
-		});
-		$scope.login = {};
+		function retry(req) {
+			$http(req.config).then(function (response) {
+				req.deferred.resolve(response);
+			});
+		}
+		
+		// $route.reload();
 	});
 
 	/**
-	 * Permit to broadcast that a login  is required
+	 * Permit to broadcast that a login is required
 	 */
 	$scope.loginRequired = function () {
 		console.info("Send event login request");
@@ -133,7 +115,6 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 			$('#authenticationModal').modal('show');
 		}
 	});
-
 
 	/**
 	 * On 'event:accessForbidden' pop up a modal
