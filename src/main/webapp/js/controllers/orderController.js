@@ -96,4 +96,18 @@ module.controller('OrderController', function ($scope, $routeParams, FoodProvide
 			}
 		);
 	}
+
+	$scope.deleteAllItems = function() {
+		for(var i=0; i<$scope.menu.meals.length; i++) {
+			$scope.menu.meals[i].nb = 0;
+		}
+	}
+
+	$scope.deleteItem = function(menuItem) {
+		menuItem.nb = 0;
+	}
+
+	$scope.removeItem = function(menuItem) {
+		menuItem.nb--;
+	}
 });

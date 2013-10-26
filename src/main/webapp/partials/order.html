@@ -39,14 +39,14 @@
 					<td class="text-center">{{item.nb}}</td>
 					<td>{{item.name}}</td>
 					<td class="text-right">{{item.price * item.nb | number:2}} €</td>
-					<td><a class="glyphicon glyphicon-remove"></a></td>
+					<td><a href="" ng-click="removeItem(item)" class="glyphicon glyphicon-remove"></a></td>
 				</tr>
 				</tbody>
 				<tfoot>
 				<tr>
 					<td colspan="2">Total</td>
 					<td class="text-right">{{total() | number:2}} €</td>
-					<td><a class="glyphicon glyphicon-trash"></a></td>
+					<td><a href="" ng-click="deleteAllItems()" class="glyphicon glyphicon-trash"></a></td>
 				</tr>
 				</tfoot>
 			</table>
@@ -56,6 +56,8 @@
 
 	<div class="row" ng-show="view == 2">
 		<form class="form-horizontal" role="form" name="order_form" novalidate>
+			<p class="text-danger">This provider does not deliver, you can go to next step!</p>
+			<a class="btn btn-primary" href="" ng-click="view = '3'">Next</a>
 			<section>
 				<h4>Delivery & Payment address</h4>
 
@@ -63,7 +65,7 @@
 					<label for="inputAddress" novalidate class="col-lg-2 control-label">Address</label>
 
 					<div class="col-lg-10">
-						<input type="text" id="inputAddress" class="form-control" name="address" placeholder="Address" ng-model="delivery.address" required>
+						<input type="text" id="inputAddress" class="form-control" name="address" placeholder="Address" ng-model="delivery.address" disabled required>
 					</div>
 				</div>
 
@@ -71,7 +73,7 @@
 					<label for="inputZipcode" class="col-lg-2 control-label">Zipcode</label>
 
 					<div class="col-lg-2">
-						<input type="text" id="inputZipcode" class="form-control" name="zipcode" placeholder="Zipcode" ng-model="delivery.zipcode" required>
+						<input type="text" id="inputZipcode" class="form-control" name="zipcode" placeholder="Zipcode" ng-model="delivery.zipcode" disabled required>
 					</div>
 				</div>
 
@@ -79,7 +81,7 @@
 					<label for="inputCity" class="col-lg-2 control-label">City</label>
 
 					<div class="col-lg-4">
-						<input type="text" id="inputCity" class="form-control" name="city" placeholder="City" ng-model="delivery.city" required>
+						<input type="text" id="inputCity" class="form-control" name="city" placeholder="City" ng-model="delivery.city" disabled required>
 					</div>
 				</div>
 
@@ -131,7 +133,8 @@
 				<thead>
 				<tr>
 					<td class="col-lg-1 text-center">#</td>
-					<td class="col-lg-10 text-center">Menu item</td>
+					<td class="col-lg-9 text-center">Menu item</td>
+					<td class="col-lg-1 text-center">Item Price</td>
 					<td class="col-lg-1 text-center">Price</td>
 				</tr>
 				</thead>
@@ -139,12 +142,13 @@
 				<tr ng-repeat="item in menu.meals" ng-show=item.nb>
 					<td class="text-center">{{item.nb}}</td>
 					<td>{{item.name}}</td>
+					<td class="text-right">{{item.price | number:2}} €</td>
 					<td class="text-right">{{item.price * item.nb | number:2}} €</td>
 				</tr>
 				</tbody>
 				<tfoot>
 				<tr>
-					<td colspan="2">Total</td>
+					<td colspan="3">Total</td>
 					<td class="text-right">{{total() | number:2}} €</td>
 				</tr>
 				</tfoot>
@@ -155,7 +159,7 @@
 			<h4>Payment & Delivery</h4>
 
 			<p>
-				Delivery address: {{delivery.address}}, {{delivery.zipcode}} {{delivery.city}}<br />
+				Delivery address: {{delivery.address}} {{delivery.zipcode}} {{delivery.city}}<br />
 				<br />
 				Credit card number: {{payment.card}}<br />
 				CVV: {{payment.cvv}}<br />
