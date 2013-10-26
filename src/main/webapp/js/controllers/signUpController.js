@@ -11,19 +11,19 @@ module.controller('SignUpController', function ($scope, $routeParams, $location,
 	$scope.newUser = {};
 	var coordinates = {};
 
-	if ($routeParams.id) {
-		Users.get(
-			{id: $routeParams.id},
-			{},
-			function (data) {
-				console.log("Fetched User:", data);
-				$scope.newUser = data;
-			},
-			function (error) {
-				console.log("Error while fetching user", $routeParams.id, "Error", error.status);
-			}
-		);
-	}
+//	if ($routeParams.id) {
+//		Users.get(
+//			{id: $routeParams.id},
+//			{},
+//			function (data) {
+//				console.log("Fetched User:", data);
+//				$scope.newUser = data;
+//			},
+//			function (error) {
+//				console.log("Error while fetching user", $routeParams.id, "Error", error.status);
+//			}
+//		);
+//	}
 
 	$scope.signUp = function () {
 		console.log($scope.newUser);
@@ -54,46 +54,30 @@ module.controller('SignUpController', function ($scope, $routeParams, $location,
 	};
 
 	function save() {
-		if ($routeParams.id) {
-			Users.update(
-				$scope.newUser
-				, function (data) {
-					console.log("Modified user:", data);
+		Users.save(
+			$scope.newUser
+			, function (data) {
+				console.log("Successfully signed up");
+				console.log("Signed up user:", data);
 
-					$scope.newUser = {};
+				$scope.login.email = $scope.newUser.email;
+				$scope.login.password = $scope.newUser.password;
 
-					$location.path("/users/"+$routeParams.id+"/settings");
+				$scope.newUser = {};
+
+				$scope.$emit('event:loginRequest');
+
+				if ($scope.previousRoute && $scope.previousRoute != "/signup") {
+					$location.path($scope.previousRoute);
 				}
-				, function (error) {
-					console.log("Error " + error.status);
+				else {
+					$location.path("/");
 				}
-			);
-		}
-		else {
-			Users.save(
-				$scope.newUser
-				, function (data) {
-					console.log("Successfully signed up");
-					console.log("Signed up user:", data);
+			}
+			, function (error) {
+				console.log("Error " + error.status);
+			}
+		);
 
-					$scope.login.email = $scope.newUser.email;
-					$scope.login.password = $scope.newUser.password;
-
-					$scope.newUser = {};
-
-					$scope.$emit('event:loginRequest');
-
-					if ($scope.previousRoute && $scope.previousRoute != "/signup") {
-						$location.path($scope.previousRoute);
-					}
-					else {
-						$location.path("/");
-					}
-				}
-				, function (error) {
-					console.log("Error " + error.status);
-				}
-			);
-		}
 	}
 });

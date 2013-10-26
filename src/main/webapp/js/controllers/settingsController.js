@@ -65,4 +65,41 @@ module.controller('SettingsController', function ($scope, $routeParams, $locatio
 		$scope.delete = {};
 	}
 
+	$scope.editAccount = function () {
+
+		var address = $scope.user.address.street
+			+ " " + $scope.user.address.postalCode
+			+ " " + $scope.user.address.city;
+
+		console.log("Fetching coordinates for:", address);
+		var geocoder = new google.maps.Geocoder();
+
+		geocoder.geocode(
+			{address: address},
+			function (results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					$scope.user.address.location.lat = results[0].geometry.location.lb;
+					$scope.user.address.location.lng = results[0].geometry.location.mb;
+
+					console.log("Coordinates:", coordinates);
+
+					update();
+				} else {
+					console.log("Geocode was not successful for the following reason:", status);
+				}
+			}
+		);
+	}
+
+	function update() {
+		Users.update(
+			$scope.user
+			, function () {
+				console.log("User successfully updated");
+			}
+			, function (error) {
+				console.log("Error " + error.status);
+			}
+		);
+	}
 });

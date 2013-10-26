@@ -5,13 +5,13 @@
 
 		<p>Find restaurant around you</p>
 
-		<form role="form" name="search_form" ng-submit="search()">
+		<form role="form" name="search_form" ng-submit="search('request')">
 			<input type="search" id="inputSearch" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-model=request placeholder="Any idea ?">
 		</form>
 
 		<p>- or -</p>
 
-		<a href="" class="btn btn-primary" ng-click="near()">Find Nearest Restaurants</a>
+		<a href="" class="btn btn-primary" ng-click="search('location')">Find Nearest Restaurants</a>
 
 	</div>
 </div>

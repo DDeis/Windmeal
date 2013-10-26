@@ -10,6 +10,7 @@ var path = "rest";
  */
 module.service('FoodProviderResult', function () {
 	var data = [];
+	var query = "";
 
 	return {
 		getFoodProviderResult: function () {
@@ -17,6 +18,13 @@ module.service('FoodProviderResult', function () {
 		},
 		setFoodProviderResult: function (data) {
 			this.data = data;
+		},
+
+		getQuery: function () {
+			return this.query;
+		},
+		setQuery: function (query) {
+			this.query = query;
 		}
 	};
 });
