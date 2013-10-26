@@ -33,7 +33,7 @@
 				<label for="name" class="col-lg-2 control-label">Name</label>
 
 				<div class="col-lg-8">
-					<input type="text" class="form-control" id="name" placeholder="Name" ng-model="newUser.name">
+					<input type="text" class="form-control" id="name" placeholder="Name" ng-model="newUser.name" ng-minlength=3 ng-maxlength=20 required>
 				</div>
 			</div>
 
@@ -42,7 +42,7 @@
 
 				<div class="col-lg-8">
 					<input type="text" class="form-control" id="address" placeholder="W 123 Street"
-						   ng-model="newUser.address.street">
+						   ng-model="newUser.address.street" ng-minlength=3 ng-maxlength=20>
 				</div>
 			</div>
 
@@ -50,7 +50,7 @@
 				<label for="zipcode" class="col-lg-2 control-label">Zip Code</label>
 
 				<div class="col-lg-8">
-					<input type="text" class="form-control" id="zipcode" placeholder="Zipcode" ng-model="newUser.address.postalCode">
+					<input type="text" class="form-control" id="zipcode" placeholder="Zipcode" ng-model="newUser.address.postalCode" ng-minlength=3 ng-maxlength=20>
 				</div>
 			</div>
 
@@ -58,7 +58,7 @@
 				<label for="city" class="col-lg-2 control-label">City</label>
 
 				<div class="col-lg-8">
-					<input type="text" class="form-control" id="city" placeholder="City" ng-model="newUser.address.city">
+					<input type="text" class="form-control" id="city" placeholder="City" ng-model="newUser.address.city" ng-minlength=3 ng-maxlength=20>
 				</div>
 			</div>
 

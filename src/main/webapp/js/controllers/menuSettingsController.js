@@ -9,72 +9,71 @@ module.controller('menuSettingsController', function ($scope, $routeParams, $loc
 	$scope.menu = {};
 	$scope.menu.meals = [];
 
-
-	if($routeParams.id != undefined) {
+	if ($routeParams.id != undefined) {
 		$scope.new = false;
 		FoodProviders.get(
 			{id: $routeParams.id},
 			{},
-			function(data) {
+			function (data) {
 				$scope.fp = data;
-				Menus.get(
-					{id: $scope.fp.menuId},
-					{},
-					function(data) {
-						$scope.menu = data;
-						console.log("Menu :");
-						console.log(data);
-						console.log("Meals :");
-						console.log($scope.menu.meals);
-					},
-					function(error) {
-						console.log("Error "+error.status);
-					}
-				);
+				if ($scope.fp.menuId) {
+					Menus.get(
+						{id: $scope.fp.menuId},
+						{},
+						function (data) {
+							$scope.menu = data;
+							console.log("Menu:", data);
+							console.log("Meals:", $scope.menu.meals);
+						},
+						function (error) {
+							console.log("Failed to fetch Menu: Error", error.status);
+						}
+					);
+				}
 			},
-			function(error) {
-				console.log("Error "+error.status);
+			function (error) {
+				console.log("Failed to fetch Provider: Error", error.status);
 			}
 		);
 	}
 
-	$scope.submitMenu = function() {
+	$scope.submitMenu = function () {
 		console.log($scope.menu);
-		if($routeParams.id != undefined) {
+		if ($scope.fp.menuId) {
 			Menus.update(
 				{id: $scope.menu._id},
 				$scope.menu,
-				function(data) {
+				function (data) {
 					console.log("Menu :");
 					console.log(data);
 				},
-				function(error) {
-					console.log("Error "+error.status);
+				function (error) {
+					console.log("Error " + error.status);
 				}
 			);
 		}
 		else {
-			Menus.update(
+			Menus.save(
 				{},
 				$scope.menu,
-				function(data) {
+				function (data) {
 					console.log("Menu :");
 					console.log(data);
-					$location.path("/providers/"+$routeParams.id+"/settings");
+					$location.path("/providers/" + $scope.user._id + "/settings");
 				},
-				function(error) {
-					console.log("Error "+error.status);
+				function (error) {
+					console.log("Error " + error.status);
 				}
 			);
 		}
 	}
 
-	$scope.addMenuItem = function() {
+	$scope.addMenuItem = function () {
 		$scope.menu.meals[$scope.menu.meals.length] = {};
 		console.log($scope.menu);
 	}
 
-	$scope.deleteMenuItem = function(index) {
+	$scope.deleteMenuItem = function (index) {
 		$scope.menu.meals.splice(index, 1);
 	}
 });

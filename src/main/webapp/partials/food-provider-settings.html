@@ -9,59 +9,137 @@
 	</div>
 
 	<div>
-		<form name="menu" class="form-horizontal" role="form" ng-submit="submitInfo()" ng-init="fp.ownerId=user._id">
+		<form name="provider_form" class="form-horizontal" role="form" ng-submit="submitInfo()" ng-init="fp.ownerId=user._id" novalidate>
+			<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="provider_form.name.$dirty && provider_form.name.$invalid">
+				<small ng-show="provider_form.name.$error.required">
+					The name is required.
+				</small>
+				<small ng-show="provider_form.name.$error.minlength">
+					The name must be at least 3 characters.
+				</small>
+				<small ng-show="provider_form.name.$error.maxlength">
+					The name cannot be longer than 20 characters.
+				</small>
+			</div>
 			<div class="form-group">
 				<label for="name" class="col-lg-2 control-label">Name</label>
 
 				<div class="col-lg-8">
-					<input type="text" class="form-control" id="name" placeholder="Name" ng-model="fp.name">
+					<input type="text" class="form-control" id="name" name="name" placeholder="Name" ng-model="fp.name" ng-minlength=3 ng-maxlength=20 required>
 				</div>
+			</div>
+
+			<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="provider_form.address.$dirty && provider_form.address.$invalid">
+				<small ng-show="provider_form.address.$error.required">
+					The name is required.
+				</small>
+				<small ng-show="provider_form.address.$error.minlength">
+					The name must be at least 3 characters.
+				</small>
+				<small ng-show="provider_form.address.$error.maxlength">
+					The name cannot be longer than 20 characters.
+				</small>
 			</div>
 			<div class="form-group">
 				<label for="address" class="col-lg-2 control-label">Street Address</label>
 
 				<div class="col-lg-8">
-					<input type="text" class="form-control" id="address" placeholder="W 123 Street" ng-model="fp.address.street">
+					<input type="text" name="address" class="form-control" id="address" placeholder="W 123 Street" ng-model="fp.address.street" ng-minlength=3 ng-maxlength=20 required>
 				</div>
 			</div>
 
+			<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="provider_form.zipcode.$dirty && provider_form.zipcode.$invalid">
+				<small ng-show="provider_form.zipcode.$error.required">
+					The name is required.
+				</small>
+				<small ng-show="provider_form.zipcode.$error.minlength">
+					The name must be at least 3 characters.
+				</small>
+				<small ng-show="provider_form.zipcode.$error.maxlength">
+					The name cannot be longer than 20 characters.
+				</small>
+			</div>
 			<div class="form-group">
 				<label for="zipcode" class="col-lg-2 control-label">Zip Code</label>
 
 				<div class="col-lg-8">
-					<input type="text" class="form-control" id="zipcode" placeholder="Zipcode" ng-model="fp.address.postalCode">
+					<input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="Zipcode" ng-model="fp.address.postalCode" ng-minlength=3 ng-maxlength=10 required>
 				</div>
 			</div>
 
+			<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="provider_form.city.$dirty && provider_form.city.$invalid">
+				<small ng-show="provider_form.city.$error.required">
+					The name is required.
+				</small>
+				<small ng-show="provider_form.city.$error.minlength">
+					The name must be at least 3 characters.
+				</small>
+				<small ng-show="provider_form.city.$error.maxlength">
+					The name cannot be longer than 20 characters.
+				</small>
+			</div>
 			<div class="form-group">
 				<label for="city" class="col-lg-2 control-label">City</label>
 
 				<div class="col-lg-8">
-					<input type="text" class="form-control" id="city" placeholder="City" ng-model="fp.address.city">
+					<input type="text" class="form-control" id="city" name="city" placeholder="City" ng-model="fp.address.city" ng-minlength=3 ng-maxlength=20 required>
 				</div>
 			</div>
 
+			<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="provider_form.phone.$dirty && provider_form.phone.$invalid">
+				<small ng-show="provider_form.phone.$error.required">
+					The name is required.
+				</small>
+				<small ng-show="provider_form.phone.$error.minlength">
+					The name must be at least 3 characters.
+				</small>
+				<small ng-show="provider_form.phone.$error.maxlength">
+					The name cannot be longer than 20 characters.
+				</small>
+			</div>
 			<div class="form-group">
 				<label for="phone" class="col-lg-2 control-label">Phone Number</label>
 
 				<div class="col-lg-8">
-					<input type="text" class="form-control" id="phone" placeholder="Phone" ng-model="fp.phone">
+					<input type="text" class="form-control" id="phone" name="phone" placeholder="Phone" ng-model="fp.phone" ng-minlength=3 ng-maxlength=20 required>
 				</div>
 			</div>
 
+			<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="provider_form.email.$dirty && provider_form.email.$invalid">
+				<small ng-show="provider_form.email.$error.required">
+					The name is required.
+				</small>
+				<small ng-show="provider_form.email.$error.minlength">
+					The name must be at least 3 characters.
+				</small>
+				<small ng-show="provider_form.email.$error.maxlength">
+					The name cannot be longer than 20 characters.
+				</small>
+			</div>
 			<div class="form-group">
 				<label for="email" class="col-lg-2 control-label">Email</label>
 
 				<div class="col-lg-8">
-					<input type="text" class="form-control" id="email" placeholder="Email" ng-model="fp.email">
+					<input type="email" class="form-control" id="email" name="email" placeholder="Email" ng-model="fp.email" ng-minlength=3 ng-maxlength=20 required>
 				</div>
 			</div>
 
+			<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="provider_form.description.$dirty && provider_form.description.$invalid">
+				<small ng-show="provider_form.description.$error.required">
+					The name is required.
+				</small>
+				<small ng-show="provider_form.description.$error.minlength">
+					The name must be at least 4 characters.
+				</small>
+				<small ng-show="provider_form.description.$error.maxlength">
+					The name cannot be longer than 250 characters.
+				</small>
+			</div>
 			<div class="form-group">
 				<label for="description" class="col-lg-2 control-label">Description</label>
 
 				<div class="col-lg-8">
-					<textarea type="text" class="form-control" id="description" placeholder="Description" ng-model="fp.description"></textarea>
+					<textarea type="text" class="form-control" id="description" name="description" placeholder="Description" ng-model="fp.description" ng-minlength=5 ng-maxlength=250 required></textarea>
 				</div>
 			</div>
 
@@ -82,7 +160,7 @@
 
 			<div class="form-group">
 				<div class="col-lg-offset-2 col-lg-10">
-					<button type="submit" class="btn btn-default">Submit</button>
+					<button type="submit" class="btn btn-primary" ng-disabled="provider_form.$invalid">Submit</button>
 				</div>
 			</div>
 		</form>
