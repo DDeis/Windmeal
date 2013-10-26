@@ -4,7 +4,7 @@
 
 var module = angular.module('windmeal.controllers');
 
-module.controller('menuSettingsController', function ($scope, $routeParams, FoodProviders, Menus) {
+module.controller('menuSettingsController', function ($scope, $routeParams, $location, FoodProviders, Menus) {
 	$scope.fp = {};
 	$scope.menu = {};
 	$scope.menu.meals = [];
@@ -60,6 +60,7 @@ module.controller('menuSettingsController', function ($scope, $routeParams, Food
 				function(data) {
 					console.log("Menu :");
 					console.log(data);
+					$location.path("/providers/"+$routeParams.id+"/settings");
 				},
 				function(error) {
 					console.log("Error "+error.status);

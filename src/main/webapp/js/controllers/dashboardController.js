@@ -82,4 +82,18 @@ module.controller('DashboardController', function ($scope, $routeParams, FoodPro
 		return totalItems;
 	}
 
+	$scope.changeState = function(order) {
+		order.state = true;
+
+		Orders.update(
+			{id: order._id},
+			order,
+			function () {
+				console.log("State changed successfully");
+			},
+			function (error) {
+				console.log("Failed to change state", error.status);
+			}
+		);
+	}
 });
