@@ -39,133 +39,126 @@ import static junit.framework.Assert.assertEquals;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(
-        locations = {
-                "classpath*:spring/application-context.xml",
-                "classpath*:spring/mock-test-model.xml"
-        })
+		locations = {
+				"classpath*:spring/application-context.xml",
+				"classpath*:spring/mock-test-model.xml"
+		})
 public class DaoTest {
 
-    @Autowired
-    private ApplicationContext appCont;
+	@Autowired
+	private ApplicationContext appCont;
+	@Autowired
+	private User user;
+	@Autowired
+	private FoodProvider provider;
+	@Autowired
+	private Order order;
+	@Autowired
+	private Menu menu;
 
-    @Autowired
-    private User user;
+	@Before
+	public void setUp() throws Exception {
+		user.generateId();
+		provider.generateId();
+		order.generateId();
+		menu.generateId();
 
-    @Autowired
-    private FoodProvider provider;
+		Meal meal = new Meal();
+		meal.generateId();
+		meal.setDescription("desc");
 
-    @Autowired
-    private Order order;
+		HashSet<MealOrder> mealOrders = new HashSet<MealOrder>();
 
-    @Autowired
-    private Menu menu;
+		MealOrder mealOrder = new MealOrder();
+		meal.generateId();
+		mealOrder.setNumber(3);
+		mealOrders.add(mealOrder);
 
-    @Before
-    public void setUp() throws Exception {
-        user.generateId();
-        provider.generateId();
-        order.generateId();
-        menu.generateId();
+		order.setMeals(mealOrders);
+	}
 
-        Meal meal = new Meal();
-        meal.setDescription("desc");
+	@After
+	public void tearDown() throws Exception {
 
-        HashSet<MealOrder> mealOrders = new HashSet<MealOrder>();
+	}
 
-        MealOrder mealOrder= new MealOrder();
-        mealOrder.setNumber(3);
-        mealOrders.add(mealOrder);
+	@Test
+	public void menuDaoTest() throws Exception {
 
-        order.setMeals(mealOrders);
+		ICrudDao<Menu> dao = (ICrudDao<Menu>) appCont.getBean("menuDao");
 
-    }
+		//Insert a new menu
+		dao.insert(menu);
+		Menu menuToCheck = dao.getOne(menu.getId());
+		assertEquals(menu, menuToCheck);
+		menu.setMeals(null);
+		//Update the menu
+		dao.save(menu);
+		assertEquals(menu, menuToCheck);
+		//Remove the menu
+		dao.remove(menu.getId());
+		menuToCheck = dao.getOne(menu.getId());
+		assertEquals(null, menuToCheck);
+	}
 
-    @After
-    public void tearDown() throws Exception {
+	@Test
+	public void providerDaoTest() throws Exception {
 
-    }
+		ICrudDao<FoodProvider> dao = (ICrudDao<FoodProvider>) appCont.getBean("providerDao");
 
-    @Test
-    public void menuDaoTest() throws Exception {
+		//Insert a new FoodProvider
+		dao.insert(provider);
+		FoodProvider providerToCheck = dao.getOne(provider.getId());
+		assertEquals(provider, providerToCheck);
+		provider.setEmail(null);
+		//Update the provider
+		dao.save(provider);
+		providerToCheck = dao.getOne(provider.getId());
+		assertEquals(provider, providerToCheck);
+		//Remove the provider
+		dao.remove(provider.getId());
+		providerToCheck = dao.getOne(provider.getId());
+		assertEquals(null, providerToCheck);
+	}
 
-        ICrudDao<Menu> dao = (ICrudDao<Menu>) appCont.getBean("menuDao");
+	@Test
+	public void orderDaoTest() throws Exception {
 
-        //Insert a new menu
-        dao.insert(menu);
-        Menu menuToCheck = dao.getOne(menu.getId());
-        assertEquals(menu, menuToCheck);
-        menu.setMeals(null);
-        //Update the menu
-        dao.save(menu);
-        assertEquals(menu,menuToCheck);
-        //Remove the menu
-        dao.remove(menu.getId());
-        menuToCheck = dao.getOne(menu.getId());
-        assertEquals(null, menuToCheck);
+		ICrudDao<Order> dao = (ICrudDao<Order>) appCont.getBean("orderDao");
+		System.out.println(order);
+		//Insert a new order
+		dao.insert(order);
+		System.out.println(order);
+		Order orderToCheck = dao.getOne(order.getId());
+		assertEquals(order, orderToCheck);
+		order.setMeals(new HashSet<MealOrder>());
+		//Update the order
+		dao.save(order);
+		orderToCheck = dao.getOne(order.getId());
+		assertEquals(order, orderToCheck);
+		//Remove the order
+		dao.remove(order.getId());
+		orderToCheck = dao.getOne(order.getId());
+		assertEquals(null, orderToCheck);
+	}
 
-    }
+	@Test
+	public void userDaoTest() throws Exception {
 
-    @Test
-    public void providerDaoTest() throws Exception {
+		ICrudDao<User> dao = (ICrudDao<User>) appCont.getBean("userDao");
 
-        ICrudDao<FoodProvider> dao = (ICrudDao<FoodProvider>) appCont.getBean("providerDao");
-
-        //Insert a new FoodProvider
-        dao.insert(provider);
-        FoodProvider providerToCheck = dao.getOne(provider.getId());
-        assertEquals(provider,providerToCheck);
-        provider.setEmail(null);
-        //Update the provider
-        dao.save(provider);
-        providerToCheck = dao.getOne(provider.getId());
-        assertEquals(provider,providerToCheck);
-        //Remove the provider
-        dao.remove(provider.getId());
-        providerToCheck = dao.getOne(provider.getId());
-        assertEquals(null,providerToCheck);
-
-    }
-
-    @Test
-    public void orderDaoTest() throws Exception {
-
-        ICrudDao<Order> dao = (ICrudDao<Order>) appCont.getBean("orderDao");
-        System.out.println(order);
-        //Insert a new order
-        dao.insert(order);
-        System.out.println(order);
-        Order orderToCheck = dao.getOne(order.getId());
-        assertEquals(order,orderToCheck);
-        order.setMeals(new HashSet<MealOrder>());
-        //Update the order
-        dao.save(order);
-        orderToCheck = dao.getOne(order.getId());
-        assertEquals(order,orderToCheck);
-        //Remove the order
-        dao.remove(order.getId());
-        orderToCheck = dao.getOne(order.getId());
-        assertEquals(null,orderToCheck);
-
-    }
-
-    @Test
-    public void userDaoTest() throws Exception {
-
-        ICrudDao<User> dao = (ICrudDao<User>) appCont.getBean("userDao");
-
-        //Insert a new user
-        dao.insert(user);
-        User userToCheck = dao.getOne(user.getId());
-        assertEquals(user,userToCheck);
-        user.setEmail(null);
-        //Update the user
-        dao.save(user);
-        userToCheck = dao.getOne(user.getId());
-        assertEquals(user,userToCheck);
-        //Remove the user
-        dao.remove(user.getId());
-        userToCheck = dao.getOne(user.getId());
-        assertEquals(null,userToCheck);
-
-    }
+		//Insert a new user
+		dao.insert(user);
+		User userToCheck = dao.getOne(user.getId());
+		assertEquals(user, userToCheck);
+		user.setEmail(null);
+		//Update the user
+		dao.save(user);
+		userToCheck = dao.getOne(user.getId());
+		assertEquals(user, userToCheck);
+		//Remove the user
+		dao.remove(user.getId());
+		userToCheck = dao.getOne(user.getId());
+		assertEquals(null, userToCheck);
+	}
 }
