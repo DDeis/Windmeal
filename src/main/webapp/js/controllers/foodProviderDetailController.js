@@ -3,6 +3,8 @@
 var module = angular.module('windmeal.controllers');
 
 module.controller('FoodProviderDetailController', function ($scope, $routeParams, FoodProviders, Menus, Users, Comment) {
+	$scope.errors = {};
+
 	$scope.fp = {};
 
 	$scope.menu = {};
@@ -13,7 +15,7 @@ module.controller('FoodProviderDetailController', function ($scope, $routeParams
 	$scope.users = {};
 
 	$scope.newComment = {};
-	$scope.newComment.rate = 1;
+	$scope.newComment.rate = 3;
 
 	fetchProviderData();
 
@@ -91,10 +93,11 @@ module.controller('FoodProviderDetailController', function ($scope, $routeParams
 				function () {
 					fetchProviderData();
 					$scope.newComment = {};
-					$scope.newComment.rate = 1;
+					$scope.newComment.rate = 3;
 				},
 				function (error) {
-					console.log("Error while posting comment:", error.status);
+					$scope.errors = error.data;
+					console.log("Error while posting comment:", error.status, error.data);
 				}
 			);
 		}

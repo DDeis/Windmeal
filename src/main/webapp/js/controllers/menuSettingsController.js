@@ -46,20 +46,7 @@ module.controller('menuSettingsController', function ($scope, $routeParams, $loc
 				function (data) {
 					console.log("Menu :");
 					console.log(data);
-				},
-				function (error) {
-					console.log("Error " + error.status);
-				}
-			);
-		}
-		else {
-			Menus.save(
-				{},
-				$scope.menu,
-				function (data) {
-					console.log("Menu :");
-					console.log(data);
-					$location.path("/providers/" + $scope.user._id + "/settings");
+					$location.path("/users/" + $scope.user._id + "/settings");
 				},
 				function (error) {
 					console.log("Error " + error.status);
