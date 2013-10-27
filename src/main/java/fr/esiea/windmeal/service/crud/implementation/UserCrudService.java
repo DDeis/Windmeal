@@ -1,6 +1,6 @@
 package fr.esiea.windmeal.service.crud.implementation;
 
-import fr.esiea.windmeal.service.security.AbstractSecurityService;
+import fr.esiea.windmeal.service.security.SecurityService;
 import fr.esiea.windmeal.dao.ICrudUserDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.User;
@@ -34,9 +34,13 @@ import org.springframework.stereotype.Service;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 @Service
-public class UserCrudService extends AbstractSecurityService implements ICrudUserService {
+public class UserCrudService implements ICrudUserService {
+
     @Autowired
     private ICrudUserDao dao;
+
+    @Autowired
+    private SecurityService securityService;
 
     @Override
     public Iterable<User> getAll() throws DaoException {
@@ -45,13 +49,13 @@ public class UserCrudService extends AbstractSecurityService implements ICrudUse
 
     @Override
     public void remove(String idUser) throws DaoException, ServiceException {
-        isTheUserOwnTheModel(idUser);
+        securityService.isTheUserOwnTheModel(idUser);
         dao.remove(idUser);
     }
 
     @Override
     public void save(User user) throws DaoException, ServiceException {
-        isTheUserOwnTheModel(user.getId());
+        securityService.isTheUserOwnTheModel(user.getId());
         if(checkUniqueEmail(user.getEmail(),user.getId())  )
             dao.save(user);
     }
@@ -93,4 +97,10 @@ public class UserCrudService extends AbstractSecurityService implements ICrudUse
         else
             return userUpdated.getId().equals(idUserUpdated);
     }
+
+    @Override
+    public void setSecurityService(SecurityService securityService) {
+        this.securityService = securityService;
+    }
+
 }

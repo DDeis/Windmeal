@@ -1,14 +1,10 @@
-package fr.esiea.windmeal.service.security;
+package fr.esiea.windmeal.fill.database.mock;
 
-import fr.esiea.windmeal.controller.exception.security.NeedToBeAuthenticatedException;
-import fr.esiea.windmeal.dao.ICrudDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.User;
 import fr.esiea.windmeal.service.exception.NotPermitException;
 import fr.esiea.windmeal.service.exception.ServiceException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import fr.esiea.windmeal.service.security.SecurityService;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -32,25 +28,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public abstract class AbstractSecurityService {
-
-    @Autowired
-    ICrudDao<User> userDao;
-    final protected User getUserConnected() throws DaoException, NotPermitException {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User userAuthenticate =  userDao.getOne(authentication.getDetails().toString());
-
-        if(null == userAuthenticate)
-            throw new NotPermitException();
-
-        return userAuthenticate;
-    }
-
-
+public class SecurityMockService extends SecurityService {
+    @Override
     public void isTheUserOwnTheModel(String id) throws ServiceException, DaoException {
-        if(!getUserConnected().getId().equals(id))
-            throw new NotPermitException();
+        //Don't throw an exeption
     }
 
+    @Override
+    public User getUserConnected() throws DaoException, NotPermitException {
+        User user = new User();
+        user.generateId();
+        return user;
+    }
 }

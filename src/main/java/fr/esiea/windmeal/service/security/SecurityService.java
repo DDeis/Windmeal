@@ -1,9 +1,15 @@
-package fr.esiea.windmeal.service.crud;
+package fr.esiea.windmeal.service.security;
 
+import fr.esiea.windmeal.controller.exception.security.NeedToBeAuthenticatedException;
+import fr.esiea.windmeal.dao.ICrudDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
-import fr.esiea.windmeal.model.Model;
+import fr.esiea.windmeal.model.User;
+import fr.esiea.windmeal.service.exception.NotPermitException;
 import fr.esiea.windmeal.service.exception.ServiceException;
-import fr.esiea.windmeal.service.security.SecurityService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -27,18 +33,27 @@ import fr.esiea.windmeal.service.security.SecurityService;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public interface ICrudService<T extends Model> {
+@Service
+public class SecurityService {
 
-	Iterable<T> getAll() throws ServiceException, DaoException;
+    @Autowired
+    ICrudDao<User> userDao;
 
-	void remove(String id) throws ServiceException, DaoException;
+    public User getUserConnected() throws DaoException, NotPermitException {
 
-	void save(T model) throws ServiceException, DaoException;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User userAuthenticate =  userDao.getOne(authentication.getDetails().toString());
 
-	void insert(T model) throws ServiceException, DaoException;
+        if(null == userAuthenticate)
+            throw new NotPermitException();
 
-	T getOne(String id) throws ServiceException, DaoException;
+        return userAuthenticate;
+    }
 
-    //Hot fix not elegant
-    void setSecurityService(SecurityService mockService);
+
+    public void isTheUserOwnTheModel(String id) throws ServiceException, DaoException {
+        if(!getUserConnected().getId().equals(id))
+            throw new NotPermitException();
+    }
+
 }

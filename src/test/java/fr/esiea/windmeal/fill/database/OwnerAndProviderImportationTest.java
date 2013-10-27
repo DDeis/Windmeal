@@ -2,6 +2,7 @@ package fr.esiea.windmeal.fill.database;
 
 import fr.esiea.windmeal.dao.ICrudDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
+import fr.esiea.windmeal.fill.database.mock.SecurityMockService;
 import fr.esiea.windmeal.model.*;
 import fr.esiea.windmeal.model.enumeration.Tag;
 import fr.esiea.windmeal.model.security.Profile;
@@ -13,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -67,6 +70,11 @@ public class OwnerAndProviderImportationTest {
         userService = (ICrudService<User>) applicationContext.getBean("userCrudService");
         providerService = (ICrudService<FoodProvider>) applicationContext.getBean("providerCrudService");
         menuService = (ICrudService<Menu>) applicationContext.getBean("menuCrudService");
+        //Mock the security context
+        SecurityMockService mockService = new SecurityMockService();
+        userService.setSecurityService(mockService);
+        menuService.setSecurityService(mockService);
+        providerService.setSecurityService(mockService);
 
         ClassPathResource cpr = new ClassPathResource("data/OwnerAndProvider.csv");
         List<Map<String, String>> usersList = readContactCSV(SolveSpaceErrors(cpr.getURL().getPath()));
