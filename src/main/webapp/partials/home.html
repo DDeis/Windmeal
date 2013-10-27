@@ -1,17 +1,20 @@
 <!-- Jumbotron -->
 <div class="jumbotron hero">
 	<div class="container">
-		<h1>Get ready to order!</h1>
+				<h1>Get ready to order!</h1>
 
-		<p>Find restaurant around you</p>
+				<p>Find restaurant around you</p>
 
-		<form role="form" name="search_form" ng-submit="search('request')">
-			<input type="search" id="inputSearch" class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-model=request placeholder="Any idea ?">
-		</form>
+				<form role="form" class="form-horizontal" name="search_form" ng-submit="search('request')">
+					<div class="row">
+						<input class="col-lg-11" type="search" ng-model=request placeholder="Any idea ?">
+						<button type="submit" class="col-lg-1"><i class="glyphicon glyphicon-search"></i></button>
+					</div>
+				</form>
 
-		<p>- or -</p>
+				<p>- or -</p>
 
-		<a href="" class="btn btn-primary" ng-click="search('location')">Find Nearest Restaurants</a>
+				<a href="" class="btn btn-primary" ng-click="search('location')">Find Nearest Restaurants</a>
 
 	</div>
 </div>

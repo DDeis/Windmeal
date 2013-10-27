@@ -6,7 +6,6 @@ module.filter('typeFilter', function () {
 		matches = [];
 
 		angular.forEach(options, function (value, key) {
-			console.log(key, value);
 			if (value) {
 				if (key == "all") {
 					matches = items;
