@@ -6,6 +6,7 @@ import fr.esiea.windmeal.model.enumeration.Tag;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -57,7 +58,7 @@ public class FoodProvider extends Model {
     private String ownerId;
 	@JsonView(Views.FullView.class)
     @Valid
-	private Set<Comment> comments;
+	private Set<Comment> comments = new HashSet();
 	@JsonView(Views.ElasticView.class)
     @Valid
 	private Set<Tag> tags;
