@@ -3,10 +3,12 @@ package fr.esiea.windmeal.service.crud.implementation;
 import fr.esiea.windmeal.dao.ICrudDao;
 import fr.esiea.windmeal.dao.ICrudOrderDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
+import fr.esiea.windmeal.model.FoodProvider;
 import fr.esiea.windmeal.model.Order;
 import fr.esiea.windmeal.service.crud.ICrudOrderService;
 import fr.esiea.windmeal.service.crud.ICrudService;
 import fr.esiea.windmeal.service.exception.InvalidIdException;
+import fr.esiea.windmeal.service.exception.ServiceException;
 import fr.esiea.windmeal.service.security.SecurityService;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,9 @@ public class OrderCrudService implements ICrudOrderService {
     @Autowired
     private SecurityService securityService;
 
+    @Autowired
+    private ICrudDao<FoodProvider> providerDao;
+
     @Override
 	public Iterable<Order> getAll() throws DaoException {
 		return dao.getAll();
@@ -75,8 +80,10 @@ public class OrderCrudService implements ICrudOrderService {
 	}
 
 	@Override
-	public Iterable<Order> getAllFromProvider(String providerId) throws DaoException {
-		return dao.getAllFromProvider(providerId);
+	public Iterable<Order> getAllFromProvider(String providerId) throws DaoException, ServiceException {
+        FoodProvider one = providerDao.getOne(providerId);
+        securityService.isTheUserOwnTheModel(one.getOwnerId());
+        return dao.getAllFromProvider(providerId);
 	}
 
     @Override

@@ -33,8 +33,8 @@ public class Comment extends Model {
     @Min(value=0)
     @Max(value=5)
 	private int rate;
-    @Pattern(regexp="[A-Za-z0-9 _.,!\"'/$]*")
-	private String text;
+    @Pattern(regexp="[A-Za-z0-9 -_.,éèà!\"'/$]*")
+    private String text;
 
 	public String getUserId() {
 		return userId;

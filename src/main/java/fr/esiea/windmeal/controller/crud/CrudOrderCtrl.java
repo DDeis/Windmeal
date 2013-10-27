@@ -58,6 +58,7 @@ public class CrudOrderCtrl {
 
 	@RequestMapping(value = "/{id}/provider", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
+    @Secured("ROLE_USER")
 	public Iterable<Order> getAllFromProvider(@PathVariable("id") String providerId) throws ServiceException, DaoException, IOException {
 
 		LOGGER.info("[Controller] Querying Order for provider : "+providerId);

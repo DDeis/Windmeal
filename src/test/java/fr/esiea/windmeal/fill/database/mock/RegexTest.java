@@ -1,8 +1,8 @@
-package fr.esiea.windmeal.service.crud;
+package fr.esiea.windmeal.fill.database.mock;
 
-import fr.esiea.windmeal.dao.exception.DaoException;
-import fr.esiea.windmeal.model.Order;
-import fr.esiea.windmeal.service.exception.ServiceException;
+import org.junit.Test;
+
+import static com.mongodb.util.MyAsserts.assertTrue;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -26,7 +26,16 @@ import fr.esiea.windmeal.service.exception.ServiceException;
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-public interface ICrudOrderService extends ICrudService<Order> {
-
-	Iterable<Order> getAllFromProvider(String providerId) throws DaoException, ServiceException;
+public class RegexTest {
+    //
+    private String regexp="[A-Za-z0-9 -_.,éèà!\"'/$]*";
+    @Test
+    public void testName() throws Exception {
+        String[] tests ={"aaézzezd"," 7 rue Marcélé "," aedd-a aaaA"};
+        int i = 0;
+        for(String test:tests)  {
+            System.out.println(i); i++;
+            assertTrue(test.matches(regexp));
+        }
+    }
 }

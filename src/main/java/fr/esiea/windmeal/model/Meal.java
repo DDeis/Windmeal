@@ -1,5 +1,7 @@
 package fr.esiea.windmeal.model;
 
+import javax.validation.constraints.Pattern;
+
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
  * <p/>
@@ -25,8 +27,10 @@ package fr.esiea.windmeal.model;
 public class Meal extends Model {
 
 	private Double price;
+    @Pattern(regexp="[A-Za-z0-9 -_.,éèà!\"'/$]*")
 	private String name;
-	private String description;
+    @Pattern(regexp="[A-Za-z0-9 -_.,éèà!\"'/$]*")
+    private String description;
 	private String type;
 
 	public double getPrice() {
