@@ -61,7 +61,6 @@ module.controller('SettingsController', function ($scope, $routeParams, $locatio
 				}
 			);
 		}
-		$scope.delete = {};
 	}
 
 	$scope.editAccount = function () {
