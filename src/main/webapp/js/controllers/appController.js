@@ -124,6 +124,7 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 	 */
 	$scope.$on('event:accessForbidden', function (event) {
 		console.info("accessForbidden in appController");
+		$location.path("/");
 	});
 
 	$scope.$on('$locationChangeSuccess', function (event, currentLocation, previousLocation) {

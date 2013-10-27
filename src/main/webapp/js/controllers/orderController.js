@@ -4,6 +4,10 @@ var module = angular.module('windmeal.controllers');
 
 module.controller('OrderController', function ($scope, $routeParams, FoodProviders, Menus, Orders) {
 
+	if(!$scope.logged) {
+		$scope.loginRequired();
+	}
+
 	$scope.view = 1;
 
 	$scope.fp = {};

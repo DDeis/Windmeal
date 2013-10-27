@@ -4,15 +4,18 @@
 
 var module = angular.module('windmeal.controllers');
 
-module.controller('DashboardController', function ($scope, $routeParams, FoodProviders, Orders, Menus) {
+module.controller('DashboardController', function ($scope, $routeParams, $location, FoodProviders, Orders, Menus) {
 
 	$scope.orders = [];
 	$scope.fp = {};
 	$scope.menu = {};
 
-	if ($routeParams.id != undefined) {
+	if ($routeParams.id != undefined && $scope.logged) {
 		fetchProviderData($routeParams.id);
 		fetchOrders($routeParams.id);
+	}
+	else {
+		$location.path("/");
 	}
 
 	function fetchProviderData(id) {
@@ -22,10 +25,13 @@ module.controller('DashboardController', function ($scope, $routeParams, FoodPro
 			function (data) {
 				console.log("Fetched Provider: ", data);
 				$scope.fp = data;
+				if(!$scope.user._id || $scope.user._id != $scope.fp.ownerId) {
+					$location.path("/");
+				}
 				fetchMenu($scope.fp.menuId);
 			},
 			function (error) {
-				console.log("Error while fetching provider:", error.status);
+				console.log("Error while fetching provider:", error.status, error.data);
 			}
 		);
 	}
