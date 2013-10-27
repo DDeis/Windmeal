@@ -20,7 +20,7 @@
 						The email must be at least 3 characters.
 					</small>
 					<small ng-show="signup_form.email.$error.maxlength">
-						The email cannot be longer than 20 characters.
+						The email cannot be longer than 55 characters.
 					</small>
 				</div>
 				<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="errors.email">
@@ -31,7 +31,7 @@
 				<label for="inputEmail" class="col-lg-2 control-label">Email</label>
 
 				<div class="col-lg-10">
-					<input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email" ng-model="newUser.email" ng-minlength=3 ng-maxlength=20 required>
+					<input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email" ng-model="newUser.email" ng-minlength=3 ng-maxlength=55 required>
 				</div>
 			</div>
 
@@ -64,10 +64,10 @@
 					The name is required.
 				</small>
 				<small ng-show="signup_form.name.$error.minlength">
-					The name must be at least 3 characters.
+					The name must be at least 4 characters.
 				</small>
 				<small ng-show="signup_form.name.$error.maxlength">
-					The name cannot be longer than 20 characters.
+					The name cannot be longer than 16 characters.
 				</small>
 			</div>
 			<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="errors.name">
@@ -79,7 +79,7 @@
 				<label for="name" class="col-lg-2 control-label">Name</label>
 
 				<div class="col-lg-8">
-					<input type="text" class="form-control" id="name" placeholder="Name" ng-model="newUser.name" ng-minlength=3 ng-maxlength=20 required>
+					<input type="text" class="form-control" id="name" name="name" placeholder="Name" ng-model="newUser.name" ng-minlength=4 ng-maxlength=16 required>
 				</div>
 			</div>
 

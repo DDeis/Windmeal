@@ -24,6 +24,10 @@ module.controller('HomeController', function ($scope, $location, Search, FoodPro
 				params.longitude = $scope.user.address.location.lng;
 				params.latitude = $scope.user.address.location.lat;
 			}
+			else {
+				FoodProviderResult.setQuery("No address");
+				$location.path("/providers")
+			}
 		}
 
 		if (params) {
