@@ -1,6 +1,7 @@
 package fr.esiea.windmeal.fill.database;
 
 import fr.esiea.windmeal.dao.exception.DaoException;
+import fr.esiea.windmeal.fill.database.mock.SecurityMockService;
 import fr.esiea.windmeal.model.User;
 import fr.esiea.windmeal.model.security.Profile;
 import fr.esiea.windmeal.service.crud.ICrudService;
@@ -59,6 +60,9 @@ public class UserImportationTest {
 
         //By using service u are sure than logic rules are applyed
         userService = (ICrudService<User>) applicationContext.getBean("userCrudService");
+        //Mock the security context
+        SecurityMockService mockService = new SecurityMockService();
+        userService.setSecurityService(mockService);
         ClassPathResource cpr = new ClassPathResource("data/users.csv");
         List<Map<String, String>> usersList = readContactCSV(SolveSpaceErrors(cpr.getURL().getPath()));
 

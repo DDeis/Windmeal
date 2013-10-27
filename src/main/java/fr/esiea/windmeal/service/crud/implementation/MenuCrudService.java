@@ -6,7 +6,7 @@ import fr.esiea.windmeal.model.Meal;
 import fr.esiea.windmeal.model.Menu;
 import fr.esiea.windmeal.service.crud.ICrudService;
 import fr.esiea.windmeal.service.exception.InvalidIdException;
-import fr.esiea.windmeal.service.security.AbstractSecurityService;
+import fr.esiea.windmeal.service.security.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -36,10 +36,13 @@ import java.util.List;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 @Service
-public class MenuCrudService extends AbstractSecurityService implements ICrudService<Menu> {
+public class MenuCrudService implements ICrudService<Menu> {
     @Autowired
     @Qualifier("menuDao")
     private ICrudDao<Menu> dao;
+
+    @Autowired
+    private SecurityService securityService;
 
     @Override
     public Iterable<Menu> getAll() throws DaoException {
@@ -84,4 +87,10 @@ public class MenuCrudService extends AbstractSecurityService implements ICrudSer
             throw new InvalidIdException();
         return menu;
     }
+
+    @Override
+    public void setSecurityService(SecurityService securityService) {
+        this.securityService = securityService;
+    }
+
 }

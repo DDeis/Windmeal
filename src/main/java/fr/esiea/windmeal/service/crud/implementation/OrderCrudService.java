@@ -7,6 +7,7 @@ import fr.esiea.windmeal.model.Order;
 import fr.esiea.windmeal.service.crud.ICrudOrderService;
 import fr.esiea.windmeal.service.crud.ICrudService;
 import fr.esiea.windmeal.service.exception.InvalidIdException;
+import fr.esiea.windmeal.service.security.SecurityService;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -40,7 +41,10 @@ public class OrderCrudService implements ICrudOrderService {
 	@Qualifier("orderDao")
 	private ICrudOrderDao dao;
 
-	@Override
+    @Autowired
+    private SecurityService securityService;
+
+    @Override
 	public Iterable<Order> getAll() throws DaoException {
 		return dao.getAll();
 	}
@@ -74,4 +78,10 @@ public class OrderCrudService implements ICrudOrderService {
 	public Iterable<Order> getAllFromProvider(String providerId) throws DaoException {
 		return dao.getAllFromProvider(providerId);
 	}
+
+    @Override
+    public void setSecurityService(SecurityService securityService) {
+        this.securityService = securityService;
+    }
+
 }

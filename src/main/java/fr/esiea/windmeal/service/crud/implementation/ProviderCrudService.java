@@ -10,7 +10,7 @@ import fr.esiea.windmeal.service.crud.ICrudProviderService;
 import fr.esiea.windmeal.service.crud.ICrudService;
 import fr.esiea.windmeal.service.exception.InvalidIdException;
 import fr.esiea.windmeal.service.exception.ServiceException;
-import fr.esiea.windmeal.service.security.AbstractSecurityService;
+import fr.esiea.windmeal.service.security.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -38,7 +38,7 @@ import org.springframework.stereotype.Service;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 @Service
-public class ProviderCrudService extends AbstractSecurityService implements ICrudProviderService {
+public class ProviderCrudService implements ICrudProviderService {
 	@Autowired
 	@Qualifier("elasticSearchIndexation")
 	private ICrudProviderDao dao;
@@ -49,26 +49,29 @@ public class ProviderCrudService extends AbstractSecurityService implements ICru
     @Qualifier("menuDao")
     private ICrudDao<Menu> menuDao;
 
-	@Override
+    @Autowired
+    private SecurityService securityService;
+
+    @Override
 	public Iterable<FoodProvider> getAll() throws DaoException {
 		return dao.getAll();
 	}
 
 	@Override
 	public void remove(String idFoodProvider) throws DaoException, ServiceException {
-        isTheUserOwnTheModel(dao.getOne(idFoodProvider).getOwnerId());
+        securityService.isTheUserOwnTheModel(dao.getOne(idFoodProvider).getOwnerId());
 		dao.remove(idFoodProvider);
 	}
 
 	@Override
 	public void save(FoodProvider provider) throws DaoException, ServiceException {
-        isTheUserOwnTheModel(provider.getOwnerId());
+        securityService.isTheUserOwnTheModel(provider.getOwnerId());
         dao.save(provider);
 	}
 
 	@Override
 	public void insert(FoodProvider provider) throws DaoException, ServiceException {
-        isTheUserOwnTheModel(provider.getOwnerId());
+        securityService.isTheUserOwnTheModel(provider.getOwnerId());
         Menu menu = new Menu();
         menu.generateId();
         provider.setMenuId(menu.getId());
@@ -91,7 +94,7 @@ public class ProviderCrudService extends AbstractSecurityService implements ICru
 
 	@Override
 	public void addComment(String providerId, Comment comment) throws DaoException, ServiceException {
-		isTheUserOwnTheModel(comment.getUserId());
+        securityService.isTheUserOwnTheModel(comment.getUserId());
         FoodProvider one = dao.getOne(providerId);
 		if (one == null) {
 			throw new InvalidIdException();
@@ -100,4 +103,10 @@ public class ProviderCrudService extends AbstractSecurityService implements ICru
 		one.addComment(comment);
 		validationService.save(one);
 	}
+
+    @Override
+    public void setSecurityService(SecurityService securityService) {
+        this.securityService = securityService;
+    }
+
 }

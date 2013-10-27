@@ -1,6 +1,7 @@
 package fr.esiea.windmeal.model;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ import java.util.List;
  */
 public class Menu extends Model {
     @Valid
-	private List<Meal> meals;
+	private List<Meal> meals = new ArrayList<Meal>();
 
     public Menu() {
         generateId();
