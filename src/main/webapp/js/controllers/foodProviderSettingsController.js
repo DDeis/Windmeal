@@ -6,6 +6,7 @@ var module = angular.module('windmeal.controllers');
 
 module.controller('FoodProviderSettingsController', function ($scope, $routeParams, $location, FoodProviders, Tags) {
 
+
 	$scope.errors = {};
 
 	$scope.fp = {};
@@ -21,6 +22,9 @@ module.controller('FoodProviderSettingsController', function ($scope, $routePara
 			{},
 			function (data) {
 				$scope.fp = data;
+				if(!$scope.user._id || $scope.user._id != $scope.fp.ownerId) {
+					$location.path("/");
+				}
 				for(var i=0; i<$scope.fp.tags.length; i++) {
 					$scope.tags[$scope.fp.tags[i]] = true;
 				}

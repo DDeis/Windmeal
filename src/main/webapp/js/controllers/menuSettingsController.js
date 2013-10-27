@@ -16,6 +16,9 @@ module.controller('menuSettingsController', function ($scope, $routeParams, $loc
 			{},
 			function (data) {
 				$scope.fp = data;
+				if(!$scope.user._id || $scope.user._id != $scope.fp.ownerId) {
+					$location.path("/");
+				}
 				if ($scope.fp.menuId) {
 					Menus.get(
 						{id: $scope.fp.menuId},

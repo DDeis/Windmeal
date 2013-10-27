@@ -6,6 +6,10 @@ var module = angular.module('windmeal.controllers');
 
 module.controller('SettingsController', function ($scope, $routeParams, $location, UtilProvider, FoodProviders, Users) {
 
+	if(!$scope.user._id || $scope.user._id != $routeParams.id) {
+		$location.path("/");
+	}
+
 	$scope.providers = [];
 
 	$scope.delete = {};
