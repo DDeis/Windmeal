@@ -27,9 +27,9 @@ import javax.validation.constraints.Pattern;
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 public class Address {
-    @Pattern(regexp="[A-Za-z0-9 _.,!\"'/$]*")
+    @Pattern(regexp="[A-Za-z0-9 -_.,éèà!\"'/$]*")
 	private String street;
-    @Pattern(regexp="[A-Za-z0-9 _.,!\"'/$]*")
+    @Pattern(regexp="[A-Za-z0-9 -_.,éèà!\"'/$]*")
 	private String city;
     //@Pattern(regexp="/^[0-9]{5}$", message="A postal code was asked")
 	private String postalCode;
