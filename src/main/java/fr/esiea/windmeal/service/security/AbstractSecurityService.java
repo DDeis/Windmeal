@@ -49,7 +49,7 @@ public abstract class AbstractSecurityService {
 
 
     public void isTheUserOwnTheModel(String id) throws ServiceException, DaoException {
-        if(getUserConnected().getId() != id)
+        if(!getUserConnected().getId().equals(id))
             throw new NotPermitException();
     }
 

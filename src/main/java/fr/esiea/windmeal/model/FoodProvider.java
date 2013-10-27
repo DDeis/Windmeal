@@ -39,7 +39,7 @@ public class FoodProvider extends Model {
     @Valid
 	private Address address;
 	@JsonView(Views.FullView.class)
-    @Pattern(regexp="/^[0-9]{10}", message="A phone number was asked")
+    //@Pattern(regexp="/^[0-9]{10,12}", message="A phone number was asked")
 	private String phone;
 	@JsonView(Views.FullView.class)
     @NotNull
@@ -51,7 +51,6 @@ public class FoodProvider extends Model {
     @Pattern(regexp="[A-Za-z0-9 _.,!\"'/$]*")
 	private String description;
 	@JsonView(Views.ElasticView.class)
-    @NotNull
 	private String menuId;
 	@JsonView(Views.FullView.class)
     @NotNull

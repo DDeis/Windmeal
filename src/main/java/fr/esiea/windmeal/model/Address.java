@@ -31,7 +31,7 @@ public class Address {
 	private String street;
     @Pattern(regexp="[A-Za-z0-9 _.,!\"'/$]*")
 	private String city;
-    @Pattern(regexp="/^[0-9]{5}$", message="A postal code was asked")
+    //@Pattern(regexp="/^[0-9]{5}$", message="A postal code was asked")
 	private String postalCode;
 	private Location location;
 
