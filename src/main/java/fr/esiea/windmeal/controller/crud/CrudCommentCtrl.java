@@ -46,7 +46,7 @@ public class CrudCommentCtrl {
 
     @Autowired
     @Qualifier("providerCrudService")
-    ICrudProviderService crudService;
+    private ICrudProviderService crudService;
 
     @Secured("ROLE_USER")
     @RequestMapping(value = "/provider/{id}", method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")

@@ -44,7 +44,7 @@ public class CrudUserCtrl {
 
     @Autowired
 	@Qualifier("userValidationDecorator")
-	ICrudService<User> crudService;
+	private ICrudService<User> crudService;
 
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody

@@ -72,6 +72,11 @@ public class ProviderDao implements ICrudProviderDao,IGeoProviderDao {
     }
 
     @Override
+    public FoodProvider getProviderFromMenu(String menuId) throws DaoException {
+        return collection.findOne("{'menuId':#}", menuId).as(FoodProvider.class);
+    }
+
+    @Override
     public Iterable<FoodProvider> getProviderNear(Location location, int maxDistance) throws DaoException  {
         return collection.find("{\"address.location\":{$near:{$geometry:{type:\"Point\", coordinates:[#,#]}},$maxDistance : #}})"
                 ,location.getLng(),location.getLat(),maxDistance)

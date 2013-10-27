@@ -1,11 +1,14 @@
 package fr.esiea.windmeal.service.crud.implementation;
 
 import fr.esiea.windmeal.dao.ICrudDao;
+import fr.esiea.windmeal.dao.ICrudProviderDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
+import fr.esiea.windmeal.model.FoodProvider;
 import fr.esiea.windmeal.model.Meal;
 import fr.esiea.windmeal.model.Menu;
 import fr.esiea.windmeal.service.crud.ICrudService;
 import fr.esiea.windmeal.service.exception.InvalidIdException;
+import fr.esiea.windmeal.service.exception.ServiceException;
 import fr.esiea.windmeal.service.security.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -42,6 +45,10 @@ public class MenuCrudService implements ICrudService<Menu> {
     private ICrudDao<Menu> dao;
 
     @Autowired
+    @Qualifier("providerDao")
+    private ICrudProviderDao providerDao;
+
+    @Autowired
     private SecurityService securityService;
 
     @Override
@@ -50,14 +57,16 @@ public class MenuCrudService implements ICrudService<Menu> {
     }
 
     @Override
-    public void remove(String idMenu) throws DaoException {
-        //TODO securise
+    public void remove(String idMenu) throws DaoException, ServiceException {
+        FoodProvider provider = providerDao.getProviderFromMenu(idMenu);
+        securityService.isTheUserOwnTheModel(provider.getOwnerId());
         dao.remove(idMenu);
     }
 
     @Override
-    public void save(Menu menu) throws DaoException {
-        //TODO securise
+    public void save(Menu menu) throws DaoException, ServiceException {
+        FoodProvider provider = providerDao.getProviderFromMenu(menu.getId());
+        securityService.isTheUserOwnTheModel(provider.getOwnerId());
         List<Meal> meals = menu.getMeals();
         if(meals!=null)
             for (Meal meal : menu.getMeals()) {

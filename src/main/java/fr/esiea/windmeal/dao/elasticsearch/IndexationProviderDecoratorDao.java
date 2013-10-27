@@ -136,6 +136,11 @@ public class IndexationProviderDecoratorDao implements ICrudProviderDao {
         return providerDao.getAllProviderFromUser(userId);
     }
 
+    @Override
+    public FoodProvider getProviderFromMenu(String menuId) throws DaoException {
+        return providerDao.getProviderFromMenu(menuId);
+    }
+
     private String getJson(FoodProvider model) throws DaoException {
         try {
             //TODO reduce the information given to elasticsearch

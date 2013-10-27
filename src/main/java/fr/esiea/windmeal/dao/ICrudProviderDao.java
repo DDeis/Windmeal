@@ -27,4 +27,6 @@ import fr.esiea.windmeal.model.FoodProvider;
  */
 public interface ICrudProviderDao extends ICrudDao<FoodProvider> {
     Iterable<FoodProvider> getAllProviderFromUser(String userId) throws DaoException;
+
+    FoodProvider getProviderFromMenu(String idMenu) throws DaoException;
 }

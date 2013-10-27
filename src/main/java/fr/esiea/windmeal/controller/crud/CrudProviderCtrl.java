@@ -50,7 +50,7 @@ public class CrudProviderCtrl {
 	private final static Logger LOGGER = Logger.getLogger(CrudProviderCtrl.class);
 	@Autowired
 	@Qualifier("providerValidationDecorator")
-	ICrudService<FoodProvider> crudService;
+	private ICrudService<FoodProvider> crudService;
 
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody

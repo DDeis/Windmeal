@@ -43,7 +43,7 @@ public class CrudMenuCtrl {
 	private final static Logger LOGGER = Logger.getLogger(CrudMenuCtrl.class);
 	@Autowired
 	@Qualifier("menuValidationDecorator")
-	ICrudService<Menu> crudService;
+	private ICrudService<Menu> crudService;
 
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody

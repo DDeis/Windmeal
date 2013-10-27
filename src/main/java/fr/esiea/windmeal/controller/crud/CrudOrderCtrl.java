@@ -42,11 +42,13 @@ import java.io.IOException;
 @RequestMapping("/orders")
 public class CrudOrderCtrl {
 	private final static Logger LOGGER = Logger.getLogger(CrudOrderCtrl.class);
-	@Autowired
+
+    @Autowired
 	@Qualifier("orderValidationDecorator")
-	ICrudService<Order> crudValidationService;
-	@Autowired
-	ICrudOrderService orderService;
+	private ICrudService<Order> crudValidationService;
+
+    @Autowired
+	private ICrudOrderService orderService;
 
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
