@@ -66,6 +66,8 @@ module.controller('AppController', function ($rootScope, $scope, $route, $locati
 			function () {
 				$scope.logged = false;
 				$scope.user = {};
+				console.log($route);
+				$route.reload();
 				console.info("Logout success");
 			},
 			function (error) {

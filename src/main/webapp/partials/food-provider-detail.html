@@ -65,9 +65,6 @@
 				<form ng-switch-when="true" name="comment_form" class="form-horizontal" role="form" ng-submit="submitComment()" novalidate>
 
 					<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="comment_form.comment.$dirty && comment_form.comment.$invalid">
-						<small ng-show="comment_form.comment.$error.required">
-							The comment is required.
-						</small>
 						<small ng-show="comment_form.comment.$error.minlength">
 							The comment must be at least 2 characters.
 						</small>
