@@ -40,7 +40,7 @@ import java.io.IOException;
  */
 @Controller
 @RequestMapping("/orders")
-public class CrudOrderCtrl {
+public class  CrudOrderCtrl {
 	private final static Logger LOGGER = Logger.getLogger(CrudOrderCtrl.class);
 
     @Autowired
@@ -75,7 +75,7 @@ public class CrudOrderCtrl {
 		return crudValidationService.getOne(orderId);
 	}
 
-    @Secured("ROLE_ADMIN")
+    @Secured("ROLE_USER")
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json;charset=UTF-8")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void create(@RequestBody Order order) throws ServiceException, DaoException {
