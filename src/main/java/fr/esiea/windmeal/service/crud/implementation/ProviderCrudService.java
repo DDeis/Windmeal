@@ -48,6 +48,9 @@ public class ProviderCrudService implements ICrudProviderService {
     @Autowired
     @Qualifier("menuDao")
     private ICrudDao<Menu> menuDao;
+    @Autowired
+    @Qualifier("providerDao")
+    private ICrudDao<FoodProvider> providerDao;
 
     @Autowired
     private SecurityService securityService;
@@ -101,7 +104,7 @@ public class ProviderCrudService implements ICrudProviderService {
 		}
 		comment.generateId();
 		one.addComment(comment);
-		validationService.save(one);
+		providerDao.save(one);
 	}
 
     @Override

@@ -52,7 +52,7 @@ public class SecurityService {
 
 
     public void isTheUserOwnTheModel(String id) throws ServiceException, DaoException {
-        if(!getUserConnected().getId().equals(id))
+        if( ! getUserConnected().getId().equals(id))
             throw new NotPermitException();
     }
 
