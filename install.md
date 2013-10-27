@@ -14,6 +14,7 @@ il faut configurer elasticsearch sur les ports standards (9300 et 9200) avec les
 Les 3 scripts devraient faire fonctionner la webapp sur une debian
 Après avoir cloner le repo dans le dossier /!\ /home/progweb/windmeal/ (git clone https://github.com/DDeis/Windmeal.git)
 il faut  faire :
+
 cd Windmeal
 chmod +x *.sh
 ./install.sh #Install les different repo utilisé

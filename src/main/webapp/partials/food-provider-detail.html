@@ -62,12 +62,29 @@
 
 			<section ng-switch="logged">
 				<h4>Write a Review</h4>
-				<form ng-switch-when="true" class="form-horizontal" role="form" ng-submit="submitComment()">
+				<form ng-switch-when="true" name="comment_form" class="form-horizontal" role="form" ng-submit="submitComment()" novalidate>
+
+					<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="comment_form.comment.$dirty && comment_form.comment.$invalid">
+						<small ng-show="comment_form.comment.$error.required">
+							The comment is required.
+						</small>
+						<small ng-show="comment_form.comment.$error.minlength">
+							The comment must be at least 2 characters.
+						</small>
+						<small ng-show="comment_form.comment.$error.maxlength">
+							The comment cannot be longer than 250 characters.
+						</small>
+					</div>
+					<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="errors.text">
+						<small>
+							{{errors.text}}
+						</small>
+					</div>
 					<div class="form-group">
 						<label for="inputComment" class="col-lg-2 control-label">Comment</label>
 
 						<div class="col-lg-10">
-							<textarea class="form-control" id="inputComment" rows="3" placeholder="Type your comment" ng-model="newComment.text"></textarea>
+							<textarea class="form-control" id="inputComment" name="comment" rows="3" placeholder="Type your comment" ng-model="newComment.text" ng-minlength=2 ng-maxlength=250 required></textarea>
 						</div>
 					</div>
 
@@ -79,7 +96,7 @@
 
 					<div class="form-group">
 						<div class="col-lg-offset-2 col-lg-10">
-							<button type="submit" class="btn btn-primary">Submit</button>
+							<button type="submit" class="btn btn-primary" ng-disabled="comment_form.$invalid">Submit</button>
 						</div>
 					</div>
 				</form>

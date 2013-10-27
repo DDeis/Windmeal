@@ -6,24 +6,12 @@ var module = angular.module('windmeal.controllers');
 
 module.controller('SignUpController', function ($scope, $routeParams, $location, $timeout, Users) {
 
+	$scope.errors = {};
+
 	console.log("In signUp");
 
 	$scope.newUser = {};
 	var coordinates = {};
-
-//	if ($routeParams.id) {
-//		Users.get(
-//			{id: $routeParams.id},
-//			{},
-//			function (data) {
-//				console.log("Fetched User:", data);
-//				$scope.newUser = data;
-//			},
-//			function (error) {
-//				console.log("Error while fetching user", $routeParams.id, "Error", error.status);
-//			}
-//		);
-//	}
 
 	$scope.signUp = function () {
 		console.log($scope.newUser);
@@ -75,7 +63,8 @@ module.controller('SignUpController', function ($scope, $routeParams, $location,
 				}
 			}
 			, function (error) {
-				console.log("Error " + error.status);
+				$scope.errors = error.data;
+				console.log("Failed to sign up User: Error ", error.status, error.data);
 			}
 		);
 

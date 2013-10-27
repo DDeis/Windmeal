@@ -23,6 +23,11 @@
 						The email cannot be longer than 20 characters.
 					</small>
 				</div>
+				<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="errors.email">
+					<small>
+						{{errors.email}}
+					</small>
+				</div>
 				<label for="inputEmail" class="col-lg-2 control-label">Email</label>
 
 				<div class="col-lg-10">
@@ -39,6 +44,11 @@
 				</small>
 				<small ng-show="signup_form.password.$error.maxlength">
 					The password cannot be longer than 20 characters.
+				</small>
+			</div>
+			<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="errors.password">
+				<small>
+					{{errors.password}}
 				</small>
 			</div>
 			<div class="form-group">
@@ -60,6 +70,11 @@
 					The name cannot be longer than 20 characters.
 				</small>
 			</div>
+			<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="errors.name">
+				<small>
+					{{errors.name}}
+				</small>
+			</div>
 			<div class="form-group">
 				<label for="name" class="col-lg-2 control-label">Name</label>
 
@@ -74,6 +89,11 @@
 				</small>
 				<small ng-show="signup_form.address.$error.maxlength">
 					The address cannot be longer than 20 characters.
+				</small>
+			</div>
+			<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="errors.street">
+				<small>
+					{{errors.street}}
 				</small>
 			</div>
 			<div class="form-group">
@@ -93,6 +113,11 @@
 					The zipcode cannot be longer than 20 characters.
 				</small>
 			</div>
+			<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="errors.postalCode">
+				<small>
+					{{errors.postalCode}}
+				</small>
+			</div>
 			<div class="form-group">
 				<label for="zipcode" class="col-lg-2 control-label">Zip Code</label>
 
@@ -107,6 +132,11 @@
 				</small>
 				<small ng-show="signup_form.city.$error.maxlength">
 					The city cannot be longer than 20 characters.
+				</small>
+			</div>
+			<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="errors.city">
+				<small>
+					{{errors.city}}
 				</small>
 			</div>
 			<div class="form-group">

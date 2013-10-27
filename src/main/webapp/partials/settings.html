@@ -102,7 +102,7 @@
 				<tbody>
 				<tr ng-repeat="provider in providers">
 					<td class="text-center">{{$index + 1}}</td>
-					<td>{{provider.name}}</td>
+					<td><a href="#/providers/{{provider._id}}">{{provider.name}}</a></td>
 					<td class="text-center">
 						<a href="#/providers/{{provider._id}}/dashboard" class="glyphicon glyphicon-list"></a>
 					</td>
