@@ -2,6 +2,7 @@ package fr.esiea.windmeal.service.crud;
 
 import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.Order;
+import fr.esiea.windmeal.service.exception.ServiceException;
 
 /**
  * Copyright (c) 2013 ESIEA M. Labusquiere D. Déïs
@@ -27,5 +28,5 @@ import fr.esiea.windmeal.model.Order;
  */
 public interface ICrudOrderService extends ICrudService<Order> {
 
-	Iterable<Order> getAllFromProvider(String providerId) throws DaoException;
+	Iterable<Order> getAllFromProvider(String providerId) throws DaoException, ServiceException;
 }
