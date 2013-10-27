@@ -4,6 +4,7 @@ import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.Model;
 import fr.esiea.windmeal.service.crud.ICrudService;
 import fr.esiea.windmeal.service.exception.ServiceException;
+import fr.esiea.windmeal.service.security.SecurityService;
 import fr.esiea.windmeal.service.validation.exception.ValidationException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +79,11 @@ public class ServiceValidationDecorator<T extends Model> implements ICrudService
 	@Override
 	public T getOne(String id) throws ServiceException, DaoException {
 		return crudService.getOne(id);
+	}
+
+	@Override
+	public void setSecurityService(SecurityService mockService) {
+		//To change body of implemented methods use File | Settings | File Templates.
 	}
 
 	public void setCrudService(ICrudService<T> crudService) {

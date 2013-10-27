@@ -52,27 +52,31 @@ module.controller('FoodProviderDetailController', function ($scope, $routeParams
 
 	function getAverageRating() {
 		var total = 0;
-		for (var i = 0; i < $scope.fp.comments.length; i++) {
-			if ($scope.fp.comments[i].rate) {
-				total += $scope.fp.comments[i].rate;
+		if($scope.fp.comments) {
+			for (var i = 0; i < $scope.fp.comments.length; i++) {
+				if ($scope.fp.comments[i].rate) {
+					total += $scope.fp.comments[i].rate;
+				}
 			}
+			$scope.averageRating = Math.round(total / $scope.fp.comments.length);
 		}
-		$scope.averageRating = Math.round(total / $scope.fp.comments.length);
 	}
 
 	function fetchCommentUsers() {
-		for (var i = 0; i < $scope.fp.comments.length; i++) {
-			if ($scope.fp.comments[i].userId) {
-				Users.get(
-					{id: $scope.fp.comments[i].userId},
-					{},
-					function (data) {
-						$scope.users[data._id] = data;
-					},
-					function (error) {
-						console.log("Error while fetching users:",  error.status);
-					}
-				);
+		if($scope.fp.comments) {
+			for (var i = 0; i < $scope.fp.comments.length; i++) {
+				if ($scope.fp.comments[i].userId) {
+					Users.get(
+						{id: $scope.fp.comments[i].userId},
+						{},
+						function (data) {
+							$scope.users[data._id] = data;
+						},
+						function (error) {
+							console.log("Error while fetching users:",  error.status);
+						}
+					);
+				}
 			}
 		}
 	}
