@@ -1,9 +1,11 @@
 package fr.esiea.windmeal.service.crud.implementation;
 
+import fr.esiea.windmeal.dao.ICrudDao;
 import fr.esiea.windmeal.dao.ICrudProviderDao;
 import fr.esiea.windmeal.dao.exception.DaoException;
 import fr.esiea.windmeal.model.Comment;
 import fr.esiea.windmeal.model.FoodProvider;
+import fr.esiea.windmeal.model.Menu;
 import fr.esiea.windmeal.service.crud.ICrudProviderService;
 import fr.esiea.windmeal.service.crud.ICrudService;
 import fr.esiea.windmeal.service.exception.InvalidIdException;
@@ -43,6 +45,9 @@ public class ProviderCrudService extends AbstractSecurityService implements ICru
 	@Autowired // Only to add a comment not elegant
 	@Qualifier("providerValidationDecorator")
 	private ICrudService<FoodProvider> validationService;
+    @Autowired
+    @Qualifier("menuDao")
+    private ICrudDao<Menu> menuDao;
 
 	@Override
 	public Iterable<FoodProvider> getAll() throws DaoException {
@@ -64,6 +69,10 @@ public class ProviderCrudService extends AbstractSecurityService implements ICru
 	@Override
 	public void insert(FoodProvider provider) throws DaoException, ServiceException {
         isTheUserOwnTheModel(provider.getOwnerId());
+        Menu menu = new Menu();
+        menu.generateId();
+        provider.setMenuId(menu.getId());
+        menuDao.insert(menu);
         dao.insert(provider);
 	}
 
