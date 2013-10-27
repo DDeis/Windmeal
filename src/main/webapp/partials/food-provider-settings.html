@@ -21,6 +21,11 @@
 					The name cannot be longer than 20 characters.
 				</small>
 			</div>
+			<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="errors.name">
+				<small>
+					{{errors.name}}
+				</small>
+			</div>
 			<div class="form-group">
 				<label for="name" class="col-lg-2 control-label">Name</label>
 
@@ -38,6 +43,11 @@
 				</small>
 				<small ng-show="provider_form.address.$error.maxlength">
 					The address cannot be longer than 20 characters.
+				</small>
+			</div>
+			<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="errors.address">
+				<small>
+					{{errors.address}}
 				</small>
 			</div>
 			<div class="form-group">
@@ -59,6 +69,11 @@
 					The zipcode cannot be longer than 20 characters.
 				</small>
 			</div>
+			<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="errors.postalCode">
+				<small>
+					{{errors.postalCode}}
+				</small>
+			</div>
 			<div class="form-group">
 				<label for="zipcode" class="col-lg-2 control-label">Zip Code</label>
 
@@ -78,6 +93,11 @@
 					The city cannot be longer than 20 characters.
 				</small>
 			</div>
+			<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="errors.city">
+				<small>
+					{{errors.city}}
+				</small>
+			</div>
 			<div class="form-group">
 				<label for="city" class="col-lg-2 control-label">City</label>
 
@@ -95,6 +115,11 @@
 				</small>
 				<small ng-show="provider_form.phone.$error.maxlength">
 					The phone number cannot be longer than 20 characters.
+				</small>
+			</div>
+			<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="errors.phone">
+				<small>
+					{{errors.phone}}
 				</small>
 			</div>
 			<div class="form-group">
@@ -119,6 +144,11 @@
 					The email cannot be longer than 20 characters.
 				</small>
 			</div>
+			<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="errors.email">
+				<small>
+					{{errors.email}}
+				</small>
+			</div>
 			<div class="form-group">
 				<label for="email" class="col-lg-2 control-label">Email</label>
 
@@ -136,6 +166,11 @@
 				</small>
 				<small ng-show="provider_form.description.$error.maxlength">
 					The description cannot be longer than 250 characters.
+				</small>
+			</div>
+			<div class="col-lg-offset-2 col-lg-10 text-danger" ng-show="errors.description">
+				<small>
+					{{errors.description}}
 				</small>
 			</div>
 			<div class="form-group">

@@ -6,6 +6,8 @@ var module = angular.module('windmeal.controllers');
 
 module.controller('FoodProviderSettingsController', function ($scope, $routeParams, $location, FoodProviders, Tags) {
 
+	$scope.errors = {};
+
 	$scope.fp = {};
 	$scope.fp.address = {};
 	$scope.fp.tags = [];
@@ -65,7 +67,8 @@ module.controller('FoodProviderSettingsController', function ($scope, $routePara
 					$location.path("/users/"+$scope.user._id+"/settings");
 				},
 				function(error) {
-					console.log("Failed to create Provider: Error", error.status);
+					$scope.errors = error.data;
+					console.log("Failed to create Provider: Error", error.status, error.data);
 				}
 			);
 		}
