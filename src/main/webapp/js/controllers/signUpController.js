@@ -64,7 +64,7 @@ module.controller('SignUpController', function ($scope, $routeParams, $location,
 			}
 			, function (error) {
 				$scope.errors = error.data;
-				console.log("Failed to sign up User: Error ", error.status, error.data);
+				console.log("Failed to sign up User: Error", error.status, error.data);
 			}
 		);
 
